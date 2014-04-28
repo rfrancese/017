@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">MyTravelDiary</string>
+    <string name="Logo">My Travel Diary</string>
+    <string name="Login">Login</string>
+    <string name="Password">Password</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
