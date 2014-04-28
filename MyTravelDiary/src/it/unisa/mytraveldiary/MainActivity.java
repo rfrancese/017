@@ -3,6 +3,7 @@ package it.unisa.mytraveldiary;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
+	public final static String EXTRA_MESSAGE = "it.unisa.mytraveldiary.MESSAGE";
 
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,4 +65,12 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+  /**
+   * Chiamato quando l'utente clicca sul bottone Entra
+   * @param view
+   */
+    public void avanti(View view){
+    	Intent intent = new Intent(this, WelcomeMessageActivity.class);
+    	startActivity(intent);
+    }
 }
