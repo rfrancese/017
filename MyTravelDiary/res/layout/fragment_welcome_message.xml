@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="it.unisa.mytraveldiary.WelcomeMessageActivity$PlaceholderFragment" >
+
+   <TextView
+        android:id="@+id/Welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
+        android:textSize="20pt"
+        android:text="@string/Welcome" />
+    
+     <TextView
+        android:id="@+id/Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/Welcome"
+        android:paddingBottom="30dp"
+        android:paddingTop="5dp"
+        android:textSize="20pt"
+        android:text="@string/Logo" />
+     
+     <ImageView
+         android:id="@+id/imageBenvenuto"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_below="@id/Logo"
+         android:layout_centerHorizontal="true"
+         android:src="@drawable/images" 
+         android:paddingBottom="30dp" />
+     
+     <Button
+        android:id="@+id/AvantiButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/imageBenvenuto"
+        android:text="@string/AvantiButton"
+        android:onClick="avanti" />
+     
+     
+
+</RelativeLayout>
