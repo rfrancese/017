@@ -1,16 +1,76 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="it.unisa.mytraveldiary.SearchTravelMessageActivity$PlaceholderFragment" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
 
-</RelativeLayout>
+        <TableLayout
+            android:id="@+id/tabella1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:stretchColumns="1" >
+
+            <TableRow
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/cerca"
+                    android:layout_column="1"
+                    android:text="@string/cerca" />
+
+                <EditText
+                    android:id="@+id/cercaInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:hint="@string/cercaSugg"
+                    android:inputType="" />
+            </TableRow>
+        </TableLayout>
+
+        <Spinner
+            android:id="@+id/filtriRicerca"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tabella1"
+            android:layout_marginBottom="20dp"
+            android:entries="@array/filtriRicerca" />
+
+        <ImageButton
+            android:id="@+id/cercaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/filtriRicerca"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/cerca"
+            android:onClick="...."
+            android:src="@drawable/ic_action_search" />
+
+        <TextView
+            android:id="@+id/risultatiRicerca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cercaButton"
+            android:layout_centerHorizontal="true"
+            android:text="@string/risultatiRicerca" />
+        
+        <ListView 
+            android:id="@+id/risultatiRicercaTabella"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cercaButton"
+            android:layout_centerHorizontal="true">
+        </ListView>
+    </RelativeLayout>
+
+</ScrollView>

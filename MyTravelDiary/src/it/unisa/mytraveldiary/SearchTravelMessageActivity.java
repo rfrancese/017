@@ -1,5 +1,7 @@
 package it.unisa.mytraveldiary;
 
+import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -9,18 +11,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.os.Build;
 
 public class SearchTravelMessageActivity extends ActionBarActivity {
 
+	private ListView mainListView;
+	private ArrayAdapter listAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_travel_message);
+		
+		mainListView=(ListView) findViewById(R.id.risultatiRicercaTabella);
+		String[] listaViaggi=new String[]{"Viaggio 1", "Viaggio 2", "Viaggio 3"};
+		
+		final ArrayList<String> list=new ArrayList<String>();
+		
+		for (int i=0; i<listaViaggi.length; i++) {
+			list.add(listaViaggi[i]);
+		}
+		
+		final ArrayAdapter<String> adapter=new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+		mainListView.setAdapter(listAdapter);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -61,4 +81,5 @@ public class SearchTravelMessageActivity extends ActionBarActivity {
 		}
 	}
 
+	
 }

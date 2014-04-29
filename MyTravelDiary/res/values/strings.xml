@@ -15,7 +15,18 @@
     <string name="InserisciDettagliButton">Inserisci</string>
     <string name="Svago">Svago</string>
     <string name="Lavoro">Lavoro</string>
-    
+    <string name="localita">Località</string>
+    <string name="localitaSugg">Inserisci località</string>
+    <string name="dataAndata">Andata</string>
+    <string name="dataRitorno">Ritorno</string>
+    <string name="compagniViaggio">Compagni di Viaggio</string>
+    <string name="compagniViaggioSugg">Inserisci i tuoi compagni di viaggio</string>
+    <string name="descrizioneViaggio">Descrizione</string>
+    <string name="descrizioneViaggioSugg">Inserisci una descrizione del viaggio</string>
+    <string name="inserisciData">Inserisci data</string>
+    <string name="cercaSugg">Ricerca viaggio</string>
+    <string name="cerca">Cerca</string>
+    <string name="risultatiRicerca">Risultati ricerca</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_welcome_message">Benvenuto</string>
@@ -24,4 +35,13 @@
     <string name="title_activity_search_travel_message">Ricerca Viaggio</string>
     <string name="title_activity_info_message">Informazioni</string>
 
+    <string-array name="filtriRicerca">
+        <item>Svago</item>
+        <item>Lavoro</item>
+        <item>*</item>
+        <item>**</item>
+        <item>***</item>
+        <item>****</item>
+        <item>*****</item>
+    </string-array>
 </resources>
