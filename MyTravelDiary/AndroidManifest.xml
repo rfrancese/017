@@ -30,6 +30,38 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.MainActivity" />
         </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.MasterTravelMessageActivity"
+            android:label="@string/title_activity_master_travel_message"
+            android:parentActivityName="it.unisa.mytraveldiary.WelcomeMessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.WelcomeMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.NewTravelMessageActivity"
+            android:label="@string/title_activity_new_travel_message"
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.SearchTravelMessageActivity"
+            android:label="@string/title_activity_search_travel_message"
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.InfoMessageActivity"
+            android:label="@string/title_activity_info_message"
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
+        </activity>
     </application>
 
 </manifest>

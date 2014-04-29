@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
-	public final static String EXTRA_MESSAGE = "it.unisa.mytraveldiary.MESSAGE";
-
-	
+		
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,4 +71,6 @@ public class MainActivity extends ActionBarActivity {
     	Intent intent = new Intent(this, WelcomeMessageActivity.class);
     	startActivity(intent);
     }
+    
+   
 }
