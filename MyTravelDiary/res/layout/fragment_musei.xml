@@ -1,16 +1,86 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="it.unisa.mytraveldiary.MuseiActivity$PlaceholderFragment" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
 
-</RelativeLayout>
+        <Spinner
+            android:id="@+id/tipoMusei"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="20dp"
+            android:entries="@array/tipoMusei" />
+
+        <TextView
+            android:id="@+id/nomeMuseo"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/tipoMusei"
+            android:text="@string/nomeMuseo" />
+
+        <EditText
+            android:id="@+id/nomeMuseoSugg"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/nomeMuseo"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/nomeMuseoSugg" />
+
+        <TextView
+            android:id="@+id/cittaMuseo"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/nomeMuseoSugg"
+            android:text="@string/cittaMuseo" />
+
+        <EditText
+            android:id="@+id/cittaMuseoSugg"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/cittaMuseo"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/cittaMuseoSugg" />
+<TextView
+            android:id="@+id/valutazione"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_below="@+id/cittaMuseoSugg"
+            android:text="@string/valutazione" />
+       
+       <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/valutazione"
+            android:numStars="5" />
+
+       <Button
+           android:id="@+id/salvaMuseiButton"
+           android:text="@string/salvaMuseiButton"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:gravity="center"
+           android:layout_marginTop="30dp"
+           android:layout_below="@+id/ratingBar"
+           android:onClick=""
+           style="@style/CodeFont" />
+  
+    </RelativeLayout>
+
+</ScrollView>

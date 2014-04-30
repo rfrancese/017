@@ -36,6 +36,21 @@
     <string name="Video">Video</string>
     <string name="SalvaFotoVideoButton">Salva</string>
     <string name="InserisciButton">Inserisci</string>
+    <string name="compagnia">Compagnia</string>
+    <string name="compagniaSugg">Inserisci la compagnia di trasporto</string>
+    <string name="cittaPartenza">Citta di partenza</string>
+    <string name="cittaPartenzaSugg">Inserisci la citta di partenza</string>
+    <string name="cittaRitorno">Citta di ritorno</string>
+    <string name="cittaRitornoSugg">Inserisci la citta di ritorno</string>
+    <string name="valutazione">Valutazione</string>
+    <string name="salvaTrasportiButton">Salva</string>
+    <string name="nomeMuseo">Nome</string>
+    <string name="nomeMuseoSugg">Inserisci il nome del museo</string>
+    <string name="cittaMuseo">Citta</string>
+    <string name="cittaMuseoSugg">Inserisci la citta del museo</string>
+    <string name="salvaMuseiButton">Salva</string>
+    
+    
     
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -54,7 +69,24 @@
         <item>****</item>
         <item>*****</item>
     </string-array>
+    
+    <string-array name="tipoTrasporti" style="@style/CodeFont">
+        <item>Automobile</item>
+        <item>Pullman</item>
+        <item>Treno</item>
+        <item>Aereo</item>
+        <item>Nave</item>
+    </string-array>
 
+    <string-array name="tipoMusei">
+        <item>Storico</item>
+        <item>Archeologico</item>
+        <item>Arte</item>
+        <item>Scientifico</item>
+        <item>Marittimo o oceanografico</item>
+        <item>Militari o di guerra</item>
+    </string-array>
+    
     <string name="title_activity_inserisci_dettagli">Inserisci Dettagli</string>
     <string name="title_activity_foto_video">Inserisci Foto e Video</string>
     <string name="title_activity_trasporti">Inserisci Trasporti</string>

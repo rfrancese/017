@@ -15,43 +15,44 @@
 
         <Button
             android:id="@+id/FotoVideoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
             android:layout_marginBottom="30dp"
+            android:layout_marginTop="100dp"
             android:onClick="avantiFotoVideo"
             android:text="@string/FotoVideoButton"
             style="@style/CodeFont" />
 
         <Button
             android:id="@+id/TrasportiButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/FotoVideoButton"
-            android:layout_centerHorizontal="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
             android:layout_marginBottom="30dp"
+            android:layout_below="@id/FotoVideoButton"
             android:onClick="avantiTrasporti"
             android:text="@string/TrasportiButton"
             style="@style/CodeFont"/>
         
         <Button
             android:id="@+id/MuseiButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/TrasportiButton"
-            android:layout_centerHorizontal="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
             android:layout_marginBottom="30dp"
+            android:layout_below="@id/TrasportiButton"
             android:onClick="avantiMusei"
             android:text="@string/MuseiButton"
             style="@style/CodeFont"/>
         
         <Button
             android:id="@+id/HotelRistorantiButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/MuseiButton"
-            android:layout_centerHorizontal="true"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
             android:layout_marginBottom="30dp"
+            android:layout_below="@id/MuseiButton"
             android:onClick="avantiHotelRistoranti"
             android:text="@string/HotelRistorantiButton"
             style="@style/CodeFont"/>
