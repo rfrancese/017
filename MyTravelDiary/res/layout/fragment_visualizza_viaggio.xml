@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="it.unisa.mytraveldiary.VisualizzaViaggioActivity$PlaceholderFragment" >
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="3" />
+
+    <RadioGroup
+        android:id="@+id/tipologiaViaggio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/Svago"
+            style="@style/CodeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:checked="true"
+            android:enabled="false"
+            android:text="@string/Svago" />
+    </RadioGroup>
+
+    <TableLayout
+        android:id="@+id/tabella1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tipologiaViaggio"
+        android:orientation="vertical"
+        android:stretchColumns="1" >
+
+        <TableRow
+            android:id="@+id/localita"
+            android:layout_marginBottom="20dp" >
+
+            <TextView
+                style="@style/CodeFont"
+                android:layout_column="1"
+                android:text="@string/localita" />
+
+            <EditText
+                style="@style/CodeFont"
+                android:layout_column="2"
+                android:enabled="false"
+                android:text="@string/localitaEsempio" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/andata"
+            android:layout_marginBottom="20dp" >
+
+            <TextView
+                style="@style/CodeFont"
+                android:layout_column="1"
+                android:text="@string/dataAndataEsempio" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ritorno"
+            android:layout_marginBottom="20dp" >
+
+            <TextView
+                style="@style/CodeFont"
+                android:layout_column="1"
+                android:text="@string/dataRitornoEsempio" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/compagniViaggio"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabella1"
+        android:text="@string/compagniViaggio" />
+
+    <TextView
+        android:id="@+id/compagniViaggioEsempio"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/compagniViaggio"
+        android:text="@string/compagniViaggioEsempio" />
+
+    <HorizontalScrollView
+        android:id="@+id/gallery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageBenvenuto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/images" />
+
+            <ImageView
+                android:id="@+id/imageBenvenuto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/images" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>
