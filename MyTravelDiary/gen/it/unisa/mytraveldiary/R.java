@@ -2878,25 +2878,6 @@ containing a value of this type.
           @attr name android:windowAnimationStyle
         */
         public static final int MenuView_android_windowAnimationStyle = 0;
-        /** Attributes that can be used with a PicGallery.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #PicGallery_android_galleryItemBackground android:galleryItemBackground}</code></td><td></td></tr>
-           </table>
-           @see #PicGallery_android_galleryItemBackground
-         */
-        public static final int[] PicGallery = {
-            0x0101004c
-        };
-        /**
-          <p>This symbol is the offset where the {@link android.R.attr#galleryItemBackground}
-          attribute's value can be found in the {@link #PicGallery} array.
-          @attr name android:galleryItemBackground
-        */
-        public static final int PicGallery_android_galleryItemBackground = 0;
         /** Attributes that can be used with a SearchView.
            <p>Includes the following attributes:</p>
            <table>
