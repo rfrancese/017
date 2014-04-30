@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="13"
         android:targetSdkVersion="19" />
 
     <application
@@ -61,6 +61,46 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.InserisciDettagliActivity"
+            android:label="@string/title_activity_inserisci_dettagli"
+            android:parentActivityName="it.unisa.mytraveldiary.NewTravelMessageActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.NewTravelMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.FotoVideoActivity"
+            android:label="@string/title_activity_foto_video"
+            android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.TrasportiActivity"
+            android:label="@string/title_activity_trasporti"
+            android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.MuseiActivity"
+            android:label="@string/title_activity_musei"
+            android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.HotelRistorantiActivity"
+            android:label="@string/title_activity_hotel_ristoranti"
+            android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
         </activity>
     </application>
 

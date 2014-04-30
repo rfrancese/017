@@ -3,7 +3,6 @@ package it.unisa.mytraveldiary;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class NewTravelMessageActivity extends ActionBarActivity {
+public class InserisciDettagliActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_travel_message);
+		setContentView(R.layout.activity_inserisci_dettagli);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -30,7 +29,7 @@ public class NewTravelMessageActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_travel_message, menu);
+		getMenuInflater().inflate(R.menu.inserisci_dettagli, menu);
 		return true;
 	}
 
@@ -58,19 +57,29 @@ public class NewTravelMessageActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
-					R.layout.fragment_new_travel_message, container, false);
+					R.layout.fragment_inserisci_dettagli, container, false);
 			return rootView;
 		}
 	}
-
-	public void showDatePickerDialog(View v) {
-	    DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getFragmentManager(), "datePicker");
-	}
 	
-	public void avantiInserisciDettagli(View view){
-    	Intent intent = new Intent(this, InserisciDettagliActivity.class);
+	public void avantiFotoVideo(View view){
+    	Intent intent = new Intent(this, FotoVideoActivity.class);
     	startActivity(intent);
     }
-}
+	
+	public void avantiTrasporti(View view){
+    	Intent intent = new Intent(this, TrasportiActivity.class);
+    	startActivity(intent);
+    }
+	
+	public void avantiMusei(View view){
+    	Intent intent = new Intent(this, MuseiActivity.class);
+    	startActivity(intent);
+    }
+	
+	/**public void avantiHotelRistoranti(View view){
+    	Intent intent = new Intent(this HotelRistorantiActivity.class);
+    	startActivity(intent);
+    }*/
 
+}

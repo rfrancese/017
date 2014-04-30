@@ -20,7 +20,8 @@
             android:paddingBottom="30dp"
             android:paddingTop="90dp"
             android:text="@string/Logo"
-            android:textSize="20pt" />
+            android:textSize="20pt"
+            style="@style/CodeFont" />
 
         <EditText
             android:id="@+id/Login"
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/Logo"
             android:layout_marginBottom="10dp"
-            android:hint="@string/Login" />
+            android:hint="@string/Login"
+            style="@style/CodeFont" />
 
         <EditText
             android:id="@+id/Password"
@@ -47,7 +49,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/Password"
             android:onClick="avanti"
-            android:text="@string/LoginButton" />
+            android:text="@string/LoginButton"
+            style="@style/CodeFont" />
     </RelativeLayout>
 
 </ScrollView>

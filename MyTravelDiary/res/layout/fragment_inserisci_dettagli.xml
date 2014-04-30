@@ -12,48 +12,49 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
 
-        <TextView
-            android:id="@+id/Welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
-            android:text="@string/Welcome"
-            android:textSize="20pt"
-            style="@style/CodeFont" />
-
-        <TextView
-            android:id="@+id/Logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Welcome"
-            android:layout_centerHorizontal="true"
-            android:paddingBottom="30dp"
-            android:paddingTop="5dp"
-            android:text="@string/Logo"
-            android:textSize="20pt"
-            style="@style/CodeFont" />
-
-        <ImageView
-            android:id="@+id/imageBenvenuto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Logo"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="30dp"
-            android:src="@drawable/images" />
 
         <Button
-            android:id="@+id/AvantiButton"
+            android:id="@+id/FotoVideoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/imageBenvenuto"
-            android:onClick="avanti"
-            android:text="@string/AvantiButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:onClick="avantiFotoVideo"
+            android:text="@string/FotoVideoButton"
             style="@style/CodeFont" />
+
+        <Button
+            android:id="@+id/TrasportiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/FotoVideoButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:onClick="avantiTrasporti"
+            android:text="@string/TrasportiButton"
+            style="@style/CodeFont"/>
+        
+        <Button
+            android:id="@+id/MuseiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TrasportiButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:onClick="avantiMusei"
+            android:text="@string/MuseiButton"
+            style="@style/CodeFont"/>
+        
+        <Button
+            android:id="@+id/HotelRistorantiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MuseiButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:onClick="avantiHotelRistoranti"
+            android:text="@string/HotelRistorantiButton"
+            style="@style/CodeFont"/>
     </RelativeLayout>
 
 </ScrollView>

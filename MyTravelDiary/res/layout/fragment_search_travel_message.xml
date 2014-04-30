@@ -25,7 +25,8 @@
                 <TextView
                     android:id="@+id/cerca"
                     android:layout_column="1"
-                    android:text="@string/cerca" />
+                    android:text="@string/cerca"
+                    style="@style/CodeFont" />
 
                 <EditText
                     android:id="@+id/cercaInput"
@@ -33,7 +34,8 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:hint="@string/cercaSugg"
-                    android:inputType="" />
+                    android:inputType=""
+                    style="@style/CodeFont" />
             </TableRow>
         </TableLayout>
 
@@ -54,7 +56,8 @@
             android:layout_marginBottom="20dp"
             android:contentDescription="@string/cerca"
             android:onClick="...."
-            android:src="@drawable/ic_action_search" />
+            android:src="@drawable/ic_action_search"
+            style="@style/CodeFont" />
 
         <TextView
             android:id="@+id/risultatiRicerca"
@@ -62,14 +65,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cercaButton"
             android:layout_centerHorizontal="true"
-            android:text="@string/risultatiRicerca" />
+            android:text="@string/risultatiRicerca" 
+            style="@style/CodeFont"/>
         
         <ListView 
             android:id="@+id/risultatiRicercaTabella"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cercaButton"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            style="@style/CodeFont">
         </ListView>
     </RelativeLayout>
 
