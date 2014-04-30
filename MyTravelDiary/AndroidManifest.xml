@@ -102,6 +102,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
         </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.InserisciHotelRistorantiActivity"
+            android:label="@string/title_activity_inserisci_hotel_ristoranti"
+            android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
+        </activity>
     </application>
 
 </manifest>
