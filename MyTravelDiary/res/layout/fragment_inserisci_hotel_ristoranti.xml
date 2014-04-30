@@ -43,33 +43,62 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tipologia"
             android:text="@string/nomeHotelRistorante" />
-        
+
         <EditText
             android:id="@+id/nomeHotelRistoranteInput"
+            style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nomeHotelRistorante"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/nomeHotelRistoranteSugg"
-            style="@style/CodeFont" />
-        
+            android:layout_marginBottom="20dp"
+            android:hint="@string/nomeHotelRistoranteSugg" />
+
         <TextView
             android:id="@+id/cittaHotelRistorante"
             style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/nomeHotelRistoranteInput"
+            android:layout_marginBottom="20dp"
             android:text="@string/cittaHotelRistorante" />
-        
+
         <EditText
             android:id="@+id/cittaHotelRistoranteInput"
+            style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/cittaHotelRistorante"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/cittaHotelRistoranteSugg"
-            style="@style/CodeFont" />
-        
+            android:layout_marginBottom="20dp"
+            android:hint="@string/cittaHotelRistoranteSugg" />
+
+        <TextView
+            android:id="@+id/valutazione"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/cittaHotelRistoranteInput"
+            android:gravity="center"
+            android:text="@string/valutazione" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/valutazione"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:numStars="5" />
+
+        <Button
+            android:id="@+id/salvaMuseiButton"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/ratingBar"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:onClick=""
+            android:text="@string/salvaMuseiButton" />
     </RelativeLayout>
 
 </ScrollView>
