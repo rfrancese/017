@@ -49,6 +49,7 @@
                 android:layout_marginBottom="20dp" >
 
                 <TextView
+                    android:id="@+id/localitaTextView"
                     style="@style/CodeFont"
                     android:layout_column="1"
                     android:text="@string/localita" />
