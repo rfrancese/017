@@ -100,5 +100,6 @@
     <string name="title_activity_hotel_ristoranti">Inserisci Hotel e Ristoranti</string>
     <string name="title_activity_inserisci_hotel_ristoranti">Inserisci Hotel&amp;Ristoranti</string>
     <string name="title_activity_visualizza_viaggio">VisualizzaViaggioActivity</string>
+    <string name="title_activity_maps">Mappa</string>
 
 </resources>

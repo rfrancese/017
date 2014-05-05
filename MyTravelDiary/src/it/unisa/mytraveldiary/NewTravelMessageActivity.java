@@ -72,5 +72,10 @@ public class NewTravelMessageActivity extends ActionBarActivity {
     	Intent intent = new Intent(this, InserisciDettagliActivity.class);
     	startActivity(intent);
     }
+	
+	public void openMaps(View view){
+    	Intent intent = new Intent(this, MapsActivity.class);
+    	startActivity(intent);
+    }
 }
 
