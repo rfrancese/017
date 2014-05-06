@@ -1,10 +1,12 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,11 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        
+        DatabaseHandler db=new DatabaseHandler(this);
+        int count=db.getUsersCount();
+        
+        Log.d("Reading: ", "Count: "+count); 
     }
 
 
