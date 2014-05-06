@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String CREATE_USERS_TABLE="CREATE TABLE "+TABLE_USERS+" (" +
 									U_USERNAME+" VARCHAR(25) NOT NULL," +
 									U_PASSWORD+" VARCHAR(25) NOT NULL," +
-									U_ID+" INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL)";
+									U_ID+" INTEGER PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_USERS_TABLE);
 	}
 

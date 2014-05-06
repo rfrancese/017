@@ -1,6 +1,9 @@
 package it.unisa.mytraveldiary;
 
+import java.util.ArrayList;
+
 import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.User;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -28,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
         }
         
         DatabaseHandler db=new DatabaseHandler(this);
-        int count=db.getUsersCount();
+        ArrayList<User> count=db.getAllUsers();
         
         Log.d("Reading: ", "Count: "+count); 
     }
