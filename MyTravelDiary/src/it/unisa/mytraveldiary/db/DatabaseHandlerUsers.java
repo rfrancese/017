@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandlerUsers extends SQLiteOpenHelper {
 	
-	private static final int DATABASE_VERSION=1;
+	private static final int DATABASE_VERSION=4;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_USERS="users";
 	private static final String U_USERNAME="username";
@@ -33,7 +33,7 @@ public class DatabaseHandlerUsers extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
-		db.execSQL("DROP TABLE IF EXIST "+TABLE_USERS);
+		db.execSQL("DROP TABLE IF EXISTS "+TABLE_USERS);
 		
 		onCreate(db);
 	}

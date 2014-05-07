@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.WelcomeMessageActivity"
+            android:name="it.unisa.mytraveldiary.WelcomeActivity"
             android:label="@string/title_activity_welcome_message"
             android:parentActivityName="it.unisa.mytraveldiary.MainActivity" >
             <meta-data
@@ -50,25 +50,25 @@
                 android:value="it.unisa.mytraveldiary.MainActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.MasterTravelMessageActivity"
+            android:name="it.unisa.mytraveldiary.MasterTravelActivity"
             android:label="@string/title_activity_master_travel_message"
-            android:parentActivityName="it.unisa.mytraveldiary.WelcomeMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.WelcomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.WelcomeMessageActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.NewTravelMessageActivity"
+            android:name="it.unisa.mytraveldiary.NewTravelActivity"
             android:label="@string/title_activity_new_travel_message"
-            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.SearchTravelMessageActivity"
+            android:name="it.unisa.mytraveldiary.SearchTravelActivity"
             android:label="@string/title_activity_search_travel_message"
-            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
@@ -76,7 +76,7 @@
         <activity
             android:name="it.unisa.mytraveldiary.InfoMessageActivity"
             android:label="@string/title_activity_info_message"
-            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.MasterTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
@@ -84,7 +84,7 @@
         <activity
             android:name="it.unisa.mytraveldiary.InserisciDettagliActivity"
             android:label="@string/title_activity_inserisci_dettagli"
-            android:parentActivityName="it.unisa.mytraveldiary.NewTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.NewTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.NewTravelMessageActivity" />
@@ -132,7 +132,7 @@
         <activity
             android:name="it.unisa.mytraveldiary.VisualizzaViaggioActivity"
             android:label="@string/title_activity_visualizza_viaggio"
-            android:parentActivityName="it.unisa.mytraveldiary.SearchTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.SearchTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.SearchTravelMessageActivity" />
@@ -145,7 +145,7 @@
         <activity
             android:name="it.unisa.mytraveldiary.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:parentActivityName="it.unisa.mytraveldiary.NewTravelMessageActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.NewTravelActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.NewTravelMessageActivity" />

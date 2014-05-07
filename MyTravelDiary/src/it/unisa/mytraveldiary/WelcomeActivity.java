@@ -1,5 +1,6 @@
 package it.unisa.mytraveldiary;
 
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class MasterTravelMessageActivity extends ActionBarActivity {
+public class WelcomeActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_master_travel_message);
+		setContentView(R.layout.activity_welcome_message);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -29,7 +30,7 @@ public class MasterTravelMessageActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.master_travel_message, menu);
+		getMenuInflater().inflate(R.menu.welcome_message, menu);
 		return true;
 	}
 
@@ -56,24 +57,15 @@ public class MasterTravelMessageActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_master_travel_message, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_welcome_message,
+					container, false);
 			return rootView;
 		}
 	}
+	
+	 public void avanti(View view){
+	    	Intent intent = new Intent(this, MasterTravelActivity.class);
+	    	startActivity(intent);
+	    }
 
-	public void avantiNuovoViaggio(View view){
-    	Intent intent = new Intent(this, NewTravelMessageActivity.class);
-    	startActivity(intent);
-    }
-	
-	public void avantiRicercaViaggio(View view){
-    	Intent intent = new Intent(this, SearchTravelMessageActivity.class);
-    	startActivity(intent);
-    }
-	
-	public void avantiInformazioni(View view){
-    	Intent intent = new Intent(this, InfoMessageActivity.class);
-    	startActivity(intent);
-    }
 }

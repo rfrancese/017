@@ -1,5 +1,6 @@
 package it.unisa.mytraveldiary;
 
+import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -11,18 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.os.Build;
 
-public class WelcomeMessageActivity extends ActionBarActivity {
+public class SearchTravelActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome_message);
+		setContentView(R.layout.activity_search_travel_message);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -30,7 +34,7 @@ public class WelcomeMessageActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.welcome_message, menu);
+		getMenuInflater().inflate(R.menu.search_travel_message, menu);
 		return true;
 	}
 
@@ -57,15 +61,15 @@ public class WelcomeMessageActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_welcome_message,
-					container, false);
+			View rootView = inflater.inflate(
+					R.layout.fragment_search_travel_message, container, false);
 			return rootView;
 		}
 	}
-	
-	 public void avanti(View view){
-	    	Intent intent = new Intent(this, MasterTravelMessageActivity.class);
-	    	startActivity(intent);
-	    }
+
+	public void avantiVisualizzaViaggio(View view){
+		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
+		startActivity(intent);
+	}
 
 }

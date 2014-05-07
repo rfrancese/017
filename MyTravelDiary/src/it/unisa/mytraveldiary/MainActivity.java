@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
    * @param view
    */
     public void avanti(View view){
-    	Intent intent = new Intent(this, WelcomeMessageActivity.class);
+    	Intent intent = new Intent(this, WelcomeActivity.class);
     	startActivity(intent);
     }
     

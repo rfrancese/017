@@ -1,7 +1,5 @@
 package it.unisa.mytraveldiary;
 
-import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,21 +10,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.os.Build;
 
-public class SearchTravelMessageActivity extends ActionBarActivity {
+public class MasterTravelActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_travel_message);
+		setContentView(R.layout.activity_master_travel_message);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-			.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -34,7 +29,7 @@ public class SearchTravelMessageActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.search_travel_message, menu);
+		getMenuInflater().inflate(R.menu.master_travel_message, menu);
 		return true;
 	}
 
@@ -62,14 +57,23 @@ public class SearchTravelMessageActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
-					R.layout.fragment_search_travel_message, container, false);
+					R.layout.fragment_master_travel_message, container, false);
 			return rootView;
 		}
 	}
 
-	public void avantiVisualizzaViaggio(View view){
-		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
-		startActivity(intent);
-	}
-
+	public void avantiNuovoViaggio(View view){
+    	Intent intent = new Intent(this, NewTravelActivity.class);
+    	startActivity(intent);
+    }
+	
+	public void avantiRicercaViaggio(View view){
+    	Intent intent = new Intent(this, SearchTravelActivity.class);
+    	startActivity(intent);
+    }
+	
+	public void avantiInformazioni(View view){
+    	Intent intent = new Intent(this, InfoMessageActivity.class);
+    	startActivity(intent);
+    }
 }

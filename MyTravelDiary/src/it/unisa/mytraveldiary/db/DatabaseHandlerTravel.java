@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=3;
+	private static final int DATABASE_VERSION=4;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
 	private static final String T_TIPOLOGIAVIAGGIO= "tipologiaViaggio";
