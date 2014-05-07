@@ -35,7 +35,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		ArrayList<Travel> allTravels;
 		try {
 			allTravels = db.getAllTravels();
-			Log.d("Reading: ", "Count: "+ allTravels);
+			Log.d("Reading: ", "CountTravels: "+ allTravels);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

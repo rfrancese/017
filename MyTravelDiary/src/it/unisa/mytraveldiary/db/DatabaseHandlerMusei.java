@@ -1,8 +1,8 @@
 package it.unisa.mytraveldiary.db;
 
 
+import it.unisa.mytraveldiary.entity.Museo;
 import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,7 +28,7 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_MUSEI_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
+		String CREATE_MUSEO_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
 				M_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
 				M_NOME + " VARCHAR(50) NOT NULL," +
 				M_CITTA + " VARCHAR(30) NOT NULL," +
