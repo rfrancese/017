@@ -3,7 +3,7 @@ package it.unisa.mytraveldiary.entity;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Trasporti {
+public class Trasporto {
 	private String[] tipologia = {"Automobile", "Pullman", "Treno", "Aereo", "Nave"};
 	private boolean automobile, pullman, treno, aereo, nave;
 	private String compagnia;
@@ -12,11 +12,11 @@ public class Trasporti {
 	private int valutazione;
 	private int id;
 	
-	public Trasporti(){
+	public Trasporto(){
 	
 	}
 	
-	public Trasporti(String tip, String comp, String citt‡P, String citt‡R, int val, int i) {
+	public Trasporto(String tip, String comp, String citt‡P, String citt‡R, int val, int i) {
 					
 		if(tip == tipologia[0])
 						automobile=true;

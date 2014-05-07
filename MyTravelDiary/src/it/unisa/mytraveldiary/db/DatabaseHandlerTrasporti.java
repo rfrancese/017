@@ -1,6 +1,6 @@
 package it.unisa.mytraveldiary.db;
 
-import it.unisa.mytraveldiary.entity.Trasporti;
+import it.unisa.mytraveldiary.entity.Trasporto;
 import it.unisa.mytraveldiary.entity.Travel;
 import it.unisa.mytraveldiary.entity.User;
 
@@ -19,7 +19,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
 	private static final int DATABASE_VERSION=4;
 	private static final String DATABASE_NAME="mytraveldiary_db";
-	private static final String TABLE_TRASPORTI="trasporti";
+	private static final String TABLE_TRASPORTO="trasporto";
 	private static final String TR_TIPOLOGIA= "tipologia";
 	private static final String TR_COMPAGNIA="compagnia";
 	private static final String TR_CITTAPARTENZA="citt‡Partenza";
@@ -34,7 +34,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_TRASPORTI_TABLE="CREATE TABLE "+TABLE_TRASPORTI +" (" +
+		String CREATE_TRASPORTI_TABLE="CREATE TABLE "+TABLE_TRASPORTO +" (" +
 				TR_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
 				TR_COMPAGNIA + " VARCHAR(50) NOT NULL," +
 				TR_CITTAPARTENZA + " VARCHAR(30) NOT NULL," +
@@ -48,7 +48,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
-		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_TRASPORTI);
+		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_TRASPORTO);
 
 		onCreate(db);
 	}
@@ -57,7 +57,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 	// Metodi di modifica
 	// Aggiunge un trasporto
 
-	public void addTrasporto(Trasporti trasporto) {
+	public void addTrasporto(Trasporto trasporto) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
@@ -67,14 +67,14 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 		values.put(TR_CITTARITORNO, trasporto.getCitt‡Ritorno());
 		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
 		
-		db.insert(TABLE_TRASPORTI, null, values);
+		db.insert(TABLE_TRASPORTO, null, values);
 		db.close();
 	}
 
 
 	// Aggiorna un viaggio
 
-	public int updateTrasporto(Trasporti trasporto) {
+	public int updateTrasporto(Trasporto trasporto) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
@@ -85,15 +85,15 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
 		values.put(TR_ID, trasporto.getId());
 
-		return db.update(TABLE_TRASPORTI, values, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
+		return db.update(TABLE_TRASPORTO, values, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
 	}
 
 
 	// Cancella un trasporto
 
-	public void deleteTrasporti(Trasporti trasporto) {
+	public void deleteTrasporti(Trasporto trasporto) {
 		SQLiteDatabase db=this.getWritableDatabase();
-		db.delete(TABLE_TRASPORTI, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
+		db.delete(TABLE_TRASPORTO, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
 		db.close();
 	}
 
@@ -101,10 +101,10 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 	// Metodi di accesso
 	// Ritorna un trasporto
 
-	public Trasporti getTrasporto(int id) throws NumberFormatException{
+	public Trasporto getTrasporto(int id) throws NumberFormatException{
 		SQLiteDatabase db=this.getReadableDatabase();
 
-		Cursor cursor=db.query(TABLE_TRASPORTI, new String[] {TR_TIPOLOGIA, TR_COMPAGNIA, TR_CITTAPARTENZA, TR_CITTARITORNO,
+		Cursor cursor=db.query(TABLE_TRASPORTO, new String[] {TR_TIPOLOGIA, TR_COMPAGNIA, TR_CITTAPARTENZA, TR_CITTARITORNO,
 				TR_VALUTAZIONE, TR_ID}, 
 				TR_ID + "=?",
 				new String[] {String.valueOf(id)}, null, null, null, null);
@@ -113,7 +113,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 			cursor.moveToFirst();
 
 
-		Trasporti trasporto= new Trasporti(cursor.getString(0), cursor.getString(1), cursor.getString(2), 
+		Trasporto trasporto= new Trasporto(cursor.getString(0), cursor.getString(1), cursor.getString(2), 
 				cursor.getString(3), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
 
 		return trasporto;
@@ -121,15 +121,15 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
 	// Ritorna tutti i trasporti
 	
-	public ArrayList<Trasporti> getAllTrasporti() {
-		ArrayList<Trasporti> trasportoList=new ArrayList<Trasporti>();
-		String selectQuery="SELECT * FROM " + TABLE_TRASPORTI;
+	public ArrayList<Trasporto> getAllTrasporti() {
+		ArrayList<Trasporto> trasportoList=new ArrayList<Trasporto>();
+		String selectQuery="SELECT * FROM " + TABLE_TRASPORTO;
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor cursor=db.rawQuery(selectQuery, null);
 
 		if (cursor.moveToFirst()) {
 			do {
-				Trasporti trasporto=new Trasporti();
+				Trasporto trasporto=new Trasporto();
 				trasporto.setTipologia(cursor.getString(0));
 				trasporto.setCompagnia(cursor.getString(1));
 				trasporto.setCitt‡Partenza(cursor.getString(2));		
