@@ -2,9 +2,7 @@ package it.unisa.mytraveldiary.db;
 
 
 import it.unisa.mytraveldiary.entity.Museo;
-
 import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

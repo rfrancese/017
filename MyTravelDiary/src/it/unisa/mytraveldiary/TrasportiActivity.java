@@ -3,6 +3,7 @@ package it.unisa.mytraveldiary;
 import it.unisa.mytraveldiary.db.DatabaseHandlerTrasporti;
 import it.unisa.mytraveldiary.entity.Trasporto;
 
+
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
@@ -32,7 +33,7 @@ public class TrasportiActivity extends ActionBarActivity {
 		DatabaseHandlerTrasporti db=new DatabaseHandlerTrasporti(this);
         ArrayList<Trasporto> count=db.getAllTrasporti();
         
-        Log.d("Reading: ", "CountTrasporto: "+count); 
+        Log.d("Reading: ", "CountTrasporti: "+count); 
 	}
 
 	@Override

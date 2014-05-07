@@ -33,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
         DatabaseHandlerUsers db=new DatabaseHandlerUsers(this);
         ArrayList<User> count=db.getAllUsers();
         
-        Log.d("Reading: ", "Count: "+count); 
+        Log.d("Reading: ", "CountMain: "+count); 
     }
 
 
