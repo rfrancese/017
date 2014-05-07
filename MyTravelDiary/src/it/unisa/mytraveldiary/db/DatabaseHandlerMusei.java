@@ -1,6 +1,8 @@
 package it.unisa.mytraveldiary.db;
 
 
+import it.unisa.mytraveldiary.entity.Museo;
+
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -12,7 +14,7 @@ import android.util.Log;
 
 public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=4;
+	private static final int DATABASE_VERSION=5;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_MUSEO="museo";
 	private static final String M_TIPOLOGIA= "tipologia";
@@ -28,7 +30,7 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_MUSEI_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
+		String CREATE_MUSEO_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
 				M_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
 				M_NOME + " VARCHAR(50) NOT NULL," +
 				M_CITTA + " VARCHAR(30) NOT NULL," +
@@ -52,14 +54,18 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
 	public void addMuseo(Museo museo) {
 		SQLiteDatabase db=this.getWritableDatabase();
-		ContentValues values=new ContentValues();
+		/*ContentValues values=new ContentValues();
 
 		values.put(M_TIPOLOGIA, museo.getTipologia());
 		values.put(M_NOME, museo.getNome());
 		values.put(M_CITTA, museo.getCittà());
 		values.put(M_VALUTAZIONE, museo.getValutazione());
-		
-		db.insert(TABLE_MUSEO, null, values);
+		values.put(M_ID, museo.getId());
+		*/
+		String INSERT="INSERT INTO " + TABLE_MUSEO + " VALUES(" + M_TIPOLOGIA +"," + M_NOME + "," + M_CITTA + "," 
+		                                                       + M_VALUTAZIONE + ")";
+		/*db.insert(TABLE_MUSEO, null, values);*/
+		db.execSQL(INSERT);
 		db.close();
 	}
 

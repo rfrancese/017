@@ -1,9 +1,15 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandlerMusei;
+import it.unisa.mytraveldiary.entity.Museo;
+
+import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +28,12 @@ public class MuseiActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		Museo museo= new Museo("Storico", "Nome", "Parigi", 3);
+		DatabaseHandlerMusei db=new DatabaseHandlerMusei(this);
+		db.addMuseo(museo);
+        
+        Log.d("Reading: ", "CountMuseo: "); 
 	}
 
 	@Override

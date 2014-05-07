@@ -3,7 +3,6 @@ package it.unisa.mytraveldiary.db;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 import it.unisa.mytraveldiary.entity.Travel;
 import it.unisa.mytraveldiary.entity.User;
@@ -16,7 +15,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=4;
+	private static final int DATABASE_VERSION=5;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
 	private static final String T_TIPOLOGIAVIAGGIO= "tipologiaViaggio";

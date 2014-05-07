@@ -1,11 +1,6 @@
 package it.unisa.mytraveldiary.db;
 
 import it.unisa.mytraveldiary.entity.Trasporto;
-import it.unisa.mytraveldiary.entity.Travel;
-import it.unisa.mytraveldiary.entity.User;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -17,7 +12,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=4;
+	private static final int DATABASE_VERSION=5;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRASPORTO="trasporto";
 	private static final String TR_TIPOLOGIA= "tipologia";
@@ -34,16 +29,16 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_TRASPORTI_TABLE="CREATE TABLE "+TABLE_TRASPORTO +" (" +
+		String CREATE_TRASPORTO_TABLE="CREATE TABLE "+TABLE_TRASPORTO +" (" +
 				TR_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
 				TR_COMPAGNIA + " VARCHAR(50) NOT NULL," +
 				TR_CITTAPARTENZA + " VARCHAR(30) NOT NULL," +
 				TR_CITTARITORNO + " VARCHAR(30) NOT NULL," +
 				TR_VALUTAZIONE + " INTEGER NOT NULL," +
 				TR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
-		db.execSQL(CREATE_TRASPORTI_TABLE);
+		db.execSQL(CREATE_TRASPORTO_TABLE);
 		
-		Log.d("Creating...", "Trasporti");
+		Log.d("Creating...", "Trasporto");
 	}
 
 	@Override

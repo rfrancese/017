@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandlerUsers extends SQLiteOpenHelper {
 	
-	private static final int DATABASE_VERSION=4;
+	private static final int DATABASE_VERSION=5;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_USERS="users";
 	private static final String U_USERNAME="username";
