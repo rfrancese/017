@@ -1,11 +1,17 @@
 package it.unisa.mytraveldiary;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
+import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +29,15 @@ public class NewTravelMessageActivity extends ActionBarActivity {
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+		
+		DatabaseHandlerTravel db = new DatabaseHandlerTravel(this);
+		ArrayList<Travel> allTravels;
+		try {
+			allTravels = db.getAllTravels();
+			Log.d("Reading: ", "Count: "+ allTravels);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
 

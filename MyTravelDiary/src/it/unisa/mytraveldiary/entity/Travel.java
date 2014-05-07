@@ -1,14 +1,16 @@
 package it.unisa.mytraveldiary.entity;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Date;
+import android.provider.ContactsContract.Data;
 
 public class Travel {
 	
 	private String[] tipologiaViaggio = {"Svago", "Lavoro"};
+	private boolean svago, lavoro;
 	private String località;
-	private GregorianCalendar dataAndata;
-	private GregorianCalendar dataRitorno;
+	private Date dataAndata;
+	private Date dataRitorno;
 	private ArrayList<User> compagniViaggio;
 	private String descrizione;
 	private int id;
@@ -17,9 +19,13 @@ public class Travel {
 	
 	}
 	
-	public Travel (String[] tipViaggio, String loc, GregorianCalendar dataA, GregorianCalendar dataR, 
-			ArrayList<User> compViaggio, String descr, int i) {
-		tipologiaViaggio= tipViaggio;
+	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, ArrayList<User> compViaggio, 
+			      String descr, int i) {
+					
+		if(tipViaggio == tipologiaViaggio[0])
+						svago=true;
+					else if(tipViaggio == tipologiaViaggio[1])
+						lavoro=true;
 		località= loc;
 		dataAndata= dataA;
 		dataRitorno= dataR;
@@ -31,24 +37,37 @@ public class Travel {
 	
 	// Metodi di accesso
 	
-	public String[] getTipologiaViaggio() {
-		return tipologiaViaggio;
+	public String getTipologiaViaggio() {
+		
+		String tipViaggio="";
+		
+		if(svago)
+			tipViaggio= tipologiaViaggio[0];
+		
+		else if(lavoro)
+			tipViaggio= tipologiaViaggio[1];
+		
+		return tipViaggio;
 	}
 	
 	public String getLocalità(){
 		return località;
 	}
 	
-	public GregorianCalendar getDataAndata(){
+	public Date getDataAndata(){
 		return dataAndata;
 	}
 	
-	public GregorianCalendar getDataRitorno(){
+	public Date getDataRitorno(){
 		return dataRitorno;
 	}
 	
-	public ArrayList<User> getCompagniViaggio(){
-		return compagniViaggio;
+	public String getCompagniViaggio(){
+		String compViaggio="";
+		for(User i: compagniViaggio){
+			compViaggio+= i.getId()+",";
+		}
+		return compViaggio;
 	}
 	
 	public String getDescrizione(){
@@ -63,24 +82,28 @@ public class Travel {
 	
 	// Metodi di modifica
 	
-	public void setTipologiaViaggio(String[] tipViaggio) {
-		tipologiaViaggio= tipViaggio;
+	public void setTipologiaViaggio(String tipViaggio) {
+
+		if(tipViaggio==tipologiaViaggio[0])
+			svago=true;
+		else if(tipViaggio==tipologiaViaggio[1])
+			lavoro=true;
 	}
 	
 	public void setLocalità(String loc){
 		 località= loc;
 	}
 	
-	public void setDataAndata(GregorianCalendar dataA){
+	public void setDataAndata(Date dataA){
 		dataAndata= dataA;
 	}
 	
-	public void setDataRitorno(GregorianCalendar dataR){
+	public void setDataRitorno(Date dataR){
 		dataRitorno= dataR;
 	}
 	
 	public void setCompagniViaggio(ArrayList<User> compViaggio){
-		compagniViaggio= compViaggio;
+	   compViaggio=compViaggio;
 	}
 	
 	public void setDescrizione(String descr){
@@ -90,5 +113,6 @@ public class Travel {
 	public void setId(int i){
 		id= i;
 	}
+
 
 }

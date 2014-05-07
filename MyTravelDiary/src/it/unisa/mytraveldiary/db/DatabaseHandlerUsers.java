@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class DatabaseHandlerUsers extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION=1;
 	private static final String DATABASE_NAME="mytraveldiary_db";
@@ -18,7 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String U_PASSWORD="password";
 	private static final String U_ID="id";
 	
-	public DatabaseHandler(Context context) {
+	public DatabaseHandlerUsers(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
