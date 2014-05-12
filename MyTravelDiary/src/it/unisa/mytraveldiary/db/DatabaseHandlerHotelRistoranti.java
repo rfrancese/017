@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=5;
+	private static final int DATABASE_VERSION=6;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_HOTELRISTORANTI="hotelRistoranti";
 	private static final String HR_TIPOLOGIA="tipologia";
@@ -32,7 +32,7 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 				HR_NOME+" VARCHAR(25) NOT NULL," +
 				HR_CITTA+" VARCHAR(30) NOT NULL," +
 				HR_VALUTAZIONE+" INTEGER NOT NULL," +
-				HR_ID+" INTEGER PRIMARY KEY AUTOINCREMENT)";
+				HR_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_HOTELRISTORANTI_TABLE);
 	}
 
@@ -53,7 +53,7 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 		values.put(HR_NOME, hotelRistorante.getNome());
 		values.put(HR_CITTA, hotelRistorante.getCitta());
 		values.put(HR_VALUTAZIONE, hotelRistorante.getValutazione());
-		values.put(HR_ID, hotelRistorante.getId());
+		//values.put(HR_ID, hotelRistorante.getId());
 
 		db.insert(TABLE_HOTELRISTORANTI, null, values);
 		db.close();
@@ -67,7 +67,7 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 		values.put(HR_NOME, hotelRistorante.getNome());
 		values.put(HR_CITTA, hotelRistorante.getCitta());
 		values.put(HR_VALUTAZIONE, hotelRistorante.getValutazione());
-		values.put(HR_ID, hotelRistorante.getId());
+		//values.put(HR_ID, hotelRistorante.getId());
 
 		return db.update(TABLE_HOTELRISTORANTI, values, HR_TIPOLOGIA+" = ?", new String[] {String.valueOf(hotelRistorante.getId())});
 	}

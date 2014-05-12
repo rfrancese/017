@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=5;
+	private static final int DATABASE_VERSION=6;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
 	private static final String T_TIPOLOGIAVIAGGIO= "tipologiaViaggio";
@@ -27,13 +27,13 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 	private static final String T_ID="id";
 	private final SimpleDateFormat parser= new SimpleDateFormat("dd-MM-yyyy");
 
-
 	public DatabaseHandlerTravel(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		db=getWritableDatabase();
 		String CREATE_TRAVELS_TABLE="CREATE TABLE "+TABLE_TRAVELS +" (" +
 				T_TIPOLOGIAVIAGGIO + " VARCHAR(10) NOT NULL," +
 				T_LOCALITA + " VARCHAR(50) NOT NULL," +
@@ -41,7 +41,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				T_DATARITORNO + " DATE NOT NULL," +
 				T_COMPAGNIVIAGGIO + " VARCHAR(100) NOT NULL," +
 				T_DESCRIZIONE + " TEXT NOT NULL," +
-				T_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
+				T_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRAVELS_TABLE);
 		
 		Log.d("Creating...", "Travels");
@@ -69,7 +69,6 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		values.put(T_COMPAGNIVIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
 
-
 		db.insert(TABLE_TRAVELS, null, values);
 		db.close();
 	}
@@ -87,7 +86,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		values.put(T_DATARITORNO, parser.format(travel.getDataRitorno()));
 		values.put(T_COMPAGNIVIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
-		values.put(T_ID, travel.getId());
+		//values.put(T_ID, travel.getId());
 
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
 	}

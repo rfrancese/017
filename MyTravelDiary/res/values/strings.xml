@@ -77,7 +77,6 @@
         <item>****</item>
         <item>*****</item>
     </string-array>
-    
     <string-array name="tipoTrasporti" style="@style/CodeFont">
         <item>Automobile</item>
         <item>Pullman</item>
@@ -85,7 +84,6 @@
         <item>Aereo</item>
         <item>Nave</item>
     </string-array>
-    
     <string-array name="tipoMusei">
         <item>Storico</item>
         <item>Archeologico</item>
@@ -103,5 +101,6 @@
     <string name="title_activity_inserisci_hotel_ristoranti">Inserisci Hotel&amp;Ristoranti</string>
     <string name="title_activity_visualizza_viaggio">VisualizzaViaggioActivity</string>
     <string name="title_activity_maps">Mappa</string>
+    <string name="title_activity_login">Login</string>
 
 </resources>

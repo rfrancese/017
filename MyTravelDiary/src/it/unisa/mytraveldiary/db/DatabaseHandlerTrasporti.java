@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=5;
+	private static final int DATABASE_VERSION=6;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRASPORTO="trasporto";
 	private static final String TR_TIPOLOGIA= "tipologia";
@@ -35,7 +35,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 				TR_CITTAPARTENZA + " VARCHAR(30) NOT NULL," +
 				TR_CITTARITORNO + " VARCHAR(30) NOT NULL," +
 				TR_VALUTAZIONE + " INTEGER NOT NULL," +
-				TR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)";
+				TR_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRASPORTO_TABLE);
 		
 		Log.d("Creating...", "Trasporto");
@@ -78,7 +78,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 		values.put(TR_CITTAPARTENZA, trasporto.getCitt‡Partenza());
 		values.put(TR_CITTARITORNO, trasporto.getCitt‡Ritorno());
 		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
-		values.put(TR_ID, trasporto.getId());
+		//values.put(TR_ID, trasporto.getId());
 
 		return db.update(TABLE_TRASPORTO, values, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
 	}
