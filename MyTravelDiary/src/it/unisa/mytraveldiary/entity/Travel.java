@@ -2,7 +2,6 @@ package it.unisa.mytraveldiary.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import android.provider.ContactsContract.Data;
 
 public class Travel {
 	
