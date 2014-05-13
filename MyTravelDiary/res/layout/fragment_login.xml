@@ -58,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/LoginButton"
-            android:onClick="..."
-            android:text="Registrati"
+            android:text="@string/RegistratiButton"
+            android:onClick="avantiRegistrazione"
             style="@style/CodeFont" />
     </RelativeLayout>
 

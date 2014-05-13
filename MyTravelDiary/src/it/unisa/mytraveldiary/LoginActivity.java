@@ -276,6 +276,9 @@ public class LoginActivity extends ActionBarActivity {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}
-
-
+	
+	 public void avantiRegistrazione(View view){
+	    	Intent intent = new Intent(this, RegistrazioneActivity.class);
+	    	startActivity(intent);
+	    }
 }
