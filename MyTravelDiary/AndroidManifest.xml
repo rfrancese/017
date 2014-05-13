@@ -10,7 +10,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
      The following two permissions are not required to use
-     Google Maps Android API v2, but are recommended.
+     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -149,6 +149,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.NewTravelMessageActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.RegistrazioneActivity"
+            android:label="@string/title_activity_registrazione"
+            android:parentActivityName="it.unisa.mytraveldiary" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.unisa.mytraveldiary" />
         </activity>
     </application>
 

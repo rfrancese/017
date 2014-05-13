@@ -6,6 +6,14 @@
     <string name="Login">Login</string>
     <string name="Password">Password</string>
     <string name="LoginButton">Entra</string>
+    <string name="RegistratiButton">Registrati</string>
+    <string name="nomeUtente">Nome</string>
+    <string name="nomeUtenteSugg">Inserisci il tuo nome</string>
+    <string name="cognomeUtente">Cognome</string>
+    <string name="cognomeUtenteSugg">Inserisci il tuo cognome</string>
+    <string name="localitaUtente">Localita</string>
+    <string name="localitaUtenteSugg">Inserisci la localita</string>
+     <string name="SalvaRegistrazioneButton">Salva</string>
     <string name="Welcome">Benvenuto in</string>
     <string name="AvantiButton">Avanti</string>
     <string name="NuovoViaggioButton">Nuovo Viaggio</string>
@@ -60,6 +68,8 @@
     <string name="dataAndataEsempio">Dal: 12/06/2013</string>
     <string name="dataRitornoEsempio">Al: 24/06/2013</string>
     <string name="compagniViaggioEsempio">Clarissa, Maria, Sarah</string>
+    
+    
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_welcome_message">Benvenuto</string>
@@ -67,6 +77,7 @@
     <string name="title_activity_new_travel_message">Nuovo Viaggio</string>
     <string name="title_activity_search_travel_message">Ricerca Viaggio</string>
     <string name="title_activity_info_message">Informazioni</string>
+    
 
     <string-array name="filtriRicerca">
         <item>Svago</item>
@@ -102,5 +113,6 @@
     <string name="title_activity_visualizza_viaggio">VisualizzaViaggioActivity</string>
     <string name="title_activity_maps">Mappa</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_registrazione">Registrazione</string>
 
 </resources>

@@ -1,0 +1,75 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
+
+ <TextView
+            android:id="@+id/nomeUtente"
+            style="@style/CodeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nomeUtente" />
+
+        <EditText
+            android:id="@+id/nomeUtenteInput"
+            style="@style/CodeFont"
+            android:layout_below="@id/nomeUtente"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/nomeUtenteSugg" />
+        
+        <TextView
+            android:id="@+id/cognomeUtente"
+            style="@style/CodeFont"
+            android:layout_below="@id/nomeUtenteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cognomeUtente" />
+
+        <EditText
+            android:id="@+id/cognomeUtenteInput"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cognomeUtente"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/cognomeUtenteSugg" />
+        
+        <TextView
+            android:id="@+id/localitaUtente"
+            style="@style/CodeFont"
+             android:layout_below="@id/cognomeUtenteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/localitaUtente" />
+
+        <EditText
+            android:id="@+id/localitaUtenteInput"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localitaUtente"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/localitaUtenteSugg" />
+
+                <Button
+                    android:id="@+id/SalvaRegistrazioneButton"
+                    style="@style/CodeFont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/localitaUtenteInput"
+                    android:onClick="salvaRegistrazione"
+                    android:text="@string/SalvaRegistrazioneButton" />
+</RelativeLayout>  
+</ScrollView>
