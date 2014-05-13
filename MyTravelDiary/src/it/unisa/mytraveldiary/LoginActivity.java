@@ -3,10 +3,13 @@ package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.entity.User;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,26 +44,13 @@ public class LoginActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment())
 			.commit();
 		}
+		
+		Log.d("ACTIVITY", "LoginActivity");
 
-		/*ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-		if (networkInfo != null && networkInfo.isConnected()) {
-			Log.d("Connecting...", "OK");
-		} else {
-			Log.d("Connecting...", "NO");
-		}
-
-		DatabaseHandlerUsers db=new DatabaseHandlerUsers(this);
-		int count=db.getUsersCount();
-
-		Log.d("Reading: ", "CountMain: "+count); */
-
-		// Gets the URL from the UI's text field.
 		String stringUrl = "http://mtd.altervista.org/index.php";
-		ConnectivityManager connMgr = (ConnectivityManager) 
-				getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
 		if (networkInfo != null && networkInfo.isConnected()) {
 			new NetwokAccess().execute(stringUrl);
 		} else {
@@ -69,21 +59,65 @@ public class LoginActivity extends ActionBarActivity {
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
+
 		@Override
 		protected String doInBackground(String... urls) {
 
 			// params comes from the execute() call: params[0] is the url.
 			InputStream is=null;
 			String contentType=null;
+			URL url;
+			HttpURLConnection connection = null;
+			String dati="username=caranz";
 
 			try {
-				URL url=new URL(urls[0]);
-				HttpURLConnection connection= (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("GET");
+				/*url=new URL(urls[0]);
+				connection= (HttpURLConnection) url.openConnection();
+				connection.setDoOutput(true);
+				connection.setDoInput(true);
+				connection.setChunkedStreamingMode(0);				
+				connection.setInstanceFollowRedirects(false); 
+				connection.setRequestMethod("POST"); 
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+				connection.setRequestProperty("charset", "utf-8");
+				connection.setRequestProperty("Content-Length", "" + Integer.toString(dati.getBytes().length));
+				connection.setUseCaches (false);
+				
+				
+				/*DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
+				wr.writeBytes(dati);
+				wr.flush();
+				wr.close();*/
+				
+				String urlParameters = "username=caranz";
+				String request = "http://mtd.altervista.org/index.php";
+				url = new URL(request); 
+				connection = (HttpURLConnection) url.openConnection();           
+				connection.setDoOutput(true);
+				connection.setDoInput(true);
+				connection.setInstanceFollowRedirects(false); 
+				connection.setRequestMethod("POST"); 
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+				connection.setRequestProperty("charset", "utf-8");
+				connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+				connection.setUseCaches (false);
+
+				DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
+				wr.writeBytes(urlParameters);
+				wr.flush();
+				wr.close();
+
 				connection.connect();
+				/*OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+				//writeStream(out);
+				out.write(dati);
+
+				InputStream in = new BufferedInputStream(connection.getInputStream());
+				//readStream(in);
 
 				int response=connection.getResponseCode();
-				Log.d("CONNECTION", "Response code: "+response);
+				Log.d("CONNECTION", "Response code: "+response);*/
+
 				is=connection.getInputStream();
 				contentType=connection.getContentType();
 
@@ -91,15 +125,20 @@ public class LoginActivity extends ActionBarActivity {
 
 				String ret=null;
 				User user=new User();
-				
+
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
-					Log.d("CONNECTION", "Response text: +"+ret+"+");
-					JSONObject object=new JSONObject(ret);
-					user.setUsername(object.getString("username"));
-					user.setPassword(object.getString("password"));
+					if (!(ret.equals("Nessun risultato"))) {
+						Log.d("CONNECTION", "Response text: +"+ret+"+");
+						JSONObject object=new JSONObject(ret);
+						user.setUsername(object.getString("username"));
+						user.setPassword(object.getString("password"));
+
+						Log.d("USER", user.getUsername()+", "+user.getPassword());
+					}
 					
-					Log.d("USER", user.getUsername()+", "+user.getPassword());
+					else 
+						Log.d("RESPONSE", "Nessun risultato response");
 				}
 
 				return ret;
@@ -113,8 +152,8 @@ public class LoginActivity extends ActionBarActivity {
 				e.printStackTrace();
 				return "Error";
 			} finally {
-
-
+				//TODO si dovrebbe chiudere is (InputStream)
+				connection.disconnect();
 			}
 		}
 		// onPostExecute displays the results of the AsyncTask.
@@ -124,18 +163,18 @@ public class LoginActivity extends ActionBarActivity {
 		}
 
 		private String getStringFromInputStream(InputStream is) {
-			 
+
 			BufferedReader br = null;
 			StringBuilder sb = new StringBuilder();
-	 
+
 			String line;
 			try {
-	 
+
 				br = new BufferedReader(new InputStreamReader(is));
 				while ((line = br.readLine()) != null) {
 					sb.append(line);
 				}
-	 
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -147,9 +186,9 @@ public class LoginActivity extends ActionBarActivity {
 					}
 				}
 			}
-	 
+
 			return sb.toString();
-	 
+
 		}
 	}
 
