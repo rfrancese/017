@@ -96,6 +96,33 @@ public class LoginActivity extends ActionBarActivity {
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
 					
+					User user=new User();
+					
+					if (!(ret.equals("Nessun risultato"))) {
+						Log.d("CONNECTION", "Response text: +"+ret+"+");
+						JSONObject object;
+						try {
+							object = new JSONObject(ret);
+							user.setUsername(object.getString("username"));
+							user.setNome(object.getString("nome"));
+							user.setCognome(object.getString("cognome"));
+							user.setLocalita(object.getString("localita"));
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						
+						// tutti null ???
+						Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
+						user.getLocalita());
+						
+						goWelcome();
+					}
+
+					else {
+						Log.d("RESPONSE", "Nessun risultato response");
+						showToast("Username/password errati!");
+					}
+					
 				}
 
 				return ret;
@@ -114,31 +141,6 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("CONNECTION", "Response text onPost: "+result);
-			
-			User user=new User();
-			
-			if (!(result.equals("Nessun risultato"))) {
-				Log.d("CONNECTION", "Response text: +"+result+"+");
-				JSONObject object;
-				try {
-					object = new JSONObject(result);
-					user.setUsername(object.getString("username"));
-					user.setNome(object.getString("nome"));
-					user.setCognome(object.getString("cognome"));
-					user.setLocalita(object.getString("localita"));
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-
-				Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
-				user.getLocalita());
-			}
-
-			else {
-				Log.d("RESPONSE", "Nessun risultato response");
-				showToast("Username/password errati!");
-			}
 		}
 
 		private String getStringFromInputStream(InputStream is) {
@@ -259,6 +261,11 @@ public class LoginActivity extends ActionBarActivity {
 			startActivity(intent);
 		}
 
+	}
+	
+	private void goWelcome() {
+		Intent intent = new Intent(this, WelcomeActivity.class);
+		startActivity(intent);
 	}
 
 	private void showToast(String msg) {
