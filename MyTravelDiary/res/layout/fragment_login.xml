@@ -51,6 +51,16 @@
             android:onClick="avanti"
             android:text="@string/LoginButton"
             style="@style/CodeFont" />
+        
+        <Button
+            android:id="@+id/RegistratiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/LoginButton"
+            android:onClick="..."
+            android:text="Registrati"
+            style="@style/CodeFont" />
     </RelativeLayout>
 
 </ScrollView>

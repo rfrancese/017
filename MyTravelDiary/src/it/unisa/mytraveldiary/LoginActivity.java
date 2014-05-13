@@ -31,8 +31,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
+
+	boolean logged=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +49,8 @@ public class LoginActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment())
 			.commit();
 		}
-		
+
 		Log.d("ACTIVITY", "LoginActivity");
-
-		String stringUrl = "http://mtd.altervista.org/index.php";
-		ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-		if (networkInfo != null && networkInfo.isConnected()) {
-			new NetwokAccess().execute(stringUrl);
-		} else {
-			Log.d("CONNECTION","No network connection available.");
-		}
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
@@ -63,35 +58,16 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected String doInBackground(String... urls) {
 
-			// params comes from the execute() call: params[0] is the url.
 			InputStream is=null;
 			String contentType=null;
 			URL url;
 			HttpURLConnection connection = null;
-			String dati="username=caranz";
+
 
 			try {
-				/*url=new URL(urls[0]);
-				connection= (HttpURLConnection) url.openConnection();
-				connection.setDoOutput(true);
-				connection.setDoInput(true);
-				connection.setChunkedStreamingMode(0);				
-				connection.setInstanceFollowRedirects(false); 
-				connection.setRequestMethod("POST"); 
-				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
-				connection.setRequestProperty("charset", "utf-8");
-				connection.setRequestProperty("Content-Length", "" + Integer.toString(dati.getBytes().length));
-				connection.setUseCaches (false);
-				
-				
-				/*DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
-				wr.writeBytes(dati);
-				wr.flush();
-				wr.close();*/
-				
-				String urlParameters = "username=caranz";
-				String request = "http://mtd.altervista.org/index.php";
-				url = new URL(request); 
+
+				String urlParameters = "username="+urls[1]+"&password="+urls[2];
+				url = new URL(urls[0]); 
 				connection = (HttpURLConnection) url.openConnection();           
 				connection.setDoOutput(true);
 				connection.setDoInput(true);
@@ -108,15 +84,6 @@ public class LoginActivity extends ActionBarActivity {
 				wr.close();
 
 				connection.connect();
-				/*OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-				//writeStream(out);
-				out.write(dati);
-
-				InputStream in = new BufferedInputStream(connection.getInputStream());
-				//readStream(in);
-
-				int response=connection.getResponseCode();
-				Log.d("CONNECTION", "Response code: "+response);*/
 
 				is=connection.getInputStream();
 				contentType=connection.getContentType();
@@ -124,21 +91,11 @@ public class LoginActivity extends ActionBarActivity {
 				Log.d("CONTENT TYPE", contentType);
 
 				String ret=null;
-				User user=new User();
+				
 
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
-					if (!(ret.equals("Nessun risultato"))) {
-						Log.d("CONNECTION", "Response text: +"+ret+"+");
-						JSONObject object=new JSONObject(ret);
-						user.setUsername(object.getString("username"));
-						user.setPassword(object.getString("password"));
-
-						Log.d("USER", user.getUsername()+", "+user.getPassword());
-					}
 					
-					else 
-						Log.d("RESPONSE", "Nessun risultato response");
 				}
 
 				return ret;
@@ -148,10 +105,7 @@ public class LoginActivity extends ActionBarActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 				return "Error";
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return "Error";
-			} finally {
+			}  finally {
 				//TODO si dovrebbe chiudere is (InputStream)
 				connection.disconnect();
 			}
@@ -160,6 +114,31 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("CONNECTION", "Response text onPost: "+result);
+			
+			User user=new User();
+			
+			if (!(result.equals("Nessun risultato"))) {
+				Log.d("CONNECTION", "Response text: +"+result+"+");
+				JSONObject object;
+				try {
+					object = new JSONObject(result);
+					user.setUsername(object.getString("username"));
+					user.setNome(object.getString("nome"));
+					user.setCognome(object.getString("cognome"));
+					user.setLocalita(object.getString("localita"));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+
+				Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
+				user.getLocalita());
+			}
+
+			else {
+				Log.d("RESPONSE", "Nessun risultato response");
+				showToast("Username/password errati!");
+			}
 		}
 
 		private String getStringFromInputStream(InputStream is) {
@@ -233,8 +212,62 @@ public class LoginActivity extends ActionBarActivity {
 	 * @param view
 	 */
 	public void avanti(View view){
-		Intent intent = new Intent(this, WelcomeActivity.class);
-		startActivity(intent);
+
+		String inputUsername, inputPassword;
+
+		EditText editUsername = (EditText) findViewById(R.id.Login);
+		inputUsername = editUsername.getText().toString(); 
+
+		EditText editPassword = (EditText) findViewById(R.id.Password);
+		inputPassword = editPassword.getText().toString(); 
+
+		Log.d("LOGIN", "username: "+inputUsername+"; password: "+inputPassword);
+
+		if (inputUsername.equals("") && inputPassword.equals("")) {
+			showToast("Inserisci le credenziali!");
+		}
+
+		else if (!inputUsername.equals("") && inputPassword.equals("")) {
+			showToast("Inserisci la password!");
+		}
+
+		else if (inputUsername.equals("") && !inputPassword.equals("")) {
+			showToast("Inserisci l'username!");
+		}
+
+		else if (!inputUsername.equals("") && !inputPassword.equals("")) {
+
+			String stringUrl = "http://mtd.altervista.org/login.php";
+			ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+			if (networkInfo != null && networkInfo.isConnected()) {
+				new NetwokAccess().execute(stringUrl, inputUsername, inputPassword);
+			} else {
+				Log.d("CONNECTION","No network connection available.");
+				showToast("Nessuna connesione!");
+			}
+			
+			
+
+			//showToast("...");
+		}
+
+		else {
+			// nel caso l'utente è autenticato
+			Intent intent = new Intent(this, WelcomeActivity.class);
+			startActivity(intent);
+		}
+
+	}
+
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
 	}
 
 
