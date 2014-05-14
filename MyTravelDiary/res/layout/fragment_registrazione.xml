@@ -85,7 +85,7 @@
             android:layout_below="@id/usernameUtenteInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/passwordUtente" />
+            android:text="@string/passwordUtente"/>
 
         <EditText
             android:id="@+id/passwordUtenteInput"
@@ -94,7 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordUtente"
             android:layout_marginBottom="20dp"
-            android:hint="@string/passwordUtenteSugg" />
+            android:hint="@string/passwordUtenteSugg"
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/confermaPasswordUtente"
@@ -111,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/confermaPasswordUtente"
             android:layout_marginBottom="20dp"
-            android:hint="@string/confermaPasswordUtenteSugg" />
+            android:hint="@string/confermaPasswordUtenteSugg"
+            android:inputType="textPassword" />
         
                 <Button
                     android:id="@+id/SalvaRegistrazioneButton"
