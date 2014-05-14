@@ -3,13 +3,11 @@ package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.entity.User;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +29,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -99,11 +96,12 @@ public class LoginActivity extends ActionBarActivity {
 					User user=new User();
 					
 					if (!(ret.equals("Nessun risultato"))) {
-						Log.d("CONNECTION", "Response text: +"+ret+"+");
+						Log.d("CONNECTION", "Response text: "+ret);
+						Log.d("CONNECTION", "Response text is: "+is);
 						JSONObject object;
 						try {
 							object = new JSONObject(ret);
-							user.setUsername(object.getString("username"));
+							//user.setUsername(object.getString("username"));
 							user.setNome(object.getString("nome"));
 							user.setCognome(object.getString("cognome"));
 							user.setLocalita(object.getString("localita"));
@@ -214,7 +212,22 @@ public class LoginActivity extends ActionBarActivity {
 	 * @param view
 	 */
 	public void avanti(View view){
+		
+		// Chiamare una funzione che si occupa di fare i controlli sul'utente che restituisce
+		// true o false; se è true si passa alla schermata successiva
 
+		makeControls();
+
+	}
+	
+	private void goWelcome() {
+		Intent intent = new Intent(this, WelcomeActivity.class);
+		startActivity(intent);
+	}
+	
+	private void makeControls() {
+		boolean login=false;
+		
 		String inputUsername, inputPassword;
 
 		EditText editUsername = (EditText) findViewById(R.id.Login);
@@ -254,18 +267,6 @@ public class LoginActivity extends ActionBarActivity {
 
 			//showToast("...");
 		}
-
-		else {
-			// nel caso l'utente è autenticato
-			Intent intent = new Intent(this, WelcomeActivity.class);
-			startActivity(intent);
-		}
-
-	}
-	
-	private void goWelcome() {
-		Intent intent = new Intent(this, WelcomeActivity.class);
-		startActivity(intent);
 	}
 
 	private void showToast(String msg) {
