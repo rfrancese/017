@@ -8,9 +8,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -26,9 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Build;
+
 
 public class RegistrazioneActivity extends ActionBarActivity {
+	
+	private boolean login=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class RegistrazioneActivity extends ActionBarActivity {
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
+		
 
 		@Override
 		protected String doInBackground(String... urls) {
@@ -54,8 +55,8 @@ public class RegistrazioneActivity extends ActionBarActivity {
 
 			try {
 
-				String urlParameters = "nome="+urls[1]+"&cognome="+urls[2]+"&localita="+urls[3]+"username="+urls[4]+
-						"password="+urls[5];
+				String urlParameters = "nome="+urls[1]+"&cognome="+urls[2]+"&localita="+urls[3]+"&username="+urls[4]+
+						"&password="+urls[5];
 				url = new URL(urls[0]); 
 				connection = (HttpURLConnection) url.openConnection();           
 				connection.setDoOutput(true);
@@ -82,17 +83,23 @@ public class RegistrazioneActivity extends ActionBarActivity {
 				String ret=null;
 
 				ret=getStringFromInputStream(is);
+               
+				Log.d("RESPONSE QUERY", ret);
 
+				
 				// modificare
 
-				if (!(ret.equals("Nessun risultato"))) {
-					showToast("Utente registrato!");
+				if (! ret.equals("Nessun risultato")) {
+					//showToast("Utente registrato!");
+					login=true;
 					goLogin();
 				}
 
 				else {
+					//caso in cui l'utente non è inserito nel DataBase
 					Log.d("RESPONSE", "Nessun risultato response");
-					showToast("Errore: utente non registrato. Riprova!");
+					//showToast("Errore: utente non registrato. Riprova!");
+					login=false;
 				}
 
 			return ret;
@@ -111,6 +118,12 @@ public class RegistrazioneActivity extends ActionBarActivity {
 	@Override
 	protected void onPostExecute(String result) {
 		Log.d("CONNECTION", "Response text onPost: "+result);
+		
+		if (login) {
+			showToast("Utente registrato!");
+		} else {
+			showToast("Errore: utente non registrato. Riprova!");
+		}
 	}
 
 	private String getStringFromInputStream(InputStream is) {
@@ -185,7 +198,6 @@ public void salvaRegistrazione(View view) {
 }
 
 private void makeControls() {
-	boolean login=false;
 
 	String inputUsername, inputPassword, inputConfermaPassword, inputNome, inputCognome, inputLocalita;
 
@@ -222,6 +234,7 @@ private void makeControls() {
 		if (!inputPassword.equals(inputConfermaPassword)) {
 			showToast("Le password non coincidono!");
 		}
+		else {
 
 		String stringUrl = "http://mtd.altervista.org/registrazione.php";
 		ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -235,7 +248,10 @@ private void makeControls() {
 			showToast("Nessuna connesione!");
 		}
 		//showToast("ok");
+		
+		
 	}
+}
 }
 
 private void showToast(String msg) {

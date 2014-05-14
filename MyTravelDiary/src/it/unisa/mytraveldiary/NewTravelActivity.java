@@ -30,15 +30,6 @@ public class NewTravelActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		DatabaseHandlerTravel db = new DatabaseHandlerTravel(this);
-		ArrayList<Travel> allTravels;
-		try {
-			allTravels = db.getAllTravels();
-			Log.d("Reading: ", "CountTravels: "+ allTravels);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

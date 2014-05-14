@@ -51,6 +51,8 @@ public class LoginActivity extends ActionBarActivity {
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
+		
+		private boolean login=false;
 
 		@Override
 		protected String doInBackground(String... urls) {
@@ -113,12 +115,14 @@ public class LoginActivity extends ActionBarActivity {
 						Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
 						user.getLocalita());
 						
+						login=true;
 						goWelcome();
 					}
 
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
-						showToast("Username/password errati!");
+						//showToast("Username/password errati!");
+						login=false;
 					}
 					
 				}
@@ -139,6 +143,10 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("CONNECTION", "Response text onPost: "+result);
+			
+			if (!login) {
+				showToast("Username/Password errati!");
+			}
 		}
 
 		private String getStringFromInputStream(InputStream is) {
@@ -225,7 +233,6 @@ public class LoginActivity extends ActionBarActivity {
 	}
 	
 	private void makeControls() {
-		boolean login=false;
 		
 		String inputUsername, inputPassword;
 
@@ -259,7 +266,7 @@ public class LoginActivity extends ActionBarActivity {
 				new NetwokAccess().execute(stringUrl, inputUsername, inputPassword);
 			} else {
 				Log.d("CONNECTION","No network connection available.");
-				showToast("Nessuna connesione!");
+				showToast("Nessuna connessione!");
 			}
 			
 		
