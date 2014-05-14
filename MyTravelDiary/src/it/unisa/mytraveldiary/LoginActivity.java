@@ -167,7 +167,6 @@ public class LoginActivity extends ActionBarActivity {
 			}
 
 			return sb.toString();
-
 		}
 	}
 
@@ -263,9 +262,15 @@ public class LoginActivity extends ActionBarActivity {
 				showToast("Nessuna connesione!");
 			}
 			
-			
-
+		
 			//showToast("...");
+		}
+
+
+		else {
+			// nel caso l'utente è autenticato
+			Intent intent = new Intent(this, WelcomeActivity.class);
+			startActivity(intent);
 		}
 	}
 
@@ -277,6 +282,12 @@ public class LoginActivity extends ActionBarActivity {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}
+	
+	
+/**
+ * Quando l'utente deve registrarsi e clicca sul bottone Registrati
+ * @param view
+ * **/
 	
 	 public void avantiRegistrazione(View view){
 	    	Intent intent = new Intent(this, RegistrazioneActivity.class);
