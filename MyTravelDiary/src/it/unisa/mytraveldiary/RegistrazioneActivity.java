@@ -59,7 +59,8 @@ public class RegistrazioneActivity extends ActionBarActivity {
 
 			try {
 
-				String urlParameters = "username="+urls[1]+"&password="+urls[2];
+				String urlParameters = "nome="+urls[1]+"&cognome="+urls[2]+"&localita="+urls[3]+"username="+urls[4]+
+						"password="+urls[5];
 				url = new URL(urls[0]); 
 				connection = (HttpURLConnection) url.openConnection();           
 				connection.setDoOutput(true);
@@ -90,32 +91,14 @@ public class RegistrazioneActivity extends ActionBarActivity {
 					ret=getStringFromInputStream(is);
 					
 					// modificare
-					User user=new User();
 					
 					if (!(ret.equals("Nessun risultato"))) {
-						Log.d("CONNECTION", "Response text: "+ret);
-						Log.d("CONNECTION", "Response text is: "+is);
-						JSONObject object;
-						try {
-							object = new JSONObject(ret);
-							//user.setUsername(object.getString("username"));
-							user.setNome(object.getString("nome"));
-							user.setCognome(object.getString("cognome"));
-							user.setLocalita(object.getString("localita"));
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-						
-						// tutti null ???
-						Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
-						user.getLocalita());
-						
-						//goWelcome();
+						showToast("Utente registrato!");
 					}
 
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
-						showToast("Username/password errati!");
+						showToast("Errore: utente non registrato. Riprova!");
 					}
 					
 				}
@@ -206,9 +189,6 @@ public class RegistrazioneActivity extends ActionBarActivity {
 	}
 	
 	 public void salvaRegistrazione(View view) {
-	    	//Intent intent = new Intent(this, LoginActivity.class);
-	    	//startActivity(intent);
-		 
 		 makeControls();
 	 }
 
@@ -217,32 +197,28 @@ public class RegistrazioneActivity extends ActionBarActivity {
 			
 			String inputUsername, inputPassword, inputConfermaPassword, inputNome, inputCognome, inputLocalita;
 
-			EditText editUsername = (EditText) findViewById(R.id.usernameUtente);
+			EditText editUsername = (EditText) findViewById(R.id.usernameUtenteInput);
 			inputUsername = editUsername.getText().toString(); 
 
-			EditText editPassword = (EditText) findViewById(R.id.passwordUtente);
+			EditText editPassword = (EditText) findViewById(R.id.passwordUtenteInput);
 			inputPassword = editPassword.getText().toString(); 
 			
-			EditText editConfermaPassword = (EditText) findViewById(R.id.confermaPasswordUtente);
+			EditText editConfermaPassword = (EditText) findViewById(R.id.confermaPasswordUtenteInput);
 			inputConfermaPassword = editConfermaPassword.getText().toString(); 
 
-			EditText editNome = (EditText) findViewById(R.id.nomeUtente);
+			EditText editNome = (EditText) findViewById(R.id.nomeUtenteInput);
 			inputNome = editNome.getText().toString(); 
 			
-			EditText editCognome = (EditText) findViewById(R.id.cognomeUtente);
+			EditText editCognome = (EditText) findViewById(R.id.cognomeUtenteInput);
 			inputCognome = editCognome.getText().toString(); 
 
-			EditText editLocalita = (EditText) findViewById(R.id.localitaUtente);
+			EditText editLocalita = (EditText) findViewById(R.id.localitaUtenteInput);
 			inputLocalita = editLocalita.getText().toString(); 
 
 
 			//Log.d("LOGIN", "username: "+inputUsername+"; password: "+inputPassword);
-
-			if (!inputPassword.equals(inputConfermaPassword)) {
-				showToast("Le password non coincidono!");
-			}
 			
-			else if (inputUsername.equals("") || inputPassword.equals("") || inputConfermaPassword.equals("") ||
+			if (inputUsername.equals("") || inputPassword.equals("") || inputConfermaPassword.equals("") ||
 					inputNome.equals("") || inputCognome.equals("") || inputLocalita.equals("")) {
 				
 				showToast("Inserisci tutti i campi!");
@@ -250,21 +226,23 @@ public class RegistrazioneActivity extends ActionBarActivity {
 			
 			else if (!inputUsername.equals("") && !inputPassword.equals("") && !inputConfermaPassword.equals("") &&
 					!inputNome.equals("") && !inputCognome.equals("") && !inputLocalita.equals("")) {
+				
+				if (!inputPassword.equals(inputConfermaPassword)) {
+					showToast("Le password non coincidono!");
+				}
 
-				/*String stringUrl = "http://mtd.altervista.org/login.php";
+				String stringUrl = "http://mtd.altervista.org/registrazione.php";
 				ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
 				if (networkInfo != null && networkInfo.isConnected()) {
-					new NetwokAccess().execute(stringUrl, inputUsername, inputPassword);
+					new NetwokAccess().execute(stringUrl, inputNome, inputCognome, inputLocalita, inputUsername,
+							inputPassword);
 				} else {
 					Log.d("CONNECTION","No network connection available.");
 					showToast("Nessuna connesione!");
 				}
-				
-				*/
-
-				showToast("ok");
+				//showToast("ok");
 			}
 		}
 
@@ -275,6 +253,11 @@ public class RegistrazioneActivity extends ActionBarActivity {
 
 			Toast toast=Toast.makeText(context, text, duration);
 			toast.show();
+		}
+		
+		private void goLogin() {
+			Intent intent = new Intent(this, LoginActivity.class);
+	    	startActivity(intent);
 		}
 }
 
