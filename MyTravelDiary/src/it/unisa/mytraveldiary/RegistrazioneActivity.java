@@ -1,7 +1,5 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.entity.User;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,9 +8,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -42,10 +37,10 @@ public class RegistrazioneActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-	
+
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
 
 		@Override
@@ -85,180 +80,177 @@ public class RegistrazioneActivity extends ActionBarActivity {
 				Log.d("CONTENT TYPE", contentType);
 
 				String ret=null;
-				
 
-				if (contentType.equals("application/json")) {
-					ret=getStringFromInputStream(is);
-					
-					// modificare
-					
-					if (!(ret.equals("Nessun risultato"))) {
-						showToast("Utente registrato!");
-					}
+				ret=getStringFromInputStream(is);
 
-					else {
-						Log.d("RESPONSE", "Nessun risultato response");
-						showToast("Errore: utente non registrato. Riprova!");
-					}
-					
+				// modificare
+
+				if (!(ret.equals("Nessun risultato"))) {
+					showToast("Utente registrato!");
+					goLogin();
 				}
 
-				return ret;
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-				return "Error";
-			} catch (IOException e) {
-				e.printStackTrace();
-				return "Error";
-			}  finally {
-				//TODO si dovrebbe chiudere is (InputStream)
-				connection.disconnect();
-			}
-		}
-		// onPostExecute displays the results of the AsyncTask.
-		@Override
-		protected void onPostExecute(String result) {
-			Log.d("CONNECTION", "Response text onPost: "+result);
-		}
-
-		private String getStringFromInputStream(InputStream is) {
-
-			BufferedReader br = null;
-			StringBuilder sb = new StringBuilder();
-
-			String line;
-			try {
-
-				br = new BufferedReader(new InputStreamReader(is));
-				while ((line = br.readLine()) != null) {
-					sb.append(line);
+				else {
+					Log.d("RESPONSE", "Nessun risultato response");
+					showToast("Errore: utente non registrato. Riprova!");
 				}
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				if (br != null) {
-					try {
-						br.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			return sb.toString();
-
+			return ret;
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return "Error";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Error";
+		}  finally {
+			//TODO si dovrebbe chiudere is (InputStream)
+			connection.disconnect();
 		}
 	}
-
+	// onPostExecute displays the results of the AsyncTask.
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	protected void onPostExecute(String result) {
+		Log.d("CONNECTION", "Response text onPost: "+result);
+	}
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.registrazione, menu);
+	private String getStringFromInputStream(InputStream is) {
+
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+
+		String line;
+		try {
+
+			br = new BufferedReader(new InputStreamReader(is));
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return sb.toString();
+
+	}
+}
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+
+	// Inflate the menu; this adds items to the action bar if it is present.
+	getMenuInflater().inflate(R.menu.registrazione, menu);
+	return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+	// Handle action bar item clicks here. The action bar will
+	// automatically handle clicks on the Home/Up button, so long
+	// as you specify a parent activity in AndroidManifest.xml.
+	int id = item.getItemId();
+	if (id == R.id.action_settings) {
 		return true;
 	}
+	return super.onOptionsItemSelected(item);
+}
+
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public static class PlaceholderFragment extends Fragment {
+
+	public PlaceholderFragment() {
+	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_registrazione,
+				container, false);
+		return rootView;
+	}
+}
+
+public void salvaRegistrazione(View view) {
+	makeControls();
+}
+
+private void makeControls() {
+	boolean login=false;
+
+	String inputUsername, inputPassword, inputConfermaPassword, inputNome, inputCognome, inputLocalita;
+
+	EditText editUsername = (EditText) findViewById(R.id.usernameUtenteInput);
+	inputUsername = editUsername.getText().toString(); 
+
+	EditText editPassword = (EditText) findViewById(R.id.passwordUtenteInput);
+	inputPassword = editPassword.getText().toString(); 
+
+	EditText editConfermaPassword = (EditText) findViewById(R.id.confermaPasswordUtenteInput);
+	inputConfermaPassword = editConfermaPassword.getText().toString(); 
+
+	EditText editNome = (EditText) findViewById(R.id.nomeUtenteInput);
+	inputNome = editNome.getText().toString(); 
+
+	EditText editCognome = (EditText) findViewById(R.id.cognomeUtenteInput);
+	inputCognome = editCognome.getText().toString(); 
+
+	EditText editLocalita = (EditText) findViewById(R.id.localitaUtenteInput);
+	inputLocalita = editLocalita.getText().toString(); 
+
+
+	//Log.d("LOGIN", "username: "+inputUsername+"; password: "+inputPassword);
+
+	if (inputUsername.equals("") || inputPassword.equals("") || inputConfermaPassword.equals("") ||
+			inputNome.equals("") || inputCognome.equals("") || inputLocalita.equals("")) {
+
+		showToast("Inserisci tutti i campi!");
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
+	else if (!inputUsername.equals("") && !inputPassword.equals("") && !inputConfermaPassword.equals("") &&
+			!inputNome.equals("") && !inputCognome.equals("") && !inputLocalita.equals("")) {
 
-		public PlaceholderFragment() {
+		if (!inputPassword.equals(inputConfermaPassword)) {
+			showToast("Le password non coincidono!");
 		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_registrazione,
-					container, false);
-			return rootView;
+		String stringUrl = "http://mtd.altervista.org/registrazione.php";
+		ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+		if (networkInfo != null && networkInfo.isConnected()) {
+			new NetwokAccess().execute(stringUrl, inputNome, inputCognome, inputLocalita, inputUsername,
+					inputPassword);
+		} else {
+			Log.d("CONNECTION","No network connection available.");
+			showToast("Nessuna connesione!");
 		}
+		//showToast("ok");
 	}
-	
-	 public void salvaRegistrazione(View view) {
-		 makeControls();
-	 }
+}
 
-	 private void makeControls() {
-			boolean login=false;
-			
-			String inputUsername, inputPassword, inputConfermaPassword, inputNome, inputCognome, inputLocalita;
+private void showToast(String msg) {
+	Context context=getApplicationContext();
+	CharSequence text=msg;
+	int duration=Toast.LENGTH_SHORT;
 
-			EditText editUsername = (EditText) findViewById(R.id.usernameUtenteInput);
-			inputUsername = editUsername.getText().toString(); 
+	Toast toast=Toast.makeText(context, text, duration);
+	toast.show();
+}
 
-			EditText editPassword = (EditText) findViewById(R.id.passwordUtenteInput);
-			inputPassword = editPassword.getText().toString(); 
-			
-			EditText editConfermaPassword = (EditText) findViewById(R.id.confermaPasswordUtenteInput);
-			inputConfermaPassword = editConfermaPassword.getText().toString(); 
-
-			EditText editNome = (EditText) findViewById(R.id.nomeUtenteInput);
-			inputNome = editNome.getText().toString(); 
-			
-			EditText editCognome = (EditText) findViewById(R.id.cognomeUtenteInput);
-			inputCognome = editCognome.getText().toString(); 
-
-			EditText editLocalita = (EditText) findViewById(R.id.localitaUtenteInput);
-			inputLocalita = editLocalita.getText().toString(); 
-
-
-			//Log.d("LOGIN", "username: "+inputUsername+"; password: "+inputPassword);
-			
-			if (inputUsername.equals("") || inputPassword.equals("") || inputConfermaPassword.equals("") ||
-					inputNome.equals("") || inputCognome.equals("") || inputLocalita.equals("")) {
-				
-				showToast("Inserisci tutti i campi!");
-			}
-			
-			else if (!inputUsername.equals("") && !inputPassword.equals("") && !inputConfermaPassword.equals("") &&
-					!inputNome.equals("") && !inputCognome.equals("") && !inputLocalita.equals("")) {
-				
-				if (!inputPassword.equals(inputConfermaPassword)) {
-					showToast("Le password non coincidono!");
-				}
-
-				String stringUrl = "http://mtd.altervista.org/registrazione.php";
-				ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
-				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-				if (networkInfo != null && networkInfo.isConnected()) {
-					new NetwokAccess().execute(stringUrl, inputNome, inputCognome, inputLocalita, inputUsername,
-							inputPassword);
-				} else {
-					Log.d("CONNECTION","No network connection available.");
-					showToast("Nessuna connesione!");
-				}
-				//showToast("ok");
-			}
-		}
-
-		private void showToast(String msg) {
-			Context context=getApplicationContext();
-			CharSequence text=msg;
-			int duration=Toast.LENGTH_SHORT;
-
-			Toast toast=Toast.makeText(context, text, duration);
-			toast.show();
-		}
-		
-		private void goLogin() {
-			Intent intent = new Intent(this, LoginActivity.class);
-	    	startActivity(intent);
-		}
+private void goLogin() {
+	Intent intent = new Intent(this, LoginActivity.class);
+	startActivity(intent);
+}
 }
 
 
