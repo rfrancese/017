@@ -61,14 +61,65 @@
             android:layout_below="@id/localitaUtente"
             android:layout_marginBottom="20dp"
             android:hint="@string/localitaUtenteSugg" />
+        
+        <TextView
+            android:id="@+id/usernameUtente"
+            style="@style/CodeFont"
+            android:layout_below="@id/localitaUtenteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usernameUtente" />
 
+        <EditText
+            android:id="@+id/usernameUtenteInput"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameUtente"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/usernameUtenteSugg" />
+        
+        <TextView
+            android:id="@+id/passwordUtente"
+            style="@style/CodeFont"
+            android:layout_below="@id/usernameUtenteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passwordUtente" />
+
+        <EditText
+            android:id="@+id/passwordUtenteInput"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordUtente"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/passwordUtenteSugg" />
+
+        <TextView
+            android:id="@+id/confermaPasswordUtente"
+            style="@style/CodeFont"
+            android:layout_below="@id/passwordUtenteInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confermaPasswordUtente" />
+
+        <EditText
+            android:id="@+id/confermaPasswordUtenteInput"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confermaPasswordUtente"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/confermaPasswordUtenteSugg" />
+        
                 <Button
                     android:id="@+id/SalvaRegistrazioneButton"
                     style="@style/CodeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 
                     android:layout_alignParentRight="true"
-                    android:layout_below="@id/localitaUtenteInput"
+                    android:layout_below="@id/confermaPasswordUtenteInput"
                     android:onClick="salvaRegistrazione"
                     android:text="@string/SalvaRegistrazioneButton" />
 </RelativeLayout>  

@@ -13,7 +13,15 @@
     <string name="cognomeUtenteSugg">Inserisci il tuo cognome</string>
     <string name="localitaUtente">Localita</string>
     <string name="localitaUtenteSugg">Inserisci la localita</string>
-     <string name="SalvaRegistrazioneButton">Salva</string>
+     
+    <string name="usernameUtente">Username</string>
+    <string name="usernameUtenteSugg">Inserisci l username</string>
+    <string name="passwordUtente">Password</string>
+    <string name="passwordUtenteSugg">Inserisci la password</string>
+    <string name="confermaPasswordUtente">Conferma password</string>
+    <string name="confermaPasswordUtenteSugg">Re-inserisci la password</string>
+    
+     <string name="SalvaRegistrazioneButton">Registrati</string>
     <string name="Welcome">Benvenuto in</string>
     <string name="AvantiButton">Avanti</string>
     <string name="NuovoViaggioButton">Nuovo Viaggio</string>
