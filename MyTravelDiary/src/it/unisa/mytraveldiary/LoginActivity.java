@@ -3,13 +3,11 @@ package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.entity.User;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +29,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -96,6 +93,34 @@ public class LoginActivity extends ActionBarActivity {
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
 					
+					User user=new User();
+					
+					if (!(ret.equals("Nessun risultato"))) {
+						Log.d("CONNECTION", "Response text: "+ret);
+						Log.d("CONNECTION", "Response text is: "+is);
+						JSONObject object;
+						try {
+							object = new JSONObject(ret);
+							//user.setUsername(object.getString("username"));
+							user.setNome(object.getString("nome"));
+							user.setCognome(object.getString("cognome"));
+							user.setLocalita(object.getString("localita"));
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						
+						// tutti null ???
+						Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
+						user.getLocalita());
+						
+						goWelcome();
+					}
+
+					else {
+						Log.d("RESPONSE", "Nessun risultato response");
+						showToast("Username/password errati!");
+					}
+					
 				}
 
 				return ret;
@@ -114,31 +139,6 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("CONNECTION", "Response text onPost: "+result);
-			
-			User user=new User();
-			
-			if (!(result.equals("Nessun risultato"))) {
-				Log.d("CONNECTION", "Response text: +"+result+"+");
-				JSONObject object;
-				try {
-					object = new JSONObject(result);
-					user.setUsername(object.getString("username"));
-					user.setNome(object.getString("nome"));
-					user.setCognome(object.getString("cognome"));
-					user.setLocalita(object.getString("localita"));
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-
-				Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
-				user.getLocalita());
-			}
-
-			else {
-				Log.d("RESPONSE", "Nessun risultato response");
-				showToast("Username/password errati!");
-			}
 		}
 
 		private String getStringFromInputStream(InputStream is) {
@@ -211,7 +211,22 @@ public class LoginActivity extends ActionBarActivity {
 	 * @param view
 	 */
 	public void avanti(View view){
+		
+		// Chiamare una funzione che si occupa di fare i controlli sul'utente che restituisce
+		// true o false; se è true si passa alla schermata successiva
 
+		makeControls();
+
+	}
+	
+	private void goWelcome() {
+		Intent intent = new Intent(this, WelcomeActivity.class);
+		startActivity(intent);
+	}
+	
+	private void makeControls() {
+		boolean login=false;
+		
 		String inputUsername, inputPassword;
 
 		EditText editUsername = (EditText) findViewById(R.id.Login);
@@ -250,6 +265,7 @@ public class LoginActivity extends ActionBarActivity {
 		
 			//showToast("...");
 		}
+
 
 		else {
 			// nel caso l'utente è autenticato
