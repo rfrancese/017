@@ -156,7 +156,7 @@
             android:parentActivityName="it.unisa.mytraveldiary" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unisa.mytraveldiary" />
+                 android:value="it.unisa.mytraveldiary.NewTravelActivity" />
         </activity>
     </application>
 
