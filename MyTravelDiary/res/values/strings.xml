@@ -76,7 +76,7 @@
     <string name="dataAndataEsempio">Dal: 12/06/2013</string>
     <string name="dataRitornoEsempio">Al: 24/06/2013</string>
     <string name="compagniViaggioEsempio">Clarissa, Maria, Sarah</string>
-    
+    <string name="mappa">Mappa</string>
     
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -110,17 +110,6 @@
         <item>Scientifico</item>
         <item>Marittimo o oceanografico</item>
         <item>Militari o di guerra</item>
-    </string-array>
-
-    <string-array name="localita">
-        <item>Afghanistan</item>
-        <item>Albania</item>
-        <item>Algeria</item>
-        <item>American Samoa</item>
-        <item>Andorra</item>
-        <item>Angola</item>
-        <item>Anguilla</item>
-        <item>Antarctica</item>
     </string-array>
     
     <string name="title_activity_inserisci_dettagli">Inserisci Dettagli</string>

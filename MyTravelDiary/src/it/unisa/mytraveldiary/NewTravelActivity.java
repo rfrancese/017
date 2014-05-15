@@ -10,9 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ScrollView;
 
 
 public class NewTravelActivity extends ActionBarActivity {
@@ -63,11 +61,8 @@ public class NewTravelActivity extends ActionBarActivity {
 			
 			// Get a reference to the AutoCompleteTextView in the layout
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
-			// Get the string array
-			String[] countries = getResources().getStringArray(R.array.localita);
 			// Create the adapter and set it to the AutoCompleteTextView 
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, countries);
-			textView.setAdapter(adapter);
+			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
 
 			return rootView;
 		}
