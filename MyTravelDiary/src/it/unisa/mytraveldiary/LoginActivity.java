@@ -46,7 +46,6 @@ public class LoginActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment())
 			.commit();
 		}
-
 		Log.d("ACTIVITY", "LoginActivity");
 	}
 
@@ -62,9 +61,7 @@ public class LoginActivity extends ActionBarActivity {
 			URL url;
 			HttpURLConnection connection = null;
 
-
 			try {
-
 				String urlParameters = "username="+urls[1]+"&password="+urls[2];
 				url = new URL(urls[0]); 
 				connection = (HttpURLConnection) url.openConnection();           
@@ -91,7 +88,6 @@ public class LoginActivity extends ActionBarActivity {
 
 				String ret=null;
 				
-
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
 					
@@ -118,15 +114,12 @@ public class LoginActivity extends ActionBarActivity {
 						login=true;
 						goWelcome();
 					}
-
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
 						//showToast("Username/password errati!");
 						login=false;
-					}
-					
+					}	
 				}
-
 				return ret;
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -153,7 +146,6 @@ public class LoginActivity extends ActionBarActivity {
 
 			BufferedReader br = null;
 			StringBuilder sb = new StringBuilder();
-
 			String line;
 			try {
 
@@ -161,7 +153,6 @@ public class LoginActivity extends ActionBarActivity {
 				while ((line = br.readLine()) != null) {
 					sb.append(line);
 				}
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -173,7 +164,6 @@ public class LoginActivity extends ActionBarActivity {
 					}
 				}
 			}
-
 			return sb.toString();
 		}
 	}
@@ -207,8 +197,7 @@ public class LoginActivity extends ActionBarActivity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 			return rootView;
 		}
@@ -222,9 +211,7 @@ public class LoginActivity extends ActionBarActivity {
 		
 		// Chiamare una funzione che si occupa di fare i controlli sul'utente che restituisce
 		// true o false; se è true si passa alla schermata successiva
-
 		makeControls();
-
 	}
 	
 	private void goWelcome() {
@@ -268,12 +255,8 @@ public class LoginActivity extends ActionBarActivity {
 				Log.d("CONNECTION","No network connection available.");
 				showToast("Nessuna connessione!");
 			}
-			
-		
 			//showToast("...");
 		}
-
-
 		else {
 			// nel caso l'utente è autenticato
 			Intent intent = new Intent(this, WelcomeActivity.class);
@@ -288,8 +271,7 @@ public class LoginActivity extends ActionBarActivity {
 
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
-	}
-	
+	}	
 	
 /**
  * Quando l'utente deve registrarsi e clicca sul bottone Registrati

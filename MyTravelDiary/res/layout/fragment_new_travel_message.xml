@@ -54,7 +54,8 @@
                     android:layout_column="1"
                     android:text="@string/localita" />
 
-                <EditText
+                <AutoCompleteTextView
+                    android:id="@+id/localitaAutoComplete"
                     style="@style/CodeFont"
                     android:layout_column="2"
                     android:hint="@string/localitaSugg" />
