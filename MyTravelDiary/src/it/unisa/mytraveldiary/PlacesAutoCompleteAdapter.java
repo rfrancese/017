@@ -78,7 +78,8 @@ class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements Filterab
         try {
             StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
             sb.append("?sensor=true&key=" + API_KEY);
-            sb.append("&components=country:it");
+            sb.append("&language=it");
+            sb.append("&types=(cities)");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
             URL url = new URL(sb.toString());
