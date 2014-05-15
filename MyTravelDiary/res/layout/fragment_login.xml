@@ -52,7 +52,7 @@
             android:text="@string/LoginButton"
             style="@style/CodeFont" />
         
-        <Button
+         <Button
             android:id="@+id/RegistratiButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,6 +61,7 @@
             android:text="@string/RegistratiButton"
             android:onClick="avantiRegistrazione"
             style="@style/CodeFont" />
+       
     </RelativeLayout>
 
 </ScrollView>

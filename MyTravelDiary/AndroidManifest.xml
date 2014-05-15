@@ -27,7 +27,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -156,7 +156,7 @@
             android:parentActivityName="it.unisa.mytraveldiary" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unisa.mytraveldiary" />
+                 android:value="it.unisa.mytraveldiary.NewTravelActivity" />
         </activity>
     </application>
 

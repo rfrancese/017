@@ -36,36 +36,43 @@
                 android:text="@string/Lavoro" />
         </RadioGroup>
 
+        <TextView
+            android:id="@+id/localitaTextView"
+            style="@style/CodeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tipologiaViaggio"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/localita" />
+
+        <AutoCompleteTextView
+            android:id="@+id/localitaAutoComplete"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localitaTextView"
+            android:layout_marginBottom="15dp"
+            android:hint="@string/localitaSugg" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tipologiaViaggio"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@id/localitaTextView"
+            android:background="@null"
+            android:contentDescription="@string/mappa"
+            android:onClick="openMaps"
+            android:src="@drawable/ic_action_map" />
+
         <TableLayout
             android:id="@+id/tabella1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tipologiaViaggio"
+            android:layout_below="@id/localitaAutoComplete"
             android:orientation="vertical"
             android:stretchColumns="1" >
-
-            <TableRow
-                android:id="@+id/localita"
-                android:layout_marginBottom="20dp" >
-
-                <TextView
-                    android:id="@+id/localitaTextView"
-                    style="@style/CodeFont"
-                    android:layout_column="1"
-                    android:text="@string/localita" />
-
-                <EditText
-                    style="@style/CodeFont"
-                    android:layout_column="2"
-                    android:hint="@string/localitaSugg" />
-
-                <ImageButton
-                    android:background="@null"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_map"
-                    android:onClick="openMaps" />
-            </TableRow>
 
             <TableRow
                 android:id="@+id/andata"
@@ -104,6 +111,7 @@
                     android:onClick="showDatePickerDialog"
                     android:text="@string/inserisciData" />
             </TableRow>
+
         </TableLayout>
 
         <TableLayout

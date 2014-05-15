@@ -1,23 +1,17 @@
 package it.unisa.mytraveldiary;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
-import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.AutoCompleteTextView;
+
 
 public class NewTravelActivity extends ActionBarActivity {
 
@@ -31,7 +25,7 @@ public class NewTravelActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -59,12 +53,17 @@ public class NewTravelActivity extends ActionBarActivity {
 
 		public PlaceholderFragment() {
 		}
-
+	
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_new_travel_message, container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+					
+			View rootView = inflater.inflate(R.layout.fragment_new_travel_message, container, false);
+			
+			// Get a reference to the AutoCompleteTextView in the layout
+			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
+			// Create the adapter and set it to the AutoCompleteTextView 
+			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+
 			return rootView;
 		}
 	}
