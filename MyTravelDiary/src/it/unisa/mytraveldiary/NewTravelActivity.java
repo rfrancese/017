@@ -80,6 +80,7 @@ public class NewTravelActivity extends ActionBarActivity {
 	
 	public void openMaps(View view){
     	Intent intent = new Intent(this, MapsActivity.class);
+    	//intent.putExtra("Citta", value)
     	startActivity(intent);
     }
 }
