@@ -18,36 +18,38 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-public class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements Filterable {
-    private ArrayList<String> resultList;
+public class CityAdapter extends ArrayAdapter<String> implements Filterable {
+	
+	private ArrayList<String> resultCityList;
 
-    public PlacesAutoCompleteAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
-    }
+	public CityAdapter(Context context, int resource) {
+		super(context, resource);
+	}
+	
+	 @Override
+	    public int getCount() {
+	        return resultCityList.size();
+	    }
 
-    @Override
-    public int getCount() {
-        return resultList.size();
-    }
+	    @Override
+	    public String getItem(int index) {
+	        return resultCityList.get(index);
+	    }
 
-    @Override
-    public String getItem(int index) {
-        return resultList.get(index);
-    }
 
-    @Override
-    public Filter getFilter() {
-        Filter filter = new Filter() {
+	@Override
+	public Filter getFilter() {
+		Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
                     // Retrieve the autocomplete results.
-                    resultList = autocomplete(constraint.toString());
+                    resultCityList = getNearbyCities(constraint.toString());
 
                     // Assign the data to the FilterResults
-                    filterResults.values = resultList;
-                    filterResults.count = resultList.size();
+                    filterResults.values = resultCityList;
+                    filterResults.count = resultCityList.size();
                 }
                 return filterResults;
             }
@@ -62,23 +64,23 @@ public class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements F
                 }
             }};
         return filter;
-    }
-    
-    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
-    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+	}
+
+	private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+    private static final String TYPE_SEARCH = "/nearbysearch";
     private static final String OUT_JSON = "/json";
 
     private static final String API_KEY = "AIzaSyBLZvrCDM4sxIvdlBNwW0uwSf_ZQUmwvWQ";
 
-    private ArrayList<String> autocomplete(String input) {
+    private ArrayList<String> getNearbyCities(String input) {
         ArrayList<String> resultList = null;
 
         HttpURLConnection conn = null;
         StringBuilder jsonResults = new StringBuilder();
         try {
-            StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
+            StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_SEARCH + OUT_JSON);
             sb.append("?sensor=true&key=" + API_KEY);
-            sb.append("&language=it");
+            sb.append("&location=");
             sb.append("&types=(cities)");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 

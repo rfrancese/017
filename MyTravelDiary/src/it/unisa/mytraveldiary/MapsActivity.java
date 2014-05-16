@@ -1,6 +1,5 @@
 package it.unisa.mytraveldiary;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -16,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MapsActivity extends ActionBarActivity  implements OnMapClickListener{
+public class MapsActivity extends ActionBarActivity  implements OnMapClickListener {
 
 	private GoogleMap mMap;
 	private Marker marker=null;
@@ -73,12 +72,13 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		
 		if (marker==null) {
 			setMarker(point);
+			new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
 		}
 		
 		else {
 			marker.remove();
 			setMarker(point);
-		
+			new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
 		}
 	}
 	
@@ -88,10 +88,9 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		.title("Hello world")
 		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 		
-		// Move the camera instantly with a zoom of 15.
+		// Move the camera instantly with a zoom of 10.
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
 		
-		mMap.animateCamera(CameraUpdateFactory.scrollBy(xPixel, yPixel));
 		// Zoom in, animating the camera.
 		//mMap.animateCamera(CameraUpdateFactory.zoomIn());
 	}
