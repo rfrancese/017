@@ -1,5 +1,7 @@
 package it.unisa.mytraveldiary;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -17,7 +19,7 @@ import android.view.MenuItem;
 public class MapsActivity extends ActionBarActivity  implements OnMapClickListener{
 
 	private GoogleMap mMap;
-	private Marker marker;
+	private Marker marker=null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +70,30 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 
 	@Override
 	public void onMapClick(LatLng point) {
+		
+		if (marker==null) {
+			setMarker(point);
+		}
+		
+		else {
+			marker.remove();
+			setMarker(point);
+		
+		}
+	}
+	
+	private void setMarker(LatLng point) {
 		marker=mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(point.latitude, point.longitude))
 		.title("Hello world")
 		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+		
+		// Move the camera instantly with a zoom of 15.
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
+		
+		mMap.animateCamera(CameraUpdateFactory.scrollBy(xPixel, yPixel));
+		// Zoom in, animating the camera.
+		//mMap.animateCamera(CameraUpdateFactory.zoomIn());
 	}
 
 }
