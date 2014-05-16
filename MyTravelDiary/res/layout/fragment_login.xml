@@ -50,8 +50,7 @@
             android:layout_below="@id/Password"
             android:onClick="avanti"
             android:text="@string/LoginButton"
-            style="@style/CodeFont"
-            android:color="@color/common_signin_btn_text_dark" />
+            style="@style/CodeFont"/>
         
          <Button
             android:id="@+id/RegistratiButton"
