@@ -48,7 +48,9 @@
         android:layout_centerHorizontal="true"
         android:text="@string/InserisciButton"
         android:onClick="upload"
-        style="@style/CodeFont" />
+        android:padding="4dip"
+        android:background="@drawable/background_normal" 
+        style="@style/CodeFont"/>
     
     <ImageView
         android:id="@+id/imgView"
@@ -65,6 +67,8 @@
         android:layout_below="@id/imgView"
         android:layout_centerHorizontal="true"
         android:text="@string/SalvaFotoVideoButton"
+        android:padding="4dip"
+        android:background="@drawable/background_normal" 
         android:onClick=""
         style="@style/CodeFont" />
 

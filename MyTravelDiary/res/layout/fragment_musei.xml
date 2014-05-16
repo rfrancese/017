@@ -52,7 +52,8 @@
             android:layout_below="@+id/cittaMuseo"
             android:layout_marginBottom="20dp"
             android:hint="@string/cittaMuseoSugg" />
-<TextView
+
+        <TextView
             android:id="@+id/valutazione"
             style="@style/CodeFont"
             android:layout_width="fill_parent"
@@ -78,9 +79,10 @@
            android:gravity="center"
            android:layout_marginTop="30dp"
            android:layout_below="@+id/ratingBar"
+           android:padding="4dip"
+           android:background="@drawable/background_normal" 
            android:onClick=""
            style="@style/CodeFont" />
   
     </RelativeLayout>
-
 </ScrollView>

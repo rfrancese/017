@@ -22,6 +22,8 @@
             android:layout_marginTop="100dp"
             android:onClick="avantiFotoVideo"
             android:text="@string/FotoVideoButton"
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
             style="@style/CodeFont" />
 
         <Button
@@ -33,6 +35,8 @@
             android:layout_below="@id/FotoVideoButton"
             android:onClick="avantiTrasporti"
             android:text="@string/TrasportiButton"
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
             style="@style/CodeFont"/>
         
         <Button
@@ -44,6 +48,8 @@
             android:layout_below="@id/TrasportiButton"
             android:onClick="avantiMusei"
             android:text="@string/MuseiButton"
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
             style="@style/CodeFont"/>
         
         <Button
@@ -55,7 +61,10 @@
             android:layout_below="@id/MuseiButton"
             android:onClick="avantiHotelRistoranti"
             android:text="@string/HotelRistorantiButton"
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
             style="@style/CodeFont"/>
+        
     </RelativeLayout>
 
 </ScrollView>

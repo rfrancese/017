@@ -103,7 +103,7 @@
             android:layout_below="@id/passwordUtenteInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/confermaPasswordUtente" />
+            android:text="@string/confermaPasswordUtente"/>
 
         <EditText
             android:id="@+id/confermaPasswordUtenteInput"
@@ -113,7 +113,7 @@
             android:layout_below="@id/confermaPasswordUtente"
             android:layout_marginBottom="20dp"
             android:hint="@string/confermaPasswordUtenteSugg"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"/>
         
                 <Button
                     android:id="@+id/SalvaRegistrazioneButton"
@@ -123,6 +123,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/confermaPasswordUtenteInput"
                     android:onClick="salvaRegistrazione"
-                    android:text="@string/SalvaRegistrazioneButton" />
+                    android:text="@string/SalvaRegistrazioneButton"
+                    android:padding="4dip"
+                    android:background="@drawable/background_normal"/>
 </RelativeLayout>  
 </ScrollView>
