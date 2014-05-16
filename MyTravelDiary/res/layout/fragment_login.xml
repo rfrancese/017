@@ -48,8 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/Password"
+            android:layout_marginBottom="20dp"
             android:onClick="avanti"
             android:text="@string/LoginButton"
+            android:padding="10dip"
+            android:background="@drawable/background_normal"
             style="@style/CodeFont"/>
         
          <Button
@@ -60,6 +63,8 @@
             android:layout_below="@id/LoginButton"
             android:text="@string/RegistratiButton"
             android:onClick="avantiRegistrazione"
+            android:padding="10dip"
+            android:background="@drawable/background_normal"
             style="@style/CodeFont" />
        
     </RelativeLayout>
