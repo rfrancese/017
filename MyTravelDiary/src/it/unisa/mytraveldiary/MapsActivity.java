@@ -8,7 +8,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -90,7 +89,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		
 		// Move the camera instantly with a zoom of 10.
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
-		
+	
 		// Zoom in, animating the camera.
 		//mMap.animateCamera(CameraUpdateFactory.zoomIn());
 	}
