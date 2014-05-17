@@ -96,6 +96,8 @@
             android:layout_below="@+id/ratingBar"
             android:layout_marginTop="30dp"
             android:gravity="center"
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
             android:onClick=""
             android:text="@string/salvaMuseiButton" />
     </RelativeLayout>

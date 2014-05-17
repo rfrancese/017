@@ -51,7 +51,9 @@
             android:layout_below="@id/imageBenvenuto"
             android:onClick="avanti"
             android:text="@string/AvantiButton"
-            style="@style/CodeFont" />
+            android:padding="4dip"
+            android:background="@drawable/background_normal" 
+            style="@style/CodeFont"/>
     </RelativeLayout>
 
 </ScrollView>

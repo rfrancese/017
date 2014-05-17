@@ -17,7 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginTop="30dp"
             android:text="@string/Logo"
             android:textSize="20pt"
@@ -48,8 +48,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/Password"
+            android:layout_marginBottom="15dp"
             android:onClick="avanti"
             android:text="@string/LoginButton"
+            android:padding="4dip"
+            android:background="@drawable/background_normal"
             style="@style/CodeFont"/>
         
          <Button
@@ -60,6 +63,8 @@
             android:layout_below="@id/LoginButton"
             android:text="@string/RegistratiButton"
             android:onClick="avantiRegistrazione"
+            android:padding="4dip"
+            android:background="@drawable/background_normal"
             style="@style/CodeFont" />
        
     </RelativeLayout>
