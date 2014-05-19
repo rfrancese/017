@@ -1279,7 +1279,7 @@ containing a value of this type.
         public static final int ic_action_event=0x7f020072;
         public static final int ic_action_map=0x7f020073;
         public static final int ic_action_search=0x7f020074;
-        public static final int ic_iconaapp=0x7f020075;
+        public static final int ic_icona=0x7f020075;
         public static final int ic_launcher=0x7f020076;
         public static final int ic_plusone_medium_off_client=0x7f020077;
         public static final int ic_plusone_small_off_client=0x7f020078;

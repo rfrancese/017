@@ -50,7 +50,7 @@ public class LoginActivity extends ActionBarActivity {
 		SharedPreferences settings = getSharedPreferences("login", 0);
 		//SharedPreferences.Editor editor = settings.edit();
 		
-		if (settings!=null) {
+		if ((settings.getString("username", null))!=null) {
 			goWelcome();
 			super.onStop();
 		}
@@ -152,7 +152,7 @@ public class LoginActivity extends ActionBarActivity {
 				SharedPreferences settings = getSharedPreferences("login", 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString("username", user.getUsername());
-
+				
 				// Commit the edits!
 				editor.commit();
 			}
