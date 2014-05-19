@@ -87,11 +87,7 @@ public class NewTravelActivity extends ActionBarActivity {
     }
 	
 	public void salvaViaggio(View view) {
-		Button inserisci= (Button) findViewById(R.id.InserisciDettagliButton);
-		inserisci.setEnabled(true);
-		
 		viaggioSalvato=true;
-		
 		showToast("Viaggio salvato correttamente!");
 	}
 	
