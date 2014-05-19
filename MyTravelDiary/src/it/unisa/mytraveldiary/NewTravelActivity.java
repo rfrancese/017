@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -70,7 +71,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 			View rootView = inflater.inflate(R.layout.fragment_new_travel_message, container, false);
-
+			
 			// Get a reference to the AutoCompleteTextView in the layout
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
@@ -153,6 +154,11 @@ public class NewTravelActivity extends ActionBarActivity {
 		viaggio.setDescrizione(descrizione.getText().toString());
 
 		Log.d("New travel", viaggio.toString());
+		
+		viaggio.setId(2);
+		
+		DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+		dbHandler.addTravel(viaggio);
 		
 		showToast("Viaggio salvato correttamente!");
 	}
