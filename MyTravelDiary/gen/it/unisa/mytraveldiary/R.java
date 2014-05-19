@@ -1180,14 +1180,15 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02006f;
         public static final int common_signin_btn_text_pressed_dark=0x7f020070;
         public static final int common_signin_btn_text_pressed_light=0x7f020071;
-        public static final int ic_action_map=0x7f020072;
-        public static final int ic_action_search=0x7f020073;
-        public static final int ic_launcher=0x7f020074;
-        public static final int ic_plusone_medium_off_client=0x7f020075;
-        public static final int ic_plusone_small_off_client=0x7f020076;
-        public static final int ic_plusone_standard_off_client=0x7f020077;
-        public static final int ic_plusone_tall_off_client=0x7f020078;
-        public static final int images=0x7f020079;
+        public static final int ic_action_event=0x7f020072;
+        public static final int ic_action_map=0x7f020073;
+        public static final int ic_action_search=0x7f020074;
+        public static final int ic_launcher=0x7f020075;
+        public static final int ic_plusone_medium_off_client=0x7f020076;
+        public static final int ic_plusone_small_off_client=0x7f020077;
+        public static final int ic_plusone_standard_off_client=0x7f020078;
+        public static final int ic_plusone_tall_off_client=0x7f020079;
+        public static final int images=0x7f02007a;
     }
     public static final class id {
         public static final int AvantiButton=0x7f060094;
@@ -1503,7 +1504,7 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f070026;
-        public static final int action_settings=0x7f070073;
+        public static final int action_settings=0x7f070074;
         public static final int app_name=0x7f070028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1624,10 +1625,11 @@ containing a value of this type.
         public static final int dataRitornoEsempio=0x7f07006f;
         public static final int descrizioneViaggio=0x7f07004a;
         public static final int descrizioneViaggioSugg=0x7f07004b;
-        public static final int hello_world=0x7f070072;
+        public static final int hello_world=0x7f070073;
         public static final int hotel=0x7f070066;
         public static final int infoApp=0x7f070050;
         public static final int inserisciData=0x7f07004c;
+        public static final int listCittaMappa=0x7f070072;
         public static final int localita=0x7f070044;
         public static final int localitaEsempio=0x7f07006d;
         public static final int localitaSugg=0x7f070045;
@@ -1650,21 +1652,21 @@ containing a value of this type.
         public static final int risultatoRicerca=0x7f07006c;
         public static final int salvaMuseiButton=0x7f070065;
         public static final int salvaTrasportiButton=0x7f070060;
-        public static final int title_activity_foto_video=0x7f07007a;
-        public static final int title_activity_hotel_ristoranti=0x7f07007d;
-        public static final int title_activity_info_message=0x7f070078;
-        public static final int title_activity_inserisci_dettagli=0x7f070079;
-        public static final int title_activity_inserisci_hotel_ristoranti=0x7f07007e;
-        public static final int title_activity_login=0x7f070081;
-        public static final int title_activity_maps=0x7f070080;
-        public static final int title_activity_master_travel_message=0x7f070075;
-        public static final int title_activity_musei=0x7f07007c;
-        public static final int title_activity_new_travel_message=0x7f070076;
-        public static final int title_activity_registrazione=0x7f070082;
-        public static final int title_activity_search_travel_message=0x7f070077;
-        public static final int title_activity_trasporti=0x7f07007b;
-        public static final int title_activity_visualizza_viaggio=0x7f07007f;
-        public static final int title_activity_welcome_message=0x7f070074;
+        public static final int title_activity_foto_video=0x7f07007b;
+        public static final int title_activity_hotel_ristoranti=0x7f07007e;
+        public static final int title_activity_info_message=0x7f070079;
+        public static final int title_activity_inserisci_dettagli=0x7f07007a;
+        public static final int title_activity_inserisci_hotel_ristoranti=0x7f07007f;
+        public static final int title_activity_login=0x7f070082;
+        public static final int title_activity_maps=0x7f070081;
+        public static final int title_activity_master_travel_message=0x7f070076;
+        public static final int title_activity_musei=0x7f07007d;
+        public static final int title_activity_new_travel_message=0x7f070077;
+        public static final int title_activity_registrazione=0x7f070083;
+        public static final int title_activity_search_travel_message=0x7f070078;
+        public static final int title_activity_trasporti=0x7f07007c;
+        public static final int title_activity_visualizza_viaggio=0x7f070080;
+        public static final int title_activity_welcome_message=0x7f070075;
         public static final int usernameUtente=0x7f070034;
         public static final int usernameUtenteSugg=0x7f070035;
         public static final int valutazione=0x7f07005f;

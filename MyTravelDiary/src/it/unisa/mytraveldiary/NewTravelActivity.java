@@ -1,16 +1,19 @@
 package it.unisa.mytraveldiary;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class NewTravelActivity extends ActionBarActivity {
@@ -50,7 +53,7 @@ public class NewTravelActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-
+		
 		public PlaceholderFragment() {
 		}
 	
@@ -63,10 +66,12 @@ public class NewTravelActivity extends ActionBarActivity {
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
 			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
-
+			
 			return rootView;
 		}
 	}
+	
+	private boolean viaggioSalvato=false;
 
 	public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
@@ -74,14 +79,40 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 	
 	public void avantiInserisciDettagli(View view){
-    	Intent intent = new Intent(this, InserisciDettagliActivity.class);
-    	startActivity(intent);
+    	if (viaggioSalvato)
+    		goInserisciDettagli();
+    	
+    	else
+    		showToast("Salva prima il viaggio!");
     }
+	
+	public void salvaViaggio(View view) {
+		Button inserisci= (Button) findViewById(R.id.InserisciDettagliButton);
+		inserisci.setEnabled(true);
+		
+		viaggioSalvato=true;
+		
+		showToast("Viaggio salvato correttamente!");
+	}
 	
 	public void openMaps(View view){
     	Intent intent = new Intent(this, MapsActivity.class);
     	//intent.putExtra("Citta", value)
     	startActivity(intent);
     }
+	
+	private void goInserisciDettagli() {
+		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+    	startActivity(intent);
+	}
+	
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
+	}	
 }
 
