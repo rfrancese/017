@@ -1,9 +1,12 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -13,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,6 +60,8 @@ public class NewTravelActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 		
+		private Travel viaggio;
+		
 		public PlaceholderFragment() {
 		}
 	
@@ -67,15 +75,41 @@ public class NewTravelActivity extends ActionBarActivity {
 			// Create the adapter and set it to the AutoCompleteTextView 
 			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
 			
+			
+			// Tipologia viaggio
+			RadioButton svago= (RadioButton) rootView.findViewById(R.id.Svago);
+			RadioButton lavoro= (RadioButton) rootView.findViewById(R.id.Lavoro);
+			
+			if (svago.isSelected()) 
+				viaggio.setTipologiaViaggio("Svago");
+			
+			else if (lavoro.isSelected()) 
+				viaggio.setTipologiaViaggio("Lavoro");
+			
+			// Data andata
+			
+			
+			
 			return rootView;
 		}
 	}
 	
 	private boolean viaggioSalvato=false;
 
-	public void showDatePickerDialog(View v) {
+	public void showDatePickerDialogAndata(View v) {
+		TextView andata= (TextView) findViewById(R.id.andataText);
+		DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getFragmentManager(), "datePicker");
+	    ((DatePickerFragment) newFragment).setTipologia("Andata");
+	    ((DatePickerFragment) newFragment).setTextView(andata);
+	}
+	
+	public void showDatePickerDialogRitorno(View v) {
+		TextView ritorno= (TextView) findViewById(R.id.ritornoText);
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getFragmentManager(), "datePicker");
+	    ((DatePickerFragment) newFragment).setTipologia("Ritorno");
+	    ((DatePickerFragment) newFragment).setTextView(ritorno);
 	}
 	
 	public void avantiInserisciDettagli(View view){

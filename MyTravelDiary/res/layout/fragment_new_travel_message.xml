@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:onClick="showDatePickerDialog"
+                    android:onClick="showDatePickerDialogAndata"
                     android:text="@string/inserisciData" 
                     android:padding="4dip"/>
                 
@@ -99,7 +99,7 @@
                   android:id="@+id/andataText"
                   android:layout_column="3" 
                   style="@style/CodeFont"/>
-            </TableRow>
+         </TableRow>
 
             <TableRow
                 android:id="@+id/ritorno"
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:onClick="showDatePickerDialog"
+                    android:onClick="showDatePickerDialogRitorno"
                     android:text="@string/inserisciData"
                     android:padding="4dip"/>
                 
