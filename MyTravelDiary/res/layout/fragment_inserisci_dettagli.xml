@@ -23,7 +23,7 @@
             android:onClick="avantiFotoVideo"
             android:text="@string/FotoVideoButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont" />
 
         <Button
@@ -36,7 +36,7 @@
             android:onClick="avantiTrasporti"
             android:text="@string/TrasportiButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont"/>
         
         <Button
@@ -49,7 +49,7 @@
             android:onClick="avantiMusei"
             android:text="@string/MuseiButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont"/>
         
         <Button
@@ -62,7 +62,7 @@
             android:onClick="avantiHotelRistoranti"
             android:text="@string/HotelRistorantiButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont"/>
         
     </RelativeLayout>

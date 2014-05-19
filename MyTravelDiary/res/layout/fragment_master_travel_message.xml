@@ -33,7 +33,7 @@
             android:onClick="avantiNuovoViaggio"
             android:text="@string/NuovoViaggioButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont" />
        
         <Button
@@ -46,7 +46,7 @@
             android:onClick="avantiRicercaViaggio"
             android:text="@string/RicercaViaggioButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont" />
 
         <Button
@@ -59,7 +59,7 @@
             android:onClick="avantiInformazioni"
             android:text="@string/InformazioniButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             style="@style/CodeFont"/>
         
     </RelativeLayout>

@@ -52,8 +52,8 @@
             android:onClick="avanti"
             android:text="@string/LoginButton"
             android:padding="4dip"
-            android:background="@drawable/background_normal"
-            style="@style/CodeFont"/>
+            style="@style/CodeFont"
+            android:background="@drawable/background"/>
         
          <Button
             android:id="@+id/RegistratiButton"
@@ -64,8 +64,8 @@
             android:text="@string/RegistratiButton"
             android:onClick="avantiRegistrazione"
             android:padding="4dip"
-            android:background="@drawable/background_normal"
-            style="@style/CodeFont" />
+            style="@style/CodeFont" 
+            android:background="@drawable/background"/>
        
     </RelativeLayout>
 

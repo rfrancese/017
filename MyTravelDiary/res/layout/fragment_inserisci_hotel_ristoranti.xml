@@ -97,7 +97,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:padding="4dip"
-            android:background="@drawable/background_normal" 
+            android:background="@drawable/background" 
             android:onClick=""
             android:text="@string/salvaMuseiButton" />
     </RelativeLayout>
