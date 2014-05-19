@@ -104,9 +104,10 @@
                     android:layout_column="1"
                     android:text="@string/dataRitorno" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/ritornoButton"
                     style="@style/CodeFont"
+                    android:src="@drawable/ic_action_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
@@ -167,9 +168,9 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:layout_marginBottom="20dp"
-                    android:padding="4dip"
+                    android:padding="4dp"
                     android:background="@drawable/background_normal" 
-                    android:onClick=""
+                    android:onClick="salvaViaggio"
                     android:text="@string/SalvaViaggioButton" />
             </TableRow>
 
@@ -183,7 +184,7 @@
                     android:layout_marginBottom="20dp"
                     android:onClick="avantiInserisciDettagli"
                     android:text="@string/InserisciDettagliButton"
-                    android:padding="4dip"
+                    android:padding="4dp"
                     android:background="@drawable/background_normal"  />
             </TableRow>
         </TableLayout>

@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -34,8 +35,6 @@ import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
 
-	boolean logged=false;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,11 +46,21 @@ public class LoginActivity extends ActionBarActivity {
 			.commit();
 		}
 		Log.d("ACTIVITY", "LoginActivity");
+		
+		SharedPreferences settings = getSharedPreferences("login", 0);
+		//SharedPreferences.Editor editor = settings.edit();
+		
+		if (settings!=null) {
+			goWelcome();
+			super.onStop();
+		}
+
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
-		
+
 		private boolean login=false;
+		private User user=new User();
 
 		@Override
 		protected String doInBackground(String... urls) {
@@ -87,12 +96,11 @@ public class LoginActivity extends ActionBarActivity {
 				Log.d("CONTENT TYPE", contentType);
 
 				String ret=null;
-				
+
 				if (contentType.equals("application/json")) {
 					ret=getStringFromInputStream(is);
-					
-					User user=new User();
-					
+
+
 					if (!(ret.equals("Nessun risultato"))) {
 						Log.d("CONNECTION", "Response text: "+ret);
 						Log.d("CONNECTION", "Response text is: "+is);
@@ -106,20 +114,21 @@ public class LoginActivity extends ActionBarActivity {
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-						
+
 						// tutti null ???
 						Log.d("USER", user.getUsername()+", "+user.getNome()+", "+user.getCognome()+", "+
-						user.getLocalita());
-						
+								user.getLocalita());
+
 						login=true;
 						goWelcome();
 					}
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
-						//showToast("Username/password errati!");
 						login=false;
 					}	
 				}
+				
+				is.close();
 				return ret;
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -136,9 +145,16 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("CONNECTION", "Response text onPost: "+result);
-			
+
 			if (!login) {
 				showToast("Username/Password errati!");
+			} else {
+				SharedPreferences settings = getSharedPreferences("login", 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("username", user.getUsername());
+
+				// Commit the edits!
+				editor.commit();
 			}
 		}
 
@@ -208,19 +224,19 @@ public class LoginActivity extends ActionBarActivity {
 	 * @param view
 	 */
 	public void avanti(View view){
-		
+
 		// Chiamare una funzione che si occupa di fare i controlli sul'utente che restituisce
 		// true o false; se è true si passa alla schermata successiva
 		makeControls();
 	}
-	
+
 	private void goWelcome() {
 		Intent intent = new Intent(this, WelcomeActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void makeControls() {
-		
+
 		String inputUsername, inputPassword;
 
 		EditText editUsername = (EditText) findViewById(R.id.Login);
@@ -272,14 +288,14 @@ public class LoginActivity extends ActionBarActivity {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}	
-	
-/**
- * Quando l'utente deve registrarsi e clicca sul bottone Registrati
- * @param view
- * **/
-	
-	 public void avantiRegistrazione(View view){
-	    	Intent intent = new Intent(this, RegistrazioneActivity.class);
-	    	startActivity(intent);
-	    }
+
+	/**
+	 * Quando l'utente deve registrarsi e clicca sul bottone Registrati
+	 * @param view
+	 * **/
+
+	public void avantiRegistrazione(View view){
+		Intent intent = new Intent(this, RegistrazioneActivity.class);
+		startActivity(intent);
+	}
 }
