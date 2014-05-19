@@ -41,10 +41,10 @@ public class Travel {
 		String tipViaggio="";
 		
 		if(svago)
-			tipViaggio= tipologiaViaggio[0];
+			tipViaggio+= tipologiaViaggio[0];
 		
 		else if(lavoro)
-			tipViaggio= tipologiaViaggio[1];
+			tipViaggio+= tipologiaViaggio[1];
 		
 		return tipViaggio;
 	}
@@ -83,9 +83,9 @@ public class Travel {
 	
 	public void setTipologiaViaggio(String tipViaggio) {
 
-		if(tipViaggio==tipologiaViaggio[0])
+		if(tipViaggio.equals(tipologiaViaggio[0]))
 			svago=true;
-		else if(tipViaggio==tipologiaViaggio[1])
+		else if(tipViaggio.equals(tipologiaViaggio[1]))
 			lavoro=true;
 	}
 	
@@ -102,7 +102,7 @@ public class Travel {
 	}
 	
 	public void setCompagniViaggio(ArrayList<User> compViaggio){
-	   compViaggio=compViaggio;
+	   compagniViaggio=compViaggio;
 	}
 	
 	public void setDescrizione(String descr){
@@ -114,4 +114,15 @@ public class Travel {
 	}
 
 
+	public String toString() {
+		String s="";
+		
+		s+="Tipologia viaggio: "+getTipologiaViaggio()+"\n";
+		s+="Localita: "+località;
+		s+="Data andata: "+dataAndata+"\n";
+		s+="Data ritorno: "+dataRitorno+"\n";
+		s+="Descrizione: "+descrizione+"\n";
+		
+		return s;
+	}
 }

@@ -86,48 +86,47 @@
                 <ImageButton
                     android:id="@+id/andataButton"
                     style="@style/CodeFont"
-                    android:background="@null"
-                    android:src="@drawable/ic_action_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
+                    android:background="@null"
                     android:onClick="showDatePickerDialogAndata"
-                    android:text="@string/inserisciData" 
-                    android:padding="4dip"/>
-                
-                <TextView 
-                  android:id="@+id/andataText"
-                  android:layout_column="3" 
-                  style="@style/CodeFont"/>
-         </TableRow>
+                    android:padding="4dip"
+                    android:src="@drawable/ic_action_event"
+                    android:text="@string/inserisciData" />
+
+                <TextView
+                    android:id="@+id/andataText"
+                    style="@style/CodeFont"
+                    android:layout_column="3" />
+            </TableRow>
 
             <TableRow
                 android:id="@+id/ritorno"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp" >
 
                 <TextView
                     style="@style/CodeFont"
                     android:layout_column="1"
-                    android:text="@string/dataRitorno"/>
+                    android:text="@string/dataRitorno" />
 
                 <ImageButton
                     android:id="@+id/ritornoButton"
                     style="@style/CodeFont"
-                    android:background="@null"
-                    android:src="@drawable/ic_action_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
+                    android:background="@null"
                     android:onClick="showDatePickerDialogRitorno"
-                    android:text="@string/inserisciData"
-                    android:padding="4dip"/>
-                
-                <TextView 
-                  android:id="@+id/ritornoText"
-                  android:layout_column="3" 
-                  style="@style/CodeFont"/>
-            </TableRow>
+                    android:padding="4dip"
+                    android:src="@drawable/ic_action_event"
+                    android:text="@string/inserisciData" />
 
+                <TextView
+                    android:id="@+id/ritornoText"
+                    style="@style/CodeFont"
+                    android:layout_column="3" />
+            </TableRow>
         </TableLayout>
 
         <TableLayout
@@ -139,6 +138,7 @@
             android:stretchColumns="1" >
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/compagniViaggio"
                     style="@style/CodeFont"
@@ -147,14 +147,17 @@
             </TableRow>
 
             <TableRow android:layout_marginBottom="20dp" >
-                <AutoCompleteTextView
+
+                <MultiAutoCompleteTextView
                     android:id="@+id/compagniViaggioAutocomplete"
                     style="@style/CodeFont"
                     android:layout_column="1"
-                    android:hint="@string/compagniViaggioSugg" />
+                    android:hint="@string/compagniViaggioSugg"
+                    android:inputType="textMultiLine" />
             </TableRow>
 
             <TableRow>
+
                 <TextView
                     android:id="@+id/descrizioneViaggio"
                     style="@style/CodeFont"
@@ -162,7 +165,8 @@
                     android:text="@string/descrizioneViaggio" />
             </TableRow>
 
-            <TableRow android:layout_marginBottom="20dp">
+            <TableRow android:layout_marginBottom="20dp" >
+
                 <EditText
                     android:id="@+id/descrizioneViaggioInput"
                     style="@style/CodeFont"
@@ -173,6 +177,7 @@
             </TableRow>
 
             <TableRow>
+
                 <Button
                     android:id="@+id/SalvaViaggioButton"
                     style="@style/CodeFont"
@@ -180,13 +185,14 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:layout_marginBottom="20dp"
-                    android:padding="4dp"
-                    android:background="@drawable/background_normal" 
+                    android:background="@drawable/background_normal"
                     android:onClick="salvaViaggio"
+                    android:padding="4dp"
                     android:text="@string/SalvaViaggioButton" />
             </TableRow>
 
             <TableRow>
+
                 <Button
                     android:id="@+id/InserisciDettagliButton"
                     style="@style/CodeFont"
@@ -194,10 +200,10 @@
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:layout_marginBottom="20dp"
+                    android:background="@drawable/background_normal"
                     android:onClick="avantiInserisciDettagli"
-                    android:text="@string/InserisciDettagliButton"
                     android:padding="4dp"
-                    android:background="@drawable/background_normal"  />
+                    android:text="@string/InserisciDettagliButton" />
             </TableRow>
         </TableLayout>
     </RelativeLayout>
