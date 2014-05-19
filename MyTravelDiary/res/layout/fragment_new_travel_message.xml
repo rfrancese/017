@@ -83,16 +83,22 @@
                     android:layout_column="1"
                     android:text="@string/dataAndata" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/andataButton"
                     style="@style/CodeFont"
+                     android:src="@drawable/ic_action_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:onClick="showDatePickerDialog"
+                    android:onClick="showDatePickerDialogAndata"
                     android:text="@string/inserisciData" 
                     android:padding="4dip"
-                    android:background="@drawable/background_normal" />
+                    android:background="@null" />
+                
+                <TextView
+                    android:id="@+id/andataText"
+                    style="@style/CodeFont"
+                    android:layout_column="3" />
             </TableRow>
 
             <TableRow
@@ -111,10 +117,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:onClick="showDatePickerDialog"
+                    android:onClick="showDatePickerDialogRitorno"
                     android:text="@string/inserisciData"
                     android:padding="4dip"
-                    android:background="@drawable/background_normal"  />
+                    android:background="@null"  />
+                
+                <TextView
+                    android:id="@+id/ritornoText"
+                    style="@style/CodeFont"
+                    android:layout_column="3" />
             </TableRow>
 
         </TableLayout>
