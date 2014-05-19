@@ -147,7 +147,8 @@
             </TableRow>
 
             <TableRow android:layout_marginBottom="20dp" >
-                <EditText
+                <AutoCompleteTextView
+                    android:id="@+id/compagniViaggioAutocomplete"
                     style="@style/CodeFont"
                     android:layout_column="1"
                     android:hint="@string/compagniViaggioSugg" />

@@ -88,7 +88,10 @@ public class NewTravelActivity extends ActionBarActivity {
 			
 			// Data andata
 			
-			
+			// Compagni viaggio
+			/*AutoCompleteTextView compagniViaggio = (AutoCompleteTextView) rootView.findViewById(R.id.compagniViaggioAutocomplete);
+			// Create the adapter and set it to the AutoCompleteTextView 
+			compagniViaggio.setAdapter(new CompagniViaggioAdapter(getActivity(), R.layout.list_item));*/
 			
 			return rootView;
 		}
