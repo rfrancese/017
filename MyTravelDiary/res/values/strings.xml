@@ -119,5 +119,6 @@
     <string name="title_activity_maps">Mappa</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_registrazione">Registrazione</string>
+    <string name="title_activity_my_gradient">MyGradient</string>
 
 </resources>
