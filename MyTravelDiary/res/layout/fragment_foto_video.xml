@@ -68,7 +68,7 @@
         android:text="@string/SalvaFotoVideoButton"
         android:padding="4dip"
         android:background="@drawable/background" 
-        android:onClick=""
+        android:onClick="goInserisci"
         style="@style/CodeFont" />
 
 </RelativeLayout>

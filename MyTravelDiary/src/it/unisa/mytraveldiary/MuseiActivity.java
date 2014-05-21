@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,13 +28,7 @@ public class MuseiActivity extends ActionBarActivity {
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		
-		Museo museo= new Museo("Storico", "Nome", "Parigi", 3);
-		DatabaseHandlerMusei db=new DatabaseHandlerMusei(this);
-		db.addMuseo(museo);
-        
-        Log.d("Reading: ", "CountMuseo: "); 
+		}        
 	}
 
 	@Override
@@ -73,4 +68,8 @@ public class MuseiActivity extends ActionBarActivity {
 		}
 	}
 
+	public void goInserisci(View view) {
+		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		  startActivity(intent);
+	  }
 }
