@@ -71,13 +71,13 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		
 		if (marker==null) {
 			setMarker(point);
-			new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
+			//new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
 		}
 		
 		else {
 			marker.remove();
 			setMarker(point);
-			new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
+			//new ListCitiesDialogFragment().show(getFragmentManager(), "Mappa");
 		}
 	}
 	

@@ -16,7 +16,7 @@ public class DatabaseHandlerUsers extends SQLiteOpenHelper {
 	private static final String PARENTHESIS_OPEN=" (";
 	private static final String PARENTHESIS_CLOSED=") ";
 	
-	private static final int DATABASE_VERSION=6;
+	private static final int DATABASE_VERSION=1;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_USERS="users";
 	private static final String U_USERNAME="username";

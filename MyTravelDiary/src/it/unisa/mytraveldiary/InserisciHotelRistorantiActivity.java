@@ -2,10 +2,13 @@ package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.db.DatabaseHandlerHotelRistoranti;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
+
 import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +29,6 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		DatabaseHandlerHotelRistoranti db=new DatabaseHandlerHotelRistoranti(this);
-        ArrayList<HotelRistorante> count=db.getAllHotelRistoranti();
-        
-        Log.d("Reading: ", "CountHotelRistoranti: "+count); 
 	}
 
 	@Override
@@ -71,4 +69,8 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 		}
 	}
 
+	public void goInserisci(View view) {
+		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		  startActivity(intent);
+	  }
 }

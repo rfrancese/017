@@ -1,13 +1,28 @@
 package it.unisa.mytraveldiary;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -57,6 +72,110 @@ public class NewTravelActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private class NetwokAccess extends AsyncTask<String, Void, String> {
+
+		private Travel travel=new Travel();
+
+		@Override
+		protected String doInBackground(String... urls) {
+
+			InputStream is=null;
+			String contentType=null;
+			URL url;
+			HttpURLConnection connection = null;
+
+			try {
+				String urlParameters = "tipologia="+urls[1]+"&localita="+urls[2]+"&data_andata="+urls[3]+
+										"&data_ritorno="+urls[4]+"&compagni_viaggio="+urls[5]+"&descrizione="+urls[6];
+				url = new URL(urls[0]); 
+				connection = (HttpURLConnection) url.openConnection();           
+				connection.setDoOutput(true);
+				connection.setDoInput(true);
+				connection.setInstanceFollowRedirects(false); 
+				connection.setRequestMethod("POST"); 
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+				connection.setRequestProperty("charset", "utf-8");
+				connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
+				connection.setUseCaches (false);
+
+				DataOutputStream wr = new DataOutputStream(connection.getOutputStream ());
+				wr.writeBytes(urlParameters);
+				wr.flush();
+				wr.close();
+
+				connection.connect();
+
+				is=connection.getInputStream();
+				contentType=connection.getContentType();
+
+				Log.d("CONTENT TYPE", contentType);
+
+				String ret=null;
+
+				if (contentType.equals("application/json")) {
+					ret=getStringFromInputStream(is);
+
+
+					if (!(ret.equals("Nessun risultato"))) {
+						Log.d("CONNECTION", "Response text: "+ret);
+						Log.d("CONNECTION", "Response text is: "+is);
+						JSONObject object;
+						try {
+							object = new JSONObject(ret);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+					else {
+						Log.d("RESPONSE", "Nessun risultato response");
+					}	
+				}
+				
+				is.close();
+				return ret;
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				return "Error";
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "Error";
+			}  finally {
+				//TODO si dovrebbe chiudere is (InputStream)
+				connection.disconnect();
+			}
+		}
+		// onPostExecute displays the results of the AsyncTask.
+		@Override
+		protected void onPostExecute(String result) {
+			Log.d("CONNECTION", "Response text onPost: "+result);
+		}
+
+		private String getStringFromInputStream(InputStream is) {
+
+			BufferedReader br = null;
+			StringBuilder sb = new StringBuilder();
+			String line;
+			try {
+
+				br = new BufferedReader(new InputStreamReader(is));
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if (br != null) {
+					try {
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return sb.toString();
+		}
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
@@ -70,7 +189,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 			View rootView = inflater.inflate(R.layout.fragment_new_travel_message, container, false);
-
+			
 			// Get a reference to the AutoCompleteTextView in the layout
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
@@ -115,6 +234,11 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 
 	public void salvaViaggio(View view) throws ParseException {
+		
+		String stringUrl = "http://mtd.altervista.org/addTravel.php";
+		ConnectivityManager connMgr = (ConnectivityManager)	getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		
 		viaggio=new Travel();
 		// Tipologia viaggio
 		RadioButton svago= (RadioButton) findViewById(R.id.Svago);
@@ -153,6 +277,20 @@ public class NewTravelActivity extends ActionBarActivity {
 		viaggio.setDescrizione(descrizione.getText().toString());
 
 		Log.d("New travel", viaggio.toString());
+		
+		viaggio.setId(2);
+		
+		/*DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+		dbHandler.addTravel(viaggio);
+		
+		if (networkInfo != null && networkInfo.isConnected()) {
+			new NetwokAccess().execute(stringUrl, viaggio.getTipologiaViaggio(), viaggio.getLocalità(), 
+										viaggio.getDataAndata().toString(), viaggio.getDataRitorno().toString(),
+										viaggio.getCompagniViaggio(), viaggio.getDescrizione());
+		} else {
+			Log.d("CONNECTION","No network connection available.");
+			showToast("Nessuna connessione!");
+		}*/
 		
 		showToast("Viaggio salvato correttamente!");
 	}

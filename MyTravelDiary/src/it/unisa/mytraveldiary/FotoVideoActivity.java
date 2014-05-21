@@ -100,4 +100,9 @@ public class FotoVideoActivity extends ActionBarActivity {
            
           startActivityForResult(i, RESULT_LOAD_IMAGE);
       }
+	  
+	  public void goInserisci(View view) {
+		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		  startActivity(intent);
+	  }
 }

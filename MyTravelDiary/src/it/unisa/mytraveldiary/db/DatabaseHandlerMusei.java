@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=6;
+	private static final int DATABASE_VERSION=1;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_MUSEO="museo";
 	private static final String M_TIPOLOGIA= "tipologia";
