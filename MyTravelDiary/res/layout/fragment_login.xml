@@ -11,63 +11,71 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment">
+        tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
 
         <TextView
             android:id="@+id/Logo"
+            style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="30dp"
+            android:gravity="center"
             android:text="@string/Logo"
-            android:textSize="20pt"
-            style="@style/CodeFont" />
+            android:textSize="37pt"
+            android:textStyle="normal|bold" />
 
         <EditText
             android:id="@+id/Login"
+            style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Logo"
             android:layout_marginBottom="10dp"
-            android:hint="@string/Login"
-            style="@style/CodeFont" />
+            android:singleLine="true"
+            android:hint="@string/Login" />
 
         <EditText
             android:id="@+id/Password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Login"
+            android:layout_below="@+id/Login"    
             android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
+            android:singleLine="true"
             android:hint="@string/Password"
             android:inputType="textPassword" />
+           
 
-        <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/Password"
-            android:layout_marginBottom="15dp"
-            android:onClick="avanti"
-            android:text="@string/LoginButton"
-            android:padding="4dip"
-            style="@style/CodeFont"
-            android:background="@drawable/background"/>
-        
-         <Button
-            android:id="@+id/RegistratiButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/LoginButton"
-            android:text="@string/RegistratiButton"
-            android:onClick="avantiRegistrazione"
-            android:padding="4dip"
-            style="@style/CodeFont" 
-            android:background="@drawable/background"/>
-       
+            <Button
+                android:id="@+id/LoginButton"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/Password"
+                android:background="@drawable/background"
+                android:drawableRight="@drawable/ic_action_send_now"
+                android:onClick="avanti"
+                android:padding="4dip"
+                android:text="@string/LoginButton" />
+
+            <Button
+                android:id="@+id/RegistratiButton"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/LoginButton"
+                android:background="@drawable/background"
+                android:drawableRight="@drawable/ic_action_add_person"
+                android:onClick="avantiRegistrazione"
+                android:padding="4dip"
+                android:text="@string/RegistratiButton" />
+      
     </RelativeLayout>
 
 </ScrollView>

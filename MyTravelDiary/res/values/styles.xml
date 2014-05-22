@@ -17,14 +17,14 @@
     <style name="ActionBarTheme" parent="@style/Theme.AppCompat">
         <item name="android:actionBarStyle">@style/actionBar</item>
         <item name="actionBarStyle">@style/actionBar</item>
-        <item name="android:actionBarItemBackground">@color/pink</item>
+        <item name="android:actionBarItemBackground">@color/cyan</item>
     </style>
 
    <style name="actionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">@color/pink</item>
-        <item name="background">@color/pink</item>
+        <item name="android:background">@color/cyan</item>
+        <item name="background">@color/cyan</item>
     </style>
     
-    <color name="pink">#33B5E5</color>
+    <color name="cyan">#33B5E5</color>
       
 </resources>
