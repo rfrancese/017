@@ -7,17 +7,17 @@
 
     <!-- stile action bar -->
 
-  <style name="ActionBarTheme" parent="Theme.AppCompat">
+      <style name="ActionBarTheme" parent="@style/Theme.AppCompat">
         <item name="android:actionBarStyle">@style/actionBar</item>
-        <item name="android:background">@color/black</item>
-        <item name="android:itemBackground">@color/pink</item>
+        <item name="actionBarStyle">@style/actionBar</item>
+        <item name="android:actionBarItemBackground">@color/pink</item>
     </style>
 
-    <style name="actionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
-        <item name="android:background">#DC143C</item>
+   <style name="actionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="android:background">@color/pink</item>
+        <item name="background">@color/pink</item>
     </style>
     
-    <color name="black">#000000</color>
-    <color name="pink">#DC143C</color>
+    <color name="pink">#33B5E5</color>
 
 </resources>

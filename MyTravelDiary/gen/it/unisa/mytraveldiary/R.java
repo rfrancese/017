@@ -952,11 +952,10 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f090002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f05000f;
+        public static final int abc_search_url_text_holo=0x7f05000e;
         public static final int abc_search_url_text_normal=0x7f05000a;
         public static final int abc_search_url_text_pressed=0x7f05000c;
         public static final int abc_search_url_text_selected=0x7f05000b;
-        public static final int black=0x7f05000d;
         public static final int common_action_bar_splitter=0x7f050009;
         /**  Sign-in Button Colors 
          */
@@ -969,9 +968,9 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f050006;
         public static final int common_signin_btn_light_text_focused=0x7f050007;
         public static final int common_signin_btn_light_text_pressed=0x7f050005;
-        public static final int common_signin_btn_text_dark=0x7f050010;
-        public static final int common_signin_btn_text_light=0x7f050011;
-        public static final int pink=0x7f05000e;
+        public static final int common_signin_btn_text_dark=0x7f05000f;
+        public static final int common_signin_btn_text_light=0x7f050010;
+        public static final int pink=0x7f05000d;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
