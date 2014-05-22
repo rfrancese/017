@@ -1536,12 +1536,13 @@ containing a value of this type.
         public static final int maps=0x7f0d0007;
         public static final int master_travel_message=0x7f0d0008;
         public static final int musei=0x7f0d0009;
-        public static final int new_travel_message=0x7f0d000a;
-        public static final int registrazione=0x7f0d000b;
-        public static final int search_travel_message=0x7f0d000c;
-        public static final int trasporti=0x7f0d000d;
-        public static final int visualizza_viaggio=0x7f0d000e;
-        public static final int welcome_message=0x7f0d000f;
+        public static final int my_gradient=0x7f0d000a;
+        public static final int new_travel_message=0x7f0d000b;
+        public static final int registrazione=0x7f0d000c;
+        public static final int search_travel_message=0x7f0d000d;
+        public static final int trasporti=0x7f0d000e;
+        public static final int visualizza_viaggio=0x7f0d000f;
+        public static final int welcome_message=0x7f0d0010;
     }
     public static final class string {
         public static final int Foto=0x7f0a0054;
@@ -1766,6 +1767,7 @@ containing a value of this type.
         public static final int title_activity_maps=0x7f0a0082;
         public static final int title_activity_master_travel_message=0x7f0a0077;
         public static final int title_activity_musei=0x7f0a007e;
+        public static final int title_activity_my_gradient=0x7f0a0085;
         public static final int title_activity_new_travel_message=0x7f0a0078;
         public static final int title_activity_registrazione=0x7f0a0084;
         public static final int title_activity_search_travel_message=0x7f0a0079;
