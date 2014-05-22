@@ -15,7 +15,6 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -66,11 +65,21 @@ public class NewTravelActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		
+		switch (item.getItemId()) {
+		case R.id.action_new_travel:
 			return true;
+			
+		case R.id.action_search:
+			return true;
+			
+		case R.id.action_info:
+			goInfo();
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 	
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
@@ -305,7 +314,12 @@ public class NewTravelActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		startActivity(intent);
 	}
-
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+ 
 	private void showToast(String msg) {
 		Context context=getApplicationContext();
 		CharSequence text=msg;

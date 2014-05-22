@@ -1016,10 +1016,11 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f07000d;
+        public static final int abc_search_url_text_holo=0x7f07000f;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int black=0x7f07000d;
         public static final int common_action_bar_splitter=0x7f07000c;
         /**  Sign-in Button Colors 
          */
@@ -1032,8 +1033,9 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f070009;
         public static final int common_signin_btn_light_text_focused=0x7f07000a;
         public static final int common_signin_btn_light_text_pressed=0x7f070008;
-        public static final int common_signin_btn_text_dark=0x7f07000e;
-        public static final int common_signin_btn_text_light=0x7f07000f;
+        public static final int common_signin_btn_text_dark=0x7f070010;
+        public static final int common_signin_btn_text_light=0x7f070011;
+        public static final int pink=0x7f07000e;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1276,19 +1278,20 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02006f;
         public static final int common_signin_btn_text_pressed_dark=0x7f020070;
         public static final int common_signin_btn_text_pressed_light=0x7f020071;
-        public static final int ic_action_event=0x7f020072;
-        public static final int ic_action_map=0x7f020073;
-        public static final int ic_action_search=0x7f020074;
-        public static final int ic_icona=0x7f020075;
-        public static final int ic_launcher=0x7f020076;
-        public static final int ic_plusone_medium_off_client=0x7f020077;
-        public static final int ic_plusone_small_off_client=0x7f020078;
-        public static final int ic_plusone_standard_off_client=0x7f020079;
-        public static final int ic_plusone_tall_off_client=0x7f02007a;
-        public static final int images=0x7f02007b;
+        public static final int ic_action_about=0x7f020072;
+        public static final int ic_action_event=0x7f020073;
+        public static final int ic_action_map=0x7f020074;
+        public static final int ic_action_new=0x7f020075;
+        public static final int ic_action_search=0x7f020076;
+        public static final int ic_icona=0x7f020077;
+        public static final int ic_launcher=0x7f020078;
+        public static final int ic_plusone_medium_off_client=0x7f020079;
+        public static final int ic_plusone_small_off_client=0x7f02007a;
+        public static final int ic_plusone_standard_off_client=0x7f02007b;
+        public static final int ic_plusone_tall_off_client=0x7f02007c;
+        public static final int images=0x7f02007d;
     }
     public static final class id {
-        public static final int AvantiButton=0x7f050097;
         public static final int Foto=0x7f050042;
         public static final int FotoVideoButton=0x7f050048;
         public static final int HotelRistorantiButton=0x7f05004b;
@@ -1310,7 +1313,6 @@ containing a value of this type.
         public static final int Svago=0x7f050063;
         public static final int TrasportiButton=0x7f050049;
         public static final int Video=0x7f050043;
-        public static final int Welcome=0x7f050095;
         public static final int action_bar=0x7f05001f;
         public static final int action_bar_activity_content=0x7f050015;
         public static final int action_bar_container=0x7f05001e;
@@ -1319,10 +1321,13 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050026;
         public static final int action_bar_title=0x7f050025;
         public static final int action_context_bar=0x7f050020;
+        public static final int action_info=0x7f050098;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050027;
-        public static final int action_settings=0x7f050098;
+        public static final int action_new_travel=0x7f050096;
+        public static final int action_search=0x7f050097;
+        public static final int action_settings=0x7f050095;
         public static final int activity_chooser_view_content=0x7f050028;
         public static final int always=0x7f05000b;
         public static final int andata=0x7f050068;
@@ -1371,7 +1376,6 @@ containing a value of this type.
         public static final int icon=0x7f05002d;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f05002a;
-        public static final int imageBenvenuto=0x7f050096;
         public static final int imageBenvenuto1=0x7f050093;
         public static final int imageBenvenuto2=0x7f050094;
         public static final int imgView=0x7f050045;
@@ -1506,22 +1510,20 @@ containing a value of this type.
         public static final int activity_search_travel_message=0x7f030022;
         public static final int activity_trasporti=0x7f030023;
         public static final int activity_visualizza_viaggio=0x7f030024;
-        public static final int activity_welcome_message=0x7f030025;
-        public static final int fragment_foto_video=0x7f030026;
-        public static final int fragment_info_message=0x7f030027;
-        public static final int fragment_inserisci_dettagli=0x7f030028;
-        public static final int fragment_inserisci_hotel_ristoranti=0x7f030029;
-        public static final int fragment_login=0x7f03002a;
-        public static final int fragment_master_travel_message=0x7f03002b;
-        public static final int fragment_musei=0x7f03002c;
-        public static final int fragment_new_travel_message=0x7f03002d;
-        public static final int fragment_registrazione=0x7f03002e;
-        public static final int fragment_search_travel_message=0x7f03002f;
-        public static final int fragment_trasporti=0x7f030030;
-        public static final int fragment_visualizza_viaggio=0x7f030031;
-        public static final int fragment_welcome_message=0x7f030032;
-        public static final int list_item=0x7f030033;
-        public static final int support_simple_spinner_dropdown_item=0x7f030034;
+        public static final int fragment_foto_video=0x7f030025;
+        public static final int fragment_info_message=0x7f030026;
+        public static final int fragment_inserisci_dettagli=0x7f030027;
+        public static final int fragment_inserisci_hotel_ristoranti=0x7f030028;
+        public static final int fragment_login=0x7f030029;
+        public static final int fragment_master_travel_message=0x7f03002a;
+        public static final int fragment_musei=0x7f03002b;
+        public static final int fragment_new_travel_message=0x7f03002c;
+        public static final int fragment_registrazione=0x7f03002d;
+        public static final int fragment_search_travel_message=0x7f03002e;
+        public static final int fragment_trasporti=0x7f03002f;
+        public static final int fragment_visualizza_viaggio=0x7f030030;
+        public static final int list_item=0x7f030031;
+        public static final int support_simple_spinner_dropdown_item=0x7f030032;
     }
     public static final class menu {
         public static final int foto_video=0x7f0d0000;
@@ -1542,28 +1544,27 @@ containing a value of this type.
         public static final int welcome_message=0x7f0d000f;
     }
     public static final class string {
-        public static final int AvantiButton=0x7f0a003c;
-        public static final int Foto=0x7f0a0055;
-        public static final int FotoVideoButton=0x7f0a0051;
-        public static final int HotelRistorantiButton=0x7f0a0054;
-        public static final int InformazioniButton=0x7f0a003f;
-        public static final int InserisciButton=0x7f0a0058;
-        public static final int InserisciDettagliButton=0x7f0a0041;
-        public static final int Lavoro=0x7f0a0043;
+        public static final int Foto=0x7f0a0054;
+        public static final int FotoVideoButton=0x7f0a0050;
+        public static final int HotelRistorantiButton=0x7f0a0053;
+        public static final int InformazioniButton=0x7f0a003e;
+        public static final int InserisciButton=0x7f0a0057;
+        public static final int InserisciDettagliButton=0x7f0a0040;
+        public static final int Lavoro=0x7f0a0042;
         public static final int Login=0x7f0a002a;
         public static final int LoginButton=0x7f0a002c;
         public static final int Logo=0x7f0a0029;
-        public static final int MuseiButton=0x7f0a0053;
-        public static final int NuovoViaggioButton=0x7f0a003d;
+        public static final int MuseiButton=0x7f0a0052;
+        public static final int NuovoViaggioButton=0x7f0a003c;
         public static final int Password=0x7f0a002b;
         public static final int RegistratiButton=0x7f0a002d;
-        public static final int RicercaViaggioButton=0x7f0a003e;
-        public static final int SalvaFotoVideoButton=0x7f0a0057;
+        public static final int RicercaViaggioButton=0x7f0a003d;
+        public static final int SalvaFotoVideoButton=0x7f0a0056;
         public static final int SalvaRegistrazioneButton=0x7f0a003a;
-        public static final int SalvaViaggioButton=0x7f0a0040;
-        public static final int Svago=0x7f0a0042;
-        public static final int TrasportiButton=0x7f0a0052;
-        public static final int Video=0x7f0a0056;
+        public static final int SalvaViaggioButton=0x7f0a003f;
+        public static final int Svago=0x7f0a0041;
+        public static final int TrasportiButton=0x7f0a0051;
+        public static final int Video=0x7f0a0055;
         public static final int Welcome=0x7f0a003b;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
@@ -1605,7 +1606,10 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_settings=0x7f0a0074;
+        public static final int action_info=0x7f0a0075;
+        public static final int action_new_travel=0x7f0a0073;
+        public static final int action_search=0x7f0a0074;
+        public static final int action_settings=0x7f0a0076;
         public static final int app_name=0x7f0a0028;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -1630,16 +1634,16 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f0a0021;
-        public static final int cerca=0x7f0a004e;
-        public static final int cercaSugg=0x7f0a004d;
-        public static final int cittaHotelRistorante=0x7f0a006a;
-        public static final int cittaHotelRistoranteSugg=0x7f0a006b;
-        public static final int cittaMuseo=0x7f0a0063;
-        public static final int cittaMuseoSugg=0x7f0a0064;
-        public static final int cittaPartenza=0x7f0a005b;
-        public static final int cittaPartenzaSugg=0x7f0a005c;
-        public static final int cittaRitorno=0x7f0a005d;
-        public static final int cittaRitornoSugg=0x7f0a005e;
+        public static final int cerca=0x7f0a004d;
+        public static final int cercaSugg=0x7f0a004c;
+        public static final int cittaHotelRistorante=0x7f0a0069;
+        public static final int cittaHotelRistoranteSugg=0x7f0a006a;
+        public static final int cittaMuseo=0x7f0a0062;
+        public static final int cittaMuseoSugg=0x7f0a0063;
+        public static final int cittaPartenza=0x7f0a005a;
+        public static final int cittaPartenzaSugg=0x7f0a005b;
+        public static final int cittaRitorno=0x7f0a005c;
+        public static final int cittaRitornoSugg=0x7f0a005d;
         public static final int cognomeUtente=0x7f0a0030;
         public static final int cognomeUtenteSugg=0x7f0a0031;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
@@ -1713,96 +1717,86 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0a0020;
-        public static final int compagniViaggio=0x7f0a0048;
-        public static final int compagniViaggioEsempio=0x7f0a0070;
-        public static final int compagniViaggioSugg=0x7f0a0049;
-        public static final int compagnia=0x7f0a0059;
-        public static final int compagniaSugg=0x7f0a005a;
+        public static final int compagniViaggio=0x7f0a0047;
+        public static final int compagniViaggioEsempio=0x7f0a006f;
+        public static final int compagniViaggioSugg=0x7f0a0048;
+        public static final int compagnia=0x7f0a0058;
+        public static final int compagniaSugg=0x7f0a0059;
         public static final int confermaPasswordUtente=0x7f0a0038;
         public static final int confermaPasswordUtenteSugg=0x7f0a0039;
-        public static final int dataAndata=0x7f0a0046;
-        public static final int dataAndataEsempio=0x7f0a006e;
-        public static final int dataRitorno=0x7f0a0047;
-        public static final int dataRitornoEsempio=0x7f0a006f;
-        public static final int descrizioneViaggio=0x7f0a004a;
-        public static final int descrizioneViaggioSugg=0x7f0a004b;
-        public static final int hello_world=0x7f0a0073;
-        public static final int hotel=0x7f0a0066;
-        public static final int infoApp=0x7f0a0050;
-        public static final int inserisciData=0x7f0a004c;
-        public static final int listCittaMappa=0x7f0a0072;
-        public static final int localita=0x7f0a0044;
-        public static final int localitaEsempio=0x7f0a006d;
-        public static final int localitaSugg=0x7f0a0045;
+        public static final int dataAndata=0x7f0a0045;
+        public static final int dataAndataEsempio=0x7f0a006d;
+        public static final int dataRitorno=0x7f0a0046;
+        public static final int dataRitornoEsempio=0x7f0a006e;
+        public static final int descrizioneViaggio=0x7f0a0049;
+        public static final int descrizioneViaggioSugg=0x7f0a004a;
+        public static final int hello_world=0x7f0a0072;
+        public static final int hotel=0x7f0a0065;
+        public static final int infoApp=0x7f0a004f;
+        public static final int inserisciData=0x7f0a004b;
+        public static final int listCittaMappa=0x7f0a0071;
+        public static final int localita=0x7f0a0043;
+        public static final int localitaEsempio=0x7f0a006c;
+        public static final int localitaSugg=0x7f0a0044;
         public static final int localitaUtente=0x7f0a0032;
         public static final int localitaUtenteSugg=0x7f0a0033;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f0a0027;
-        public static final int mappa=0x7f0a0071;
-        public static final int nomeHotelRistorante=0x7f0a0068;
-        public static final int nomeHotelRistoranteSugg=0x7f0a0069;
-        public static final int nomeMuseo=0x7f0a0061;
-        public static final int nomeMuseoSugg=0x7f0a0062;
+        public static final int mappa=0x7f0a0070;
+        public static final int nomeHotelRistorante=0x7f0a0067;
+        public static final int nomeHotelRistoranteSugg=0x7f0a0068;
+        public static final int nomeMuseo=0x7f0a0060;
+        public static final int nomeMuseoSugg=0x7f0a0061;
         public static final int nomeUtente=0x7f0a002e;
         public static final int nomeUtenteSugg=0x7f0a002f;
         public static final int passwordUtente=0x7f0a0036;
         public static final int passwordUtenteSugg=0x7f0a0037;
-        public static final int ristorante=0x7f0a0067;
-        public static final int risultatiRicerca=0x7f0a004f;
-        public static final int risultatoRicerca=0x7f0a006c;
-        public static final int salvaMuseiButton=0x7f0a0065;
-        public static final int salvaTrasportiButton=0x7f0a0060;
-        public static final int title_activity_foto_video=0x7f0a007b;
-        public static final int title_activity_hotel_ristoranti=0x7f0a007e;
-        public static final int title_activity_info_message=0x7f0a0079;
-        public static final int title_activity_inserisci_dettagli=0x7f0a007a;
-        public static final int title_activity_inserisci_hotel_ristoranti=0x7f0a007f;
-        public static final int title_activity_login=0x7f0a0082;
-        public static final int title_activity_maps=0x7f0a0081;
-        public static final int title_activity_master_travel_message=0x7f0a0076;
-        public static final int title_activity_musei=0x7f0a007d;
-        public static final int title_activity_new_travel_message=0x7f0a0077;
-        public static final int title_activity_registrazione=0x7f0a0083;
-        public static final int title_activity_search_travel_message=0x7f0a0078;
-        public static final int title_activity_trasporti=0x7f0a007c;
-        public static final int title_activity_visualizza_viaggio=0x7f0a0080;
-        public static final int title_activity_welcome_message=0x7f0a0075;
+        public static final int ristorante=0x7f0a0066;
+        public static final int risultatiRicerca=0x7f0a004e;
+        public static final int risultatoRicerca=0x7f0a006b;
+        public static final int salvaMuseiButton=0x7f0a0064;
+        public static final int salvaTrasportiButton=0x7f0a005f;
+        public static final int title_activity_foto_video=0x7f0a007c;
+        public static final int title_activity_hotel_ristoranti=0x7f0a007f;
+        public static final int title_activity_info_message=0x7f0a007a;
+        public static final int title_activity_inserisci_dettagli=0x7f0a007b;
+        public static final int title_activity_inserisci_hotel_ristoranti=0x7f0a0080;
+        public static final int title_activity_login=0x7f0a0083;
+        public static final int title_activity_maps=0x7f0a0082;
+        public static final int title_activity_master_travel_message=0x7f0a0077;
+        public static final int title_activity_musei=0x7f0a007e;
+        public static final int title_activity_new_travel_message=0x7f0a0078;
+        public static final int title_activity_registrazione=0x7f0a0084;
+        public static final int title_activity_search_travel_message=0x7f0a0079;
+        public static final int title_activity_trasporti=0x7f0a007d;
+        public static final int title_activity_visualizza_viaggio=0x7f0a0081;
         public static final int usernameUtente=0x7f0a0034;
         public static final int usernameUtenteSugg=0x7f0a0035;
-        public static final int valutazione=0x7f0a005f;
+        public static final int valutazione=0x7f0a005e;
     }
     public static final class style {
-        /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
+        /**  stile action bar 
 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
-
     
- API 11 theme customizations can go here. 
+ stile action bar 
 
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     
- API 14 theme customizations can go here. 
+ stile action bar 
          */
-        public static final int AppBaseTheme=0x7f0b008b;
-        /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
+        public static final int ActionBarTheme=0x7f0b008d;
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+ stile caratteri 
          */
-        public static final int AppTheme=0x7f0b008c;
-        /**  stile caratteri 
-         */
-        public static final int CodeFont=0x7f0b008d;
+        public static final int CodeFont=0x7f0b008b;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0b0063;
@@ -2005,7 +1999,8 @@ containing a value of this type.
         public static final int Widget_AppCompat_ProgressBar=0x7f0b000a;
         public static final int Widget_AppCompat_ProgressBar_Horizontal=0x7f0b0009;
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0b0022;
-        public static final int theme=0x7f0b008e;
+        public static final int actionBar=0x7f0b008e;
+        public static final int theme=0x7f0b008c;
     }
     public static final class styleable {
         /**  ============================================ 

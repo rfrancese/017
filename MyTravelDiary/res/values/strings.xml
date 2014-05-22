@@ -21,7 +21,6 @@
     <string name="confermaPasswordUtenteSugg">Re-inserisci la password</string>
     <string name="SalvaRegistrazioneButton">Registrati</string>
     <string name="Welcome">Benvenuto in</string>
-    <string name="AvantiButton">Avanti</string>
     <string name="NuovoViaggioButton">Nuovo Viaggio</string>
     <string name="RicercaViaggioButton">Ricerca Viaggio</string>
     <string name="InformazioniButton">Informazioni</string>
@@ -77,8 +76,12 @@
     <string name="mappa">Mappa</string>
     <string name="listCittaMappa">Scegli una citta</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="action_new_travel">Nuovo viaggio</string>
+    <string name="action_search">Cerca</string>
+    <string name="action_info">Info</string>
+    
     <string name="action_settings">Settings</string>
-    <string name="title_activity_welcome_message">Benvenuto</string>
     <string name="title_activity_master_travel_message">My Travel Diary</string>
     <string name="title_activity_new_travel_message">Nuovo Viaggio</string>
     <string name="title_activity_search_travel_message">Ricerca Viaggio</string>

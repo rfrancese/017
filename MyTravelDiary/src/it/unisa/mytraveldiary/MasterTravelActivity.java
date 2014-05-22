@@ -73,7 +73,7 @@ public class MasterTravelActivity extends ActionBarActivity {
     }
 	
 	public void avantiInformazioni(View view){
-    	Intent intent = new Intent(this, InfoMessageActivity.class);
+    	Intent intent = new Intent(this, InfoActivity.class);
     	startActivity(intent);
     }
 }

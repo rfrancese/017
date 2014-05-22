@@ -4,27 +4,27 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        
-
-    </style>
     
   <!-- stile caratteri -->
     <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
-            <item name="android:textColor">#2F4F4F</item>
+            <item name="android:textColor">#ffffff</item>
              <item name="android:typeface">sans</item>
            </style>
     <style name="theme">theme_tema</style>
-           
+    
+    <!-- stile action bar -->
+    
+    <style name="ActionBarTheme" parent="Theme.AppCompat">
+        <item name="android:actionBarStyle">@style/actionBar</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:itemBackground">@color/pink</item>
+    </style>
+
+    <style name="actionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="android:background">#DC143C</item>
+    </style>
+    
+    <color name="black">#000000</color>
+    <color name="pink">#DC143C</color>
       
 </resources>

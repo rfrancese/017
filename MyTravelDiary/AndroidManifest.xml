@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="it.unisa.mytraveldiary"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="it.unisa.mytraveldiary"
     android:versionCode="1"
-    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,7 +10,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
      The following two permissions are not required to use
-     Google Maps Android API v2, but are recommended.
+     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -24,16 +25,15 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@drawable/ic_icona"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:icon="@drawable/ic_icona">
+        android:theme="@style/ActionBarTheme" >
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name="it.unisa.mytraveldiary.LoginActivity"
-            
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,20 +42,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.WelcomeActivity"
-            android:label="@string/title_activity_welcome_message"
+            android:name="it.unisa.mytraveldiary.MasterTravelActivity"
+            android:label="@string/title_activity_master_travel_message"
             android:parentActivityName="it.unisa.mytraveldiary.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unisa.mytraveldiary.MainActivity" />
-        </activity>
-        <activity
-            android:name="it.unisa.mytraveldiary.MasterTravelActivity"
-            android:label="@string/title_activity_master_travel_message"
-            android:parentActivityName="it.unisa.mytraveldiary.WelcomeActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.unisa.mytraveldiary.WelcomeMessageActivity" />
+                android:value="it.unisa.mytraveldiary.LoginActivity" />
         </activity>
         <activity
             android:name="it.unisa.mytraveldiary.NewTravelActivity"
@@ -74,7 +66,7 @@
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.InfoMessageActivity"
+            android:name="it.unisa.mytraveldiary.InfoActivity"
             android:label="@string/title_activity_info_message"
             android:parentActivityName="it.unisa.mytraveldiary.MasterTravelActivity" >
             <meta-data
@@ -156,7 +148,7 @@
             android:parentActivityName="it.unisa.mytraveldiary" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                 android:value="it.unisa.mytraveldiary.NewTravelActivity" />
+                android:value="it.unisa.mytraveldiary.NewTravelActivity" />
         </activity>
     </application>
 

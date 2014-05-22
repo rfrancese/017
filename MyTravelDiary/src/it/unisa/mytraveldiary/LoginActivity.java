@@ -51,7 +51,7 @@ public class LoginActivity extends ActionBarActivity {
 		//SharedPreferences.Editor editor = settings.edit();
 		
 		if ((settings.getString("username", null))!=null) {
-			goWelcome();
+			goNewTravel();
 			super.onStop();
 		}
 
@@ -120,7 +120,7 @@ public class LoginActivity extends ActionBarActivity {
 								user.getLocalita());
 
 						login=true;
-						goWelcome();
+						goNewTravel();
 					}
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
@@ -230,8 +230,8 @@ public class LoginActivity extends ActionBarActivity {
 		makeControls();
 	}
 
-	private void goWelcome() {
-		Intent intent = new Intent(this, WelcomeActivity.class);
+	private void goNewTravel() {
+		Intent intent = new Intent(this, NewTravelActivity.class);
 		startActivity(intent);
 	}
 
@@ -275,7 +275,7 @@ public class LoginActivity extends ActionBarActivity {
 		}
 		else {
 			// nel caso l'utente è autenticato
-			Intent intent = new Intent(this, WelcomeActivity.class);
+			Intent intent = new Intent(this, NewTravelActivity.class);
 			startActivity(intent);
 		}
 	}
