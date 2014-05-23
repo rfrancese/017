@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends ActionBarActivity {
@@ -54,7 +56,6 @@ public class LoginActivity extends ActionBarActivity {
 			goNewTravel();
 			super.onStop();
 		}
-
 	}
 
 	private class NetwokAccess extends AsyncTask<String, Void, String> {
@@ -215,7 +216,14 @@ public class LoginActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+			setFontTextView(getActivity(),(TextView) rootView.findViewById(R.id.Logo));
+
 			return rootView;
+		}
+		
+		public void setFontTextView(Context c, TextView name){
+			Typeface font = Typeface.createFromAsset(c.getAssets(), "fonts/kellybrush.ttf");
+			name.setTypeface(font);
 		}
 	}
 

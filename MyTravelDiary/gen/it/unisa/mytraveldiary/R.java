@@ -1034,7 +1034,7 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_pressed=0x7f070008;
         public static final int common_signin_btn_text_dark=0x7f07000f;
         public static final int common_signin_btn_text_light=0x7f070010;
-        public static final int pink=0x7f07000d;
+        public static final int cyan=0x7f07000d;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1278,17 +1278,21 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020070;
         public static final int common_signin_btn_text_pressed_light=0x7f020071;
         public static final int ic_action_about=0x7f020072;
-        public static final int ic_action_event=0x7f020073;
-        public static final int ic_action_map=0x7f020074;
-        public static final int ic_action_new=0x7f020075;
-        public static final int ic_action_search=0x7f020076;
-        public static final int ic_icona=0x7f020077;
-        public static final int ic_launcher=0x7f020078;
-        public static final int ic_plusone_medium_off_client=0x7f020079;
-        public static final int ic_plusone_small_off_client=0x7f02007a;
-        public static final int ic_plusone_standard_off_client=0x7f02007b;
-        public static final int ic_plusone_tall_off_client=0x7f02007c;
-        public static final int images=0x7f02007d;
+        public static final int ic_action_add_person=0x7f020073;
+        public static final int ic_action_event=0x7f020074;
+        public static final int ic_action_map=0x7f020075;
+        public static final int ic_action_new=0x7f020076;
+        public static final int ic_action_new_event=0x7f020077;
+        public static final int ic_action_save=0x7f020078;
+        public static final int ic_action_search=0x7f020079;
+        public static final int ic_action_send_now=0x7f02007a;
+        public static final int ic_icona=0x7f02007b;
+        public static final int ic_launcher=0x7f02007c;
+        public static final int ic_plusone_medium_off_client=0x7f02007d;
+        public static final int ic_plusone_small_off_client=0x7f02007e;
+        public static final int ic_plusone_standard_off_client=0x7f02007f;
+        public static final int ic_plusone_tall_off_client=0x7f020080;
+        public static final int images=0x7f020081;
     }
     public static final class id {
         public static final int Foto=0x7f050042;
