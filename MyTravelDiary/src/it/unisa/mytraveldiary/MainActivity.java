@@ -1,10 +1,10 @@
 package it.unisa.mytraveldiary;
 
-import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,17 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.os.Build;
 
-public class SearchTravelActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_travel_message);
+		setContentView(R.layout.activity_main);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -34,7 +31,9 @@ public class SearchTravelActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.search_travel_message, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
+		MenuItem searchItem = menu.findItem(R.id.action_search);
+		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 		return true;
 	}
 
@@ -43,11 +42,22 @@ public class SearchTravelActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (item.getItemId()) {
+			
+		case R.id.action_search:
 			return true;
+			
+		case R.id.action_new_travel:
+			goNewTravel();
+			return true;
+			
+		case R.id.action_info:
+			goInfo();
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -62,7 +72,7 @@ public class SearchTravelActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
-					R.layout.fragment_search_travel_message, container, false);
+					R.layout.fragment_main, container, false);
 			return rootView;
 		}
 	}
@@ -71,5 +81,14 @@ public class SearchTravelActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
 		startActivity(intent);
 	}
-
+	
+	private void goNewTravel() {
+		Intent intent = new Intent(this, NewTravelActivity.class);
+		startActivity(intent);
+	}
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
 }

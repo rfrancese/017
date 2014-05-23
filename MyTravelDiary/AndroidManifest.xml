@@ -59,7 +59,7 @@
                 android:value="it.unisa.mytraveldiary.MasterTravelMessageActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.SearchTravelActivity"
+            android:name="it.unisa.mytraveldiary.MainActivity"
             android:label="@string/title_activity_search_travel_message"
             android:parentActivityName="it.unisa.mytraveldiary.MasterTravelActivity" >
             <meta-data
@@ -125,7 +125,7 @@
         <activity
             android:name="it.unisa.mytraveldiary.VisualizzaViaggioActivity"
             android:label="@string/title_activity_visualizza_viaggio"
-            android:parentActivityName="it.unisa.mytraveldiary.SearchTravelActivity" >
+            android:parentActivityName="it.unisa.mytraveldiary.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.SearchTravelMessageActivity" />

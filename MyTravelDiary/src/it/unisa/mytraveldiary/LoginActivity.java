@@ -53,7 +53,7 @@ public class LoginActivity extends ActionBarActivity {
 		//SharedPreferences.Editor editor = settings.edit();
 		
 		if ((settings.getString("username", null))!=null) {
-			goNewTravel();
+			goMain();
 			super.onStop();
 		}
 	}
@@ -121,7 +121,7 @@ public class LoginActivity extends ActionBarActivity {
 								user.getLocalita());
 
 						login=true;
-						goNewTravel();
+						goMain();
 					}
 					else {
 						Log.d("RESPONSE", "Nessun risultato response");
@@ -189,7 +189,7 @@ public class LoginActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
 
@@ -236,11 +236,6 @@ public class LoginActivity extends ActionBarActivity {
 		// Chiamare una funzione che si occupa di fare i controlli sul'utente che restituisce
 		// true o false; se è true si passa alla schermata successiva
 		makeControls();
-	}
-
-	private void goNewTravel() {
-		Intent intent = new Intent(this, NewTravelActivity.class);
-		startActivity(intent);
 	}
 
 	private void makeControls() {
@@ -304,6 +299,11 @@ public class LoginActivity extends ActionBarActivity {
 
 	public void avantiRegistrazione(View view){
 		Intent intent = new Intent(this, RegistrazioneActivity.class);
+		startActivity(intent);
+	}
+	
+	private void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 }

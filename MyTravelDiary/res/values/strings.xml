@@ -76,6 +76,7 @@
     <string name="mappa">Mappa</string>
     <string name="listCittaMappa">Scegli una citta</string>
     <string name="hello_world">Hello world!</string>
+     <string name="noViaggio">Nessun viaggio inserito</string>
     
     <string name="action_new_travel">Nuovo viaggio</string>
     <string name="action_search">Cerca</string>
