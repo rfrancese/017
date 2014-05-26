@@ -51,8 +51,11 @@ public class LoginActivity extends ActionBarActivity {
 		
 		SharedPreferences settings = getSharedPreferences("login", 0);
 		//SharedPreferences.Editor editor = settings.edit();
+		String username=settings.getString("username", "null");
 		
-		if ((settings.getString("username", null))!=null) {
+		Log.d("LOGIN", username);
+		
+		if (!(username.equals("null"))) {
 			goMain();
 			super.onStop();
 		}
@@ -108,7 +111,7 @@ public class LoginActivity extends ActionBarActivity {
 						JSONObject object;
 						try {
 							object = new JSONObject(ret);
-							//user.setUsername(object.getString("username"));
+							user.setUsername(object.getString("username"));
 							user.setNome(object.getString("nome"));
 							user.setCognome(object.getString("cognome"));
 							user.setLocalita(object.getString("localita"));
@@ -121,6 +124,12 @@ public class LoginActivity extends ActionBarActivity {
 								user.getLocalita());
 
 						login=true;
+						SharedPreferences settings = getSharedPreferences("login", 0);
+						SharedPreferences.Editor editor = settings.edit();
+						editor.putString("username", user.getUsername());
+						
+						// Commit the edits!
+						editor.commit();
 						goMain();
 					}
 					else {
@@ -138,7 +147,6 @@ public class LoginActivity extends ActionBarActivity {
 				e.printStackTrace();
 				return "Error";
 			}  finally {
-				//TODO si dovrebbe chiudere is (InputStream)
 				connection.disconnect();
 			}
 		}
@@ -149,14 +157,7 @@ public class LoginActivity extends ActionBarActivity {
 
 			if (!login) {
 				showToast("Username/Password errati!");
-			} else {
-				SharedPreferences settings = getSharedPreferences("login", 0);
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString("username", user.getUsername());
-				
-				// Commit the edits!
-				editor.commit();
-			}
+			} 
 		}
 
 		private String getStringFromInputStream(InputStream is) {

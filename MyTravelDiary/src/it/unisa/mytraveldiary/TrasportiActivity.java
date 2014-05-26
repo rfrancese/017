@@ -1,24 +1,14 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerTrasporti;
-import it.unisa.mytraveldiary.entity.Trasporto;
-
-
-
-import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
 public class TrasportiActivity extends ActionBarActivity {
 
@@ -31,11 +21,6 @@ public class TrasportiActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		DatabaseHandlerTrasporti db=new DatabaseHandlerTrasporti(this);
-        ArrayList<Trasporto> count=db.getAllTrasporti();
-        
-        Log.d("Reading: ", "CountTrasporti: "+count); 
 	}
 
 	@Override
