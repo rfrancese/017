@@ -1,22 +1,15 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerMusei;
-import it.unisa.mytraveldiary.entity.Museo;
-
-import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.AutoCompleteTextView;
 
 public class MuseiActivity extends ActionBarActivity {
 
@@ -62,8 +55,12 @@ public class MuseiActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_musei,
-					container, false);
+			View rootView = inflater.inflate(R.layout.fragment_musei, container, false);
+			
+			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.cittaMuseoAutocomplete);
+			// Create the adapter and set it to the AutoCompleteTextView 
+			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+			
 			return rootView;
 		}
 	}

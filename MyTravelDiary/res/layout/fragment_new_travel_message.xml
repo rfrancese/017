@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/localitaTextView"
             android:layout_marginBottom="15dp"
+            android:singleLine="true"
             android:hint="@string/localitaSugg" />
 
         <ImageButton

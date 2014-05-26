@@ -61,21 +61,22 @@
             android:layout_below="@id/nomeHotelRistoranteInput"
             android:text="@string/cittaHotelRistorante" />
 
-        <EditText
-            android:id="@+id/cittaHotelRistoranteInput"
-            style="@style/CodeFont"
+        <AutoCompleteTextView
+            android:id="@+id/cittaHotelRistoranteAutocomplete"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/cittaHotelRistorante"
             android:layout_marginBottom="20dp"
-            android:hint="@string/cittaHotelRistoranteSugg" />
+            android:singleLine="true"
+            android:hint="@string/cittaHotelRistoranteSugg"
+            style="@style/CodeFont" />
 
         <TextView
             android:id="@+id/valutazione"
             style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/cittaHotelRistoranteInput"
+            android:layout_below="@+id/cittaHotelRistoranteAutocomplete"
             android:gravity="center"
             android:text="@string/valutazione" />
 
@@ -89,7 +90,7 @@
             android:numStars="5" />
 
         <Button
-            android:id="@+id/salvaMuseiButton"
+            android:id="@+id/salvaButton"
             style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -98,8 +99,8 @@
             android:gravity="center"
             android:padding="4dip"
             android:background="@drawable/background" 
-            android:onClick="goInserisci"
-            android:text="@string/salvaMuseiButton" />
+            android:onClick="salvaHotelRistorante"
+            android:text="@string/salvaButton" />
     </RelativeLayout>
 
 </ScrollView>

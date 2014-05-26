@@ -1,12 +1,7 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerHotelRistoranti;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
-
-import java.util.ArrayList;
-
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.AutoCompleteTextView;
+import android.widget.RadioButton;
 
 public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 
@@ -60,15 +56,37 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_inserisci_hotel_ristoranti, container,
-					false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			
+			View rootView = inflater.inflate(R.layout.fragment_inserisci_hotel_ristoranti, container, false);
+			
+			// Get a reference to the AutoCompleteTextView in the layout
+			 AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.cittaHotelRistoranteAutocomplete);
+			// Create the adapter and set it to the AutoCompleteTextView 
+			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+			
 			return rootView;
 		}
 	}
 
+	public void salvaHotelRistorante(View view){
+		
+		// Tipologia
+			RadioButton hotel= (RadioButton) findViewById(R.id.hotel);
+		    RadioButton ristorante= (RadioButton) findViewById(R.id.ristorante);
+				
+		HotelRistorante dettaglio = new HotelRistorante();
+
+		if (hotel.isChecked()) 
+			dettaglio.setTipologia("Hotel");
+
+		else if (ristorante.isChecked()) 
+		    dettaglio.setTipologia("Ristorante");
+		
+		Log.d("RISTORANTE", dettaglio.getTipologia());
+	}
+	
+	
 	public void goInserisci(View view) {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		  startActivity(intent);

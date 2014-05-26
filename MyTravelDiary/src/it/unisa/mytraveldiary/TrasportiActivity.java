@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 public class TrasportiActivity extends ActionBarActivity {
 
@@ -54,8 +55,15 @@ public class TrasportiActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_trasporti,
-					container, false);
+			View rootView = inflater.inflate(R.layout.fragment_trasporti, container, false);
+			
+			// Get a reference to the AutoCompleteTextView in the layout
+			 AutoCompleteTextView textViewAndata = (AutoCompleteTextView) rootView.findViewById(R.id.cittaPartenzaAutocomplete);
+			 AutoCompleteTextView textViewRitorno = (AutoCompleteTextView) rootView.findViewById(R.id.cittaRitornoAutocomplete);
+			// Create the adapter and set it to the AutoCompleteTextView 
+			textViewAndata.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+			textViewRitorno.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
+			
 			return rootView;
 		}
 	}

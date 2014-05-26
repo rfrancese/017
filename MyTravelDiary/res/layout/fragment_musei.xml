@@ -44,8 +44,8 @@
             android:layout_below="@+id/nomeMuseoSugg"
             android:text="@string/cittaMuseo" />
 
-        <EditText
-            android:id="@+id/cittaMuseoSugg"
+        <AutoCompleteTextView
+            android:id="@+id/cittaMuseoAutocomplete"
             style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -59,7 +59,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:layout_below="@+id/cittaMuseoSugg"
+            android:layout_below="@+id/cittaMuseoAutocomplete"
             android:text="@string/valutazione" />
        
        <RatingBar
@@ -73,7 +73,7 @@
 
        <Button
            android:id="@+id/salvaMuseiButton"
-           android:text="@string/salvaMuseiButton"
+           android:text="@string/salvaButton"
            android:layout_width="fill_parent"
            android:layout_height="fill_parent"
            android:gravity="center"

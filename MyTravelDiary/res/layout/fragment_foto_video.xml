@@ -59,13 +59,13 @@
         android:layout_below="@id/InserisciButton"/>
 
     <Button
-        android:id="@+id/SalvaButton"
+        android:id="@+id/salvaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_below="@id/imgView"
         android:layout_centerHorizontal="true"
-        android:text="@string/SalvaFotoVideoButton"
+        android:text="@string/salvaButton"
         android:padding="4dip"
         android:background="@drawable/background" 
         android:onClick="goInserisci"

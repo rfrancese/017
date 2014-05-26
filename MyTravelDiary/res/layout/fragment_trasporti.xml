@@ -44,8 +44,8 @@
                     android:layout_below="@+id/compagniaSugg"
                     style="@style/CodeFont" />
 
-                <EditText
-                    android:id="@+id/cittaPartenzaSugg"
+                <AutoCompleteTextView
+                    android:id="@+id/cittaPartenzaAutocomplete"
                     android:hint="@string/cittaPartenzaSugg"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -58,11 +58,11 @@
                     android:text="@string/cittaRitorno"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_below="@+id/cittaPartenzaSugg"
+                    android:layout_below="@+id/cittaPartenzaAutocomplete"
                     style="@style/CodeFont" />
 
-                <EditText
-                    android:id="@+id/cittaRitornoSugg"
+                <AutoCompleteTextView
+                    android:id="@+id/cittaRitornoAutocomplete"
                     android:hint="@string/cittaRitornoSugg"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -76,7 +76,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:layout_below="@+id/cittaRitornoSugg"
+            android:layout_below="@+id/cittaRitornoAutocomplete"
             android:text="@string/valutazione" />
        
        <RatingBar
@@ -90,7 +90,7 @@
        
        <Button
            android:id="@+id/salvaTrasportiButton"
-           android:text="@string/salvaTrasportiButton"
+           android:text="@string/salvaButton"
            android:layout_width="fill_parent"
            android:layout_height="fill_parent"
            android:gravity="center"

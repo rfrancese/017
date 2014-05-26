@@ -1,9 +1,7 @@
 package it.unisa.mytraveldiary;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -15,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.os.Build;
 import android.provider.MediaStore;
 
 public class FotoVideoActivity extends ActionBarActivity {
@@ -92,7 +89,8 @@ public class FotoVideoActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-
+	
+  
 	  public void upload(View view) {
 		  Intent i = new Intent(
                   Intent.ACTION_PICK,
