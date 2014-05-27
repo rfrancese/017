@@ -1,7 +1,10 @@
 package it.unisa.mytraveldiary.db;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import it.unisa.mytraveldiary.entity.Travel;
 import it.unisa.mytraveldiary.entity.User;
@@ -14,9 +17,15 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=7;
+	private static final int DATABASE_VERSION=8;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
+	private static final String T_TIPOLOGIA="tipologia";
+	private static final String T_LOCALITA="localita";
+	private static final String T_DATA_ANDATA="dataAndata";
+	private static final String T_DATA_RITORNO="dataRitorno";
+	private static final String T_COMPAGNI_VIAGGIO="compagniViaggio";
+	private static final String T_DESCRIZIONE="descrizione";
 	private static final String T_ID="id";
 
 	public DatabaseHandlerTravel(Context context) {
@@ -26,6 +35,12 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_TRAVELS_TABLE="CREATE TABLE "+TABLE_TRAVELS +" (" +
+				T_TIPOLOGIA +" VARCHAR(10),"+
+				T_LOCALITA + " VARCHAR(50),"+
+				T_DATA_ANDATA + " DATE,"+
+				T_DATA_RITORNO + " DATE,"+
+				T_COMPAGNI_VIAGGIO + " VARCHAR(100),"+
+				T_DESCRIZIONE + " TEXT,"+
 				T_ID + " INTEGER NOT NULL PRIMARY KEY)";
 		db.execSQL(CREATE_TRAVELS_TABLE);
 		
@@ -47,8 +62,17 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 		
+		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
+		values.put(T_LOCALITA, travel.getLocalità());
+		values.put(T_DATA_ANDATA, (new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(new Date())));
+		values.put(T_DATA_RITORNO, (new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(new Date())));
+		// problema
+		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
+		values.put(T_DESCRIZIONE, travel.getDescrizione());
 		values.put(T_ID, travel.getId());
 
+		Log.d("DB VIAGGIO", travel.toString());
+		
 		db.insert(TABLE_TRAVELS, null, values);
 		db.close();
 	}
@@ -60,6 +84,12 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
+		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
+		values.put(T_LOCALITA, travel.getLocalità());
+		values.put(T_DATA_ANDATA, (travel.getDataAndata()).toString());
+		values.put(T_DATA_RITORNO, (travel.getDataRitorno()).toString());
+		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
+		values.put(T_DESCRIZIONE, travel.getDescrizione());
 		values.put(T_ID, travel.getId());
 
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
@@ -88,8 +118,23 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 			cursor.moveToFirst();
 
 
-		Travel travel= new Travel(null, null, null, null, null, null, Integer.parseInt(cursor.getString(0)));
+		String tipologia=cursor.getString(0);
+		String localita=cursor.getString(1);
+		String dataAndata=cursor.getString(2);
+		String dataRitorno=cursor.getString(3);
+		String compagniViaggio=cursor.getString(4);
+		String descrizione=cursor.getString(5);
+		String idTravel=cursor.getString(6);
+		
+		Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
+		Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
 
+		ArrayList<User> compagniV=getcompagniViaggio(compagniViaggio);
+		
+		Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniV, descrizione, 
+				Integer.parseInt(idTravel));
+
+		
 		return travel;
 	}
 
@@ -100,12 +145,26 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		String selectQuery="SELECT * FROM " + TABLE_TRAVELS;
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor cursor=db.rawQuery(selectQuery, null);
-		ArrayList<User> compagniViaggio;
+		ArrayList<User> compagniV;
 
 		if (cursor.moveToFirst()) {
 			do {
-				Travel travel=new Travel();;
-				travel.setId(Integer.parseInt(cursor.getString(6)));
+				String tipologia=cursor.getString(0);
+				String localita=cursor.getString(1);
+				String dataAndata=cursor.getString(2);
+				String dataRitorno=cursor.getString(3);
+				String compagniViaggio=cursor.getString(4);
+				String descrizione=cursor.getString(5);
+				String idTravel=cursor.getString(6);
+				
+				Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
+				Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
+
+				compagniV=getcompagniViaggio(compagniViaggio);
+				
+				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniV, descrizione, 
+						Integer.parseInt(idTravel));
+				
 				travelList.add(travel);
 			} 
 			while (cursor.moveToNext());
