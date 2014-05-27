@@ -19,7 +19,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:layout_marginBottom="30dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="75dp"
             android:onClick="avantiFotoVideo"
             android:text="@string/FotoVideoButton"
             android:padding="4dip"
@@ -57,13 +57,25 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="40dp"
             android:layout_below="@id/MuseiButton"
             android:onClick="avantiHotelRistoranti"
             android:text="@string/HotelRistorantiButton"
             android:padding="4dip"
             android:background="@drawable/background" 
             style="@style/CodeFont"/>
+        
+         <ImageButton
+            android:id="@+id/tornaHomepageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@id/HotelRistorantiButton"
+            android:onClick="tornaHomepage"
+            android:padding="4dip"
+            android:src="@drawable/ic_action_reply"
+            android:background="@drawable/background" />
         
     </RelativeLayout>
 

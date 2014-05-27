@@ -200,7 +200,8 @@ public class LoginActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_info) {
+			goInfo();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -297,9 +298,13 @@ public class LoginActivity extends ActionBarActivity {
 	 * Quando l'utente deve registrarsi e clicca sul bottone Registrati
 	 * @param view
 	 * **/
-
 	public void avantiRegistrazione(View view){
 		Intent intent = new Intent(this, RegistrazioneActivity.class);
+		startActivity(intent);
+	}
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
 	

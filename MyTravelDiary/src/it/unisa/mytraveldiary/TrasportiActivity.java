@@ -38,7 +38,8 @@ public class TrasportiActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_info) {
+			goInfo();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -72,4 +73,10 @@ public class TrasportiActivity extends ActionBarActivity {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		  startActivity(intent);
 	  }
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+	
 }

@@ -115,7 +115,7 @@
                 android:value="it.unisa.mytraveldiary.InserisciDettagliActivity" />
         </activity>
         <activity
-            android:name="it.unisa.mytraveldiary.InserisciHotelRistorantiActivity"
+            android:name="it.unisa.mytraveldiary.HotelRistorantiActivity"
             android:label="@string/title_activity_inserisci_hotel_ristoranti"
             android:parentActivityName="it.unisa.mytraveldiary.InserisciDettagliActivity" >
             <meta-data

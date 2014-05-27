@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.RadioButton;
 
-public class InserisciHotelRistorantiActivity extends ActionBarActivity {
+public class HotelRistorantiActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.inserisci_hotel_ristoranti, menu);
+		getMenuInflater().inflate(R.menu.hotel_ristoranti, menu);
 		return true;
 	}
 
@@ -41,7 +41,8 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_info) {
+			goInfo();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -91,4 +92,10 @@ public class InserisciHotelRistorantiActivity extends ActionBarActivity {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		  startActivity(intent);
 	  }
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+	
 }
