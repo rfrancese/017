@@ -10,12 +10,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
 import it.unisa.mytraveldiary.entity.Travel;
+import it.unisa.mytraveldiary.entity.User;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -150,7 +154,6 @@ public class NewTravelActivity extends ActionBarActivity {
 				e.printStackTrace();
 				return "Error";
 			}  finally {
-				//TODO si dovrebbe chiudere is (InputStream)
 				connection.disconnect();
 			}
 		}
@@ -249,47 +252,63 @@ public class NewTravelActivity extends ActionBarActivity {
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		
 		viaggio=new Travel();
+		
+		// GET
 		// Tipologia viaggio
 		RadioButton svago= (RadioButton) findViewById(R.id.Svago);
 		RadioButton lavoro= (RadioButton) findViewById(R.id.Lavoro);
 		
+		// Data andata e ritorno
 		TextView dataAndata=(TextView) findViewById(R.id.andataText);
 		TextView dataRitorno=(TextView) findViewById(R.id.ritornoText);
-
-		// Data andata
-
-
-
+		
+		// Descrizione
 		EditText descrizione= (EditText) findViewById(R.id.descrizioneViaggioInput);
+		
+		// Località
+		AutoCompleteTextView localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
 
+		// Compagni viaggio
+		MultiAutoCompleteTextView compagniViaggio=(MultiAutoCompleteTextView) findViewById(R.id.compagniViaggioAutocomplete);
+
+		// SET
+		// Tipologia viaggio
 		if (svago.isChecked()) 
 			viaggio.setTipologiaViaggio("Svago");
 
 		else if (lavoro.isChecked()) 
 			viaggio.setTipologiaViaggio("Lavoro");
 		
-		AutoCompleteTextView localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
-		viaggio.setLocalità(localita.getText().toString());
+		// Località
+		String localitaText=localita.getText().toString();
+		viaggio.setLocalità(localitaText);
 		
+		// Data andata e ritorno
+		String dataAndataString=dataAndata.getText().toString();
+		String dataRitornoString=dataRitorno.getText().toString();
 		
-		Date dataA = new SimpleDateFormat("d/M/y").parse(dataAndata.getText().toString());
-		viaggio.setDataAndata(dataA);
+		if (!(dataAndataString.equals(""))) {
+			Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndataString);
+			viaggio.setDataAndata(dataA);
+		}
 		
-		Date dataR = new SimpleDateFormat("d/M/y").parse(dataRitorno.getText().toString());
-		viaggio.setDataRitorno(dataR);
+		if (!(dataRitornoString.equals(""))) {
+			Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitornoString);
+			viaggio.setDataRitorno(dataR);
+		}
 		
 		// Descrizione
-		
 		viaggio.setDescrizione(descrizione.getText().toString());
+		
+		// TODO Compagni viaggio
+		ArrayList<User> compViaggio=new ArrayList<User>();
+		viaggio.setCompagniViaggio(compViaggio);
 		
 		viaggioSalvato=true;
-		viaggio.setDescrizione(descrizione.getText().toString());
 
 		Log.d("New travel", viaggio.toString());
 		
-		viaggio.setId(2);
-		
-		/*DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+		DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
 		dbHandler.addTravel(viaggio);
 		
 		if (networkInfo != null && networkInfo.isConnected()) {
@@ -299,7 +318,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		} else {
 			Log.d("CONNECTION","No network connection available.");
 			showToast("Nessuna connessione!");
-		}*/
+		}
 		
 		showToast("Viaggio salvato correttamente!");
 	}
