@@ -17,7 +17,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=8;
+	private static final int DATABASE_VERSION=9;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
 	private static final String T_TIPOLOGIA="tipologia";
@@ -41,7 +41,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				T_DATA_RITORNO + " DATE,"+
 				T_COMPAGNI_VIAGGIO + " VARCHAR(100),"+
 				T_DESCRIZIONE + " TEXT,"+
-				T_ID + " INTEGER NOT NULL PRIMARY KEY)";
+				T_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRAVELS_TABLE);
 		
 		Log.d("Creating...", "Travels");
@@ -69,7 +69,6 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		// problema
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
-		values.put(T_ID, travel.getId());
 
 		Log.d("DB VIAGGIO", travel.toString());
 		
@@ -145,7 +144,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		String selectQuery="SELECT * FROM " + TABLE_TRAVELS;
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor cursor=db.rawQuery(selectQuery, null);
-		ArrayList<User> compagniV;
+		ArrayList<User> compagniV = null;
 
 		if (cursor.moveToFirst()) {
 			do {
@@ -160,7 +159,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
 				Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
 
-				compagniV=getcompagniViaggio(compagniViaggio);
+				//compagniV=getcompagniViaggio(compagniViaggio);
 				
 				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniV, descrizione, 
 						Integer.parseInt(idTravel));

@@ -237,9 +237,13 @@ public class NewTravelActivity extends ActionBarActivity {
 		((DatePickerFragment) newFragment).setTextView(ritorno);
 	}
 
-	public void avantiInserisciDettagli(View view){
-		if (viaggioSalvato)
+	public void avantiInserisciDettagli(View view) throws NumberFormatException, ParseException{
+		if (viaggioSalvato) {
+			DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+			Log.d("DB", ((dbHandler.getAllTravels()).get(1)).toString());
+			
 			goInserisciDettagli();
+		}
 
 		else
 			showToast("Salva prima il viaggio!");
@@ -302,6 +306,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		
 		// TODO Compagni viaggio
 		ArrayList<User> compViaggio=new ArrayList<User>();
+		Log.d("COMP", compagniViaggio.getText().toString());
 		viaggio.setCompagniViaggio(compViaggio);
 		
 		viaggioSalvato=true;
@@ -311,14 +316,14 @@ public class NewTravelActivity extends ActionBarActivity {
 		DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
 		dbHandler.addTravel(viaggio);
 		
-		if (networkInfo != null && networkInfo.isConnected()) {
+		/*if (networkInfo != null && networkInfo.isConnected()) {
 			new NetwokAccess().execute(stringUrl, viaggio.getTipologiaViaggio(), viaggio.getLocalità(), 
 										viaggio.getDataAndata().toString(), viaggio.getDataRitorno().toString(),
 										viaggio.getCompagniViaggio(), viaggio.getDescrizione());
 		} else {
 			Log.d("CONNECTION","No network connection available.");
 			showToast("Nessuna connessione!");
-		}
+		}*/
 		
 		showToast("Viaggio salvato correttamente!");
 	}
