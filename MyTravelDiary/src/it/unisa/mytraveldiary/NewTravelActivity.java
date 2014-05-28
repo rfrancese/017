@@ -237,9 +237,13 @@ public class NewTravelActivity extends ActionBarActivity {
 		((DatePickerFragment) newFragment).setTextView(ritorno);
 	}
 
-	public void avantiInserisciDettagli(View view){
-		if (viaggioSalvato)
+	public void avantiInserisciDettagli(View view) throws NumberFormatException, ParseException{
+		if (viaggioSalvato) {
+			DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+			Log.d("DB", ((dbHandler.getAllTravels()).get(1)).toString());
+			
 			goInserisciDettagli();
+		}
 
 		else
 			showToast("Salva prima il viaggio!");

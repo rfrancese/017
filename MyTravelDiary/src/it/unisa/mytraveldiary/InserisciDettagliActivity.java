@@ -39,7 +39,8 @@ public class InserisciDettagliActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_info) {
+			goInfo();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -78,8 +79,18 @@ public class InserisciDettagliActivity extends ActionBarActivity {
     }
 	
 	public void avantiHotelRistoranti(View view){
-    	Intent intent = new Intent(this, InserisciHotelRistorantiActivity.class);
+    	Intent intent = new Intent(this, HotelRistorantiActivity.class);
     	startActivity(intent);
     }
-
+	
+	public void tornaHomepage(View view){
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
+	
+	private void goInfo() {
+		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+	
 }
