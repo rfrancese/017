@@ -300,8 +300,8 @@ public class NewTravelActivity extends ActionBarActivity {
 		// Descrizione
 		viaggio.setDescrizione(descrizione.getText().toString());
 		
-		// TODO Compagni viaggio
-		ArrayList<User> compViaggio=new ArrayList<User>();
+		// Compagni viaggio
+		String compViaggio=compagniViaggio.getText().toString();
 		viaggio.setCompagniViaggio(compViaggio);
 		
 		viaggioSalvato=true;
@@ -311,14 +311,14 @@ public class NewTravelActivity extends ActionBarActivity {
 		DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
 		dbHandler.addTravel(viaggio);
 		
-		if (networkInfo != null && networkInfo.isConnected()) {
+		/*if (networkInfo != null && networkInfo.isConnected()) {
 			new NetwokAccess().execute(stringUrl, viaggio.getTipologiaViaggio(), viaggio.getLocalità(), 
 										viaggio.getDataAndata().toString(), viaggio.getDataRitorno().toString(),
 										viaggio.getCompagniViaggio(), viaggio.getDescrizione());
 		} else {
 			Log.d("CONNECTION","No network connection available.");
 			showToast("Nessuna connessione!");
-		}
+		}*/
 		
 		showToast("Viaggio salvato correttamente!");
 	}

@@ -10,7 +10,7 @@ public class Travel {
 	private String località;
 	private Date dataAndata;
 	private Date dataRitorno;
-	private ArrayList<User> compagniViaggio;
+	private String compagniViaggio;
 	private String descrizione;
 	private int id;
 	
@@ -18,7 +18,7 @@ public class Travel {
 	
 	}
 	
-	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, ArrayList<User> compViaggio, 
+	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, String compViaggio, 
 			      String descr, int i) {
 					
 		if(tipViaggio == tipologiaViaggio[0])
@@ -63,9 +63,7 @@ public class Travel {
 	
 	public String getCompagniViaggio(){
 		String compViaggio="";
-		for(User i: compagniViaggio){
-			compViaggio+= i.getId()+",";
-		}
+		
 		return compViaggio;
 	}
 	
@@ -101,7 +99,7 @@ public class Travel {
 		dataRitorno= dataR;
 	}
 	
-	public void setCompagniViaggio(ArrayList<User> compViaggio){
+	public void setCompagniViaggio(String compViaggio){
 	   compagniViaggio=compViaggio;
 	}
 	
@@ -122,6 +120,8 @@ public class Travel {
 		s+="Data andata: "+dataAndata+"\n";
 		s+="Data ritorno: "+dataRitorno+"\n";
 		s+="Descrizione: "+descrizione+"\n";
+		s+="Compagni viaggio: "+compagniViaggio+"\n";
+		s+="Id: "+id+"\n";
 		
 		return s;
 	}

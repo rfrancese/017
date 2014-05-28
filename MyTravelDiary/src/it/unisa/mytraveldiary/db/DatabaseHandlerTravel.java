@@ -62,14 +62,22 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 		
+		String dataA=null, dataR=null;
+		
+		if (!(travel.getDataAndata()==null)) {
+			dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataAndata());
+		}
+		
+		if (!(travel.getDataRitorno()==null)) {
+			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataRitorno());
+		}
+		
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
 		values.put(T_LOCALITA, travel.getLocalità());
-		values.put(T_DATA_ANDATA, (new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(new Date())));
-		values.put(T_DATA_RITORNO, (new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(new Date())));
-		// problema
+		values.put(T_DATA_ANDATA, dataA);
+		values.put(T_DATA_RITORNO, dataR);
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
-		values.put(T_ID, travel.getId());
 
 		Log.d("DB VIAGGIO", travel.toString());
 		
@@ -90,7 +98,6 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		values.put(T_DATA_RITORNO, (travel.getDataRitorno()).toString());
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
-		values.put(T_ID, travel.getId());
 
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
 	}
@@ -128,10 +135,8 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		
 		Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
 		Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
-
-		ArrayList<User> compagniV=getcompagniViaggio(compagniViaggio);
 		
-		Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniV, descrizione, 
+		Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
 				Integer.parseInt(idTravel));
 
 		
@@ -159,10 +164,8 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				
 				Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
 				Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
-
-				compagniV=getcompagniViaggio(compagniViaggio);
 				
-				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniV, descrizione, 
+				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
 						Integer.parseInt(idTravel));
 				
 				travelList.add(travel);
