@@ -2,8 +2,7 @@ package it.unisa.mytraveldiary.entity;
 
 public class HotelRistorante {
 
-	private String[] tipologia={"Hotel", "Ristorante"};
-	private boolean hotel, ristorante;
+	private String tipologia;
 	private String nome;
 	private String citta;
 	private int valutazione;
@@ -14,22 +13,14 @@ public class HotelRistorante {
 	}
 	
 	public HotelRistorante(String tip, String n, String c, int val) {
-		if (tip==tipologia[0])
-			hotel=true;
-		else if(tip==tipologia[1])
-			ristorante=true;
-		
+		tipologia=tip;
 		nome=n;
 		citta=c;
 		valutazione=val;
 	}
 	
 	public HotelRistorante(String tip, String n, String c, int val, int i) {
-		if (tip==tipologia[0])
-			hotel=true;
-		else if(tip==tipologia[1])
-			ristorante=true;
-		
+		tipologia=tip;
 		nome=n;
 		citta=c;
 		valutazione=val;
@@ -38,16 +29,8 @@ public class HotelRistorante {
 	
 	// Metodi di accesso
 	
-	public String getTipologia() {
-		String tip="";
-		
-		if (hotel)
-			tip=tipologia[0];
-		
-		else if(ristorante) 
-			tip=tipologia[1];
-		
-		return tip;
+	public String getTipologia() {		
+		return tipologia;
 	}
 	
 	public String getNome() {
@@ -69,10 +52,7 @@ public class HotelRistorante {
 	// Metodi di modifica
 	
 	public void setTipologia(String tip) {
-		if (tip.equals(tipologia[0]))
-			hotel=true;
-		else if (tip.equals(tipologia[1]))
-			ristorante=true;
+		tipologia=tip;
 	}
 	
 	public void setNome(String n) {

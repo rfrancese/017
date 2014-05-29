@@ -1,12 +1,10 @@
 package it.unisa.mytraveldiary.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Travel {
 	
-	private String[] tipologiaViaggio = {"Svago", "Lavoro"};
-	private boolean svago, lavoro;
+	private String tipologia;
 	private String località;
 	private Date dataAndata;
 	private Date dataRitorno;
@@ -21,10 +19,7 @@ public class Travel {
 	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, String compViaggio, 
 			      String descr, int i) {
 					
-		if(tipViaggio.equals(tipologiaViaggio[0]))
-						svago=true;
-					else if(tipViaggio.equals(tipologiaViaggio[1]))
-						lavoro=true;
+		tipologia=tipViaggio;
 		località= loc;
 		dataAndata= dataA;
 		dataRitorno= dataR;
@@ -36,17 +31,8 @@ public class Travel {
 	
 	// Metodi di accesso
 	
-	public String getTipologiaViaggio() {
-		
-		String tipViaggio="";
-		
-		if(svago)
-			tipViaggio+= tipologiaViaggio[0];
-		
-		else if(lavoro)
-			tipViaggio+= tipologiaViaggio[1];
-		
-		return tipViaggio;
+	public String getTipologiaViaggio() {		
+		return tipologia;
 	}
 	
 	public String getLocalità(){
@@ -79,12 +65,8 @@ public class Travel {
 	
 	// Metodi di modifica
 	
-	public void setTipologiaViaggio(String tipViaggio) {
-
-		if(tipViaggio.equals(tipologiaViaggio[0]))
-			svago=true;
-		else if(tipViaggio.equals(tipologiaViaggio[1]))
-			lavoro=true;
+	public void setTipologiaViaggio(String tipViaggio) {		
+		tipologia=tipViaggio;
 	}
 	
 	public void setLocalità(String loc){

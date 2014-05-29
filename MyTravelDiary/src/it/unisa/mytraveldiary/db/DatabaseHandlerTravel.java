@@ -187,26 +187,4 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		}
 		return travelList;
 	}
-
-	private ArrayList<User> getcompagniViaggio(String compagniViaggio){
-		String[] idCompViaggio= compagniViaggio.split(",");
-		User compagno=new User();
-		ArrayList<User> compViaggio=new ArrayList<User>();
-
-		for (int i=0; i<idCompViaggio.length; i++) {
-			String selectQuery="SELECT * FROM users WHERE id="+idCompViaggio[i];
-			SQLiteDatabase db=this.getWritableDatabase();
-			Cursor cursor=db.rawQuery(selectQuery, null);
-
-			if (cursor.moveToFirst()) {
-
-				compagno.setUsername(cursor.getString(0));
-				compagno.setPassword(cursor.getString(1));
-				compagno.setId(Integer.parseInt(cursor.getString(2)));
-
-				compViaggio.add(compagno);
-			}
-		}
-		return compViaggio;
-	}
 }

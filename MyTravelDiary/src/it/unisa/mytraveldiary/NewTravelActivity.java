@@ -77,12 +77,16 @@ public class NewTravelActivity extends ActionBarActivity {
 	    // Check which radio button was clicked
 	    switch(view.getId()) {
 	        case R.id.Svago:
-	            if (checked)
+	            if (checked) {
 	            	setSvago();
+	            	Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
+	            }
 	            break;
 	        case R.id.Lavoro:
-	            if (checked)
+	            if (checked) {
 	            	setLavoro();
+	            	Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
+	            }
 	            break;
 	    }
 	}
