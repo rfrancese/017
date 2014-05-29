@@ -69,9 +69,9 @@ public class HotelRistorante {
 	// Metodi di modifica
 	
 	public void setTipologia(String tip) {
-		if (tip==tipologia[0])
+		if (tip.equals(tipologia[0]))
 			hotel=true;
-		else if (tip==tipologia[1])
+		else if (tip.equals(tipologia[1]))
 			ristorante=true;
 	}
 	

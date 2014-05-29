@@ -110,6 +110,8 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		values.put(T_DATA_RITORNO, dataR);
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
+		
+		Log.d("DB VIAGGIO UPDATE", travel.toString());
 
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
 	}

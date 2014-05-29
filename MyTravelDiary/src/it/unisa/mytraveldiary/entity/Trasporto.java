@@ -15,16 +15,16 @@ public class Trasporto {
 	
 	public Trasporto(String tip, String comp, String citt‡P, String citt‡R, int val, int i) {
 					
-		if(tip == tipologia[0])
-						automobile=true;
-					else if(tip == tipologia[1])
-						pullman=true;
-					else if(tip == tipologia[2])
-						treno=true;
-					else if(tip == tipologia[3])
-						aereo=true;
-					else if(tip == tipologia[4])
-						nave=true;
+		if(tip.equals(tipologia[0]))
+			automobile=true;
+		else if(tip.equals(tipologia[1]))
+			pullman=true;
+		else if(tip.equals(tipologia[2]))
+			treno=true;
+		else if(tip.equals(tipologia[3]))
+			aereo=true;
+		else if(tip.equals(tipologia[4]))
+			nave=true;
 		
 		compagnia= comp;
 		citt‡Partenza= citt‡P;
@@ -84,20 +84,16 @@ public class Trasporto {
 	
 	public void setTipologia(String tip) {
 
-		if(tip == tipologia[0])
+		if(tip.equals(tipologia[0]))
 			automobile=true;
-		
-		else if(tip == tipologia[1])
+		else if(tip.equals(tipologia[1]))
 			pullman=true;
-		
-		else if(treno)
-			tip= tipologia[2];
-		
-		else if(aereo)
-			tip= tipologia[3];
-		
-		else if(nave)
-			tip= tipologia[4];
+		else if(tip.equals(tipologia[2]))
+			treno=true;
+		else if(tip.equals(tipologia[3]))
+			aereo=true;
+		else if(tip.equals(tipologia[4]))
+			nave=true;
 	}
 	
 	public void setCompagnia(String comp){

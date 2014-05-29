@@ -69,6 +69,23 @@ public class NewTravelActivity extends ActionBarActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.Svago:
+	            if (checked)
+	            	setSvago();
+	            break;
+	        case R.id.Lavoro:
+	            if (checked)
+	            	setLavoro();
+	            break;
+	    }
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
@@ -130,9 +147,6 @@ public class NewTravelActivity extends ActionBarActivity {
 	public void salvaViaggio(View view) throws ParseException {
 
 		// GET
-		// Tipologia viaggio
-		RadioButton svago= (RadioButton) findViewById(R.id.Svago);
-		RadioButton lavoro= (RadioButton) findViewById(R.id.Lavoro);
 
 		// Data andata e ritorno
 		TextView dataAndata=(TextView) findViewById(R.id.andataText);
@@ -148,12 +162,9 @@ public class NewTravelActivity extends ActionBarActivity {
 		MultiAutoCompleteTextView compagniViaggio=(MultiAutoCompleteTextView) findViewById(R.id.compagniViaggioAutocomplete);
 
 		// SET
-		// Tipologia viaggio
-		if (svago.isChecked()) 
-			viaggio.setTipologiaViaggio("Svago");
-
-		else if (lavoro.isChecked()) 
-			viaggio.setTipologiaViaggio("Lavoro");
+		// Tipologia viaggio			
+		
+		Log.d("Tipologia viaggio", viaggio.getTipologiaViaggio());
 
 		// Località
 		String localitaText=localita.getText().toString();
@@ -199,6 +210,14 @@ public class NewTravelActivity extends ActionBarActivity {
 		}
 
 		showToast("Viaggio salvato correttamente!");
+	}
+	
+	private void setSvago() {
+		viaggio.setTipologiaViaggio("Svago");
+	}
+	
+	private void setLavoro() {
+		viaggio.setTipologiaViaggio("Lavoro");
 	}
 
 	public void openMaps(View view){

@@ -14,17 +14,17 @@ public class Museo {
 	}
 	
 	public Museo(String tip, String n, String c, int val) {
-		if (tip==tipologia[0])
+		if (tip.equals(tipologia[0]))
 			storico=true;
-		else if (tip==tipologia[1])
+		else if (tip.equals(tipologia[1]))
 			archeologico=true;
-		else if (tip==tipologia[2])
+		else if (tip.equals(tipologia[2]))
 			arte=true;
-		else if (tip==tipologia[3])
+		else if (tip.equals(tipologia[3]))
 			scientifico=true;
-		else if (tip==tipologia[4])
+		else if (tip.equals(tipologia[4]))
 			marittimo=true;
-		else if (tip==tipologia[5])
+		else if (tip.equals(tipologia[5]))
 			militari=true;
 		
 		nome=n; 
@@ -33,17 +33,17 @@ public class Museo {
 	}
 	
 	public Museo(String tip, String n, String c, int val, int i) {
-		if (tip==tipologia[0])
+		if (tip.equals(tipologia[0]))
 			storico=true;
-		else if (tip==tipologia[1])
+		else if (tip.equals(tipologia[1]))
 			archeologico=true;
-		else if (tip==tipologia[2])
+		else if (tip.equals(tipologia[2]))
 			arte=true;
-		else if (tip==tipologia[3])
+		else if (tip.equals(tipologia[3]))
 			scientifico=true;
-		else if (tip==tipologia[4])
+		else if (tip.equals(tipologia[4]))
 			marittimo=true;
-		else if (tip==tipologia[5])
+		else if (tip.equals(tipologia[5]))
 			militari=true;
 		
 		nome=n; 
@@ -97,17 +97,17 @@ public class Museo {
 		// Metodi di modifica
 		
 		public void setTipologia(String tip) {
-			if (tip==tipologia[0])
+			if (tip.equals(tipologia[0]))
 				storico=true;
-			else if (tip==tipologia[1])
+			else if (tip.equals(tipologia[1]))
 				archeologico=true;
-			else if (tip==tipologia[2])
+			else if (tip.equals(tipologia[2]))
 				arte=true;
-			else if (tip==tipologia[3])
+			else if (tip.equals(tipologia[3]))
 				scientifico=true;
-			else if (tip==tipologia[4])
+			else if (tip.equals(tipologia[4]))
 				marittimo=true;
-			else if (tip==tipologia[5])
+			else if (tip.equals(tipologia[5]))
 				militari=true;
 		}
 		

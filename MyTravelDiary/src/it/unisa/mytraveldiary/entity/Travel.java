@@ -21,9 +21,9 @@ public class Travel {
 	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, String compViaggio, 
 			      String descr, int i) {
 					
-		if(tipViaggio == tipologiaViaggio[0])
+		if(tipViaggio.equals(tipologiaViaggio[0]))
 						svago=true;
-					else if(tipViaggio == tipologiaViaggio[1])
+					else if(tipViaggio.equals(tipologiaViaggio[1]))
 						lavoro=true;
 		località= loc;
 		dataAndata= dataA;
