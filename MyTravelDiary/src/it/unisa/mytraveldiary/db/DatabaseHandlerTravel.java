@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import it.unisa.mytraveldiary.entity.Travel;
-import it.unisa.mytraveldiary.entity.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -43,7 +42,7 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				T_DESCRIZIONE + " TEXT,"+
 				T_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRAVELS_TABLE);
-		
+
 		Log.d("Creating...", "Travels");
 	}
 
@@ -58,20 +57,24 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 	// Metodi di modifica
 	// Aggiunge un viaggio
 
-	public void addTravel(Travel travel) {
+	public int addTravel(Travel travel) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
-		
+
 		String dataA=null, dataR=null;
-		
+
 		if (!(travel.getDataAndata()==null)) {
 			dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataAndata());
 		}
-		
+
 		if (!(travel.getDataRitorno()==null)) {
 			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataRitorno());
 		}
 		
+		if (travel.getTipologiaViaggio()==null) {
+			travel.setTipologiaViaggio("");
+		}
+
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
 		values.put(T_LOCALITA, travel.getLocalità());
 		values.put(T_DATA_ANDATA, dataA);
@@ -80,9 +83,11 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
 
 		Log.d("DB VIAGGIO", travel.toString());
-		
-		db.insert(TABLE_TRAVELS, null, values);
+
+		int id=(int) db.insert(TABLE_TRAVELS, null, values);
 		db.close();
+
+		return id;
 	}
 
 
@@ -92,12 +97,28 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
+		String dataA=null, dataR=null;
+
+		if (!(travel.getDataAndata()==null)) {
+			dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataAndata());
+		}
+
+		if (!(travel.getDataRitorno()==null)) {
+			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataRitorno());
+		}
+		
+		if (travel.getTipologiaViaggio()==null) {
+			travel.setTipologiaViaggio("");
+		}
+
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
 		values.put(T_LOCALITA, travel.getLocalità());
-		values.put(T_DATA_ANDATA, (travel.getDataAndata()).toString());
-		values.put(T_DATA_RITORNO, (travel.getDataRitorno()).toString());
+		values.put(T_DATA_ANDATA, dataA);
+		values.put(T_DATA_RITORNO, dataR);
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
+		
+		Log.d("DB VIAGGIO UPDATE", travel.toString());
 
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
 	}
@@ -132,14 +153,14 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		String compagniViaggio=cursor.getString(4);
 		String descrizione=cursor.getString(5);
 		String idTravel=cursor.getString(6);
-		
+
 		Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
 		Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
-		
+
 		Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
 				Integer.parseInt(idTravel));
 
-		
+
 		return travel;
 	}
 
@@ -160,39 +181,17 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				String compagniViaggio=cursor.getString(4);
 				String descrizione=cursor.getString(5);
 				String idTravel=cursor.getString(6);
-				
+
 				Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
 				Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
 
 				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
 						Integer.parseInt(idTravel));
-				
+
 				travelList.add(travel);
 			} 
 			while (cursor.moveToNext());
 		}
 		return travelList;
-	}
-
-	private ArrayList<User> getcompagniViaggio(String compagniViaggio){
-		String[] idCompViaggio= compagniViaggio.split(",");
-		User compagno=new User();
-		ArrayList<User> compViaggio=new ArrayList<User>();
-
-		for (int i=0; i<idCompViaggio.length; i++) {
-			String selectQuery="SELECT * FROM users WHERE id="+idCompViaggio[i];
-			SQLiteDatabase db=this.getWritableDatabase();
-			Cursor cursor=db.rawQuery(selectQuery, null);
-
-			if (cursor.moveToFirst()) {
-
-				compagno.setUsername(cursor.getString(0));
-				compagno.setPassword(cursor.getString(1));
-				compagno.setId(Integer.parseInt(cursor.getString(2)));
-
-				compViaggio.add(compagno);
-			}
-		}
-		return compViaggio;
 	}
 }
