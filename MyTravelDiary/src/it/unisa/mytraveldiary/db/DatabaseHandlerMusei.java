@@ -61,7 +61,6 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 		values.put(M_VALUTAZIONE, museo.getValutazione());
 				
 		int id = (int) db.insert(TABLE_MUSEO, null, values);
-		
 		db.close();
 		
 		return id;
