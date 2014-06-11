@@ -1,6 +1,6 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerTrasporti;
+import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Trasporto;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -112,7 +112,7 @@ public class TrasportiActivity extends ActionBarActivity {
         
         Log.d("TRASPORTI", trasporto.toString());
 
-        DatabaseHandlerTrasporti dbHandler = new DatabaseHandlerTrasporti(this);
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
         
         if(trasportoSalvato){
         	dbHandler.updateTrasporto(trasporto);
@@ -124,10 +124,10 @@ public class TrasportiActivity extends ActionBarActivity {
         }
         
 		showToast("Trasporto salvato correttamente!");
-
+		goInserisci();
 	}
 	
-	public void goInserisci(View view) {
+	public void goInserisci() {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		  startActivity(intent);
 	  }

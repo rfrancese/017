@@ -1,6 +1,6 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerMusei;
+import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Museo;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -109,7 +109,7 @@ public class MuseiActivity extends ActionBarActivity {
         
         Log.d("MUSEO", museo.toString());
 
-        DatabaseHandlerMusei dbHandler = new DatabaseHandlerMusei(this);
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
         
         if(museoSalvato){
         	dbHandler.updateMuseo(museo);
@@ -121,11 +121,11 @@ public class MuseiActivity extends ActionBarActivity {
         }
         
 		showToast("Museo salvato correttamente!");
-
+		goInserisci();
 	}
 
 
-	public void goInserisci(View view) {
+	public void goInserisci() {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		  startActivity(intent);
 	  }

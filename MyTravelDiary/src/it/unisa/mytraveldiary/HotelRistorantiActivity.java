@@ -1,6 +1,6 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandlerHotelRistoranti;
+import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -115,7 +115,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 
 		Log.d("HOTELRISTORANTI", hotelRistorante.toString());
 
-		DatabaseHandlerHotelRistoranti dbHandler=new DatabaseHandlerHotelRistoranti(this);
+		DatabaseHandler dbHandler=new DatabaseHandler(this);
 
 		if (hotelRistoranteSalvato) {
 			dbHandler.updateHotelRistorante(hotelRistorante);
@@ -128,10 +128,11 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		}
 
 		showToast("Hotel/Ristorante salvato correttamente!");
+		goInserisci();
 	}
 
 
-	public void goInserisci(View view) {
+	public void goInserisci() {
 		Intent intent = new Intent(this, InserisciDettagliActivity.class);
 		startActivity(intent);
 	}

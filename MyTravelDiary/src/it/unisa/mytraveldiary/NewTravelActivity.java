@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import it.unisa.mytraveldiary.db.DatabaseHandlerTravel;
+import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -194,7 +194,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		String compViaggio=compagniViaggio.getText().toString();
 		viaggio.setCompagniViaggio(compViaggio);
 
-		DatabaseHandlerTravel dbHandler=new DatabaseHandlerTravel(this);
+		DatabaseHandler dbHandler=new DatabaseHandler(this);
 
 		if (viaggioSalvato) {
 			Log.d("TRAVEL", "viaggio da modificare");
