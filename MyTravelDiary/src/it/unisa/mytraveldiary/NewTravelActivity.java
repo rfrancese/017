@@ -168,7 +168,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		// SET
 		// Tipologia viaggio			
 		
-		Log.d("Tipologia viaggio", viaggio.getTipologiaViaggio());
+		//Log.d("Tipologia viaggio", viaggio.getTipologiaViaggio());
 
 		// Località
 		String localitaText=localita.getText().toString();

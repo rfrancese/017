@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import it.unisa.mytraveldiary.entity.Travel;
-import it.unisa.mytraveldiary.entity.User;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -71,6 +70,10 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 		if (!(travel.getDataRitorno()==null)) {
 			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataRitorno());
 		}
+		
+		if (travel.getTipologiaViaggio()==null) {
+			travel.setTipologiaViaggio("");
+		}
 
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
 		values.put(T_LOCALITA, travel.getLocalità());
@@ -102,6 +105,10 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
 		if (!(travel.getDataRitorno()==null)) {
 			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataRitorno());
+		}
+		
+		if (travel.getTipologiaViaggio()==null) {
+			travel.setTipologiaViaggio("");
 		}
 
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
