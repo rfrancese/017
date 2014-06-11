@@ -9,10 +9,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=1;
+	private static final int DATABASE_VERSION=13;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_HOTELRISTORANTI="hotelRistoranti";
 	private static final String HR_TIPOLOGIA="tipologia";
@@ -28,24 +29,26 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_HOTELRISTORANTI_TABLE="CREATE TABLE "+TABLE_HOTELRISTORANTI+" (" +
-				HR_TIPOLOGIA+" VARCHAR(25) NOT NULL," +
-				HR_NOME+" VARCHAR(25) NOT NULL," +
-				HR_CITTA+" VARCHAR(30) NOT NULL," +
-				HR_VALUTAZIONE+" INTEGER NOT NULL," +
+				HR_TIPOLOGIA+" VARCHAR(25)," +
+				HR_NOME+" VARCHAR(25)," +
+				HR_CITTA+" VARCHAR(30)," +
+				HR_VALUTAZIONE+" INTEGER," +
 				HR_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_HOTELRISTORANTI_TABLE);
+		
+		Log.d("Creating...", "HR");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
-		db.execSQL("DROP TABLE IF EXISTs "+TABLE_HOTELRISTORANTI);
+		db.execSQL("DROP TABLE IF EXISTS "+DATABASE_NAME + "." +TABLE_HOTELRISTORANTI);
 
 		onCreate(db);
 	}
 
 	// Metodi di modifica
 	// Aggiunge un hotel/ristorante
-	public void addHotelRistorante(HotelRistorante hotelRistorante) {
+	public int addHotelRistorante(HotelRistorante hotelRistorante) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
@@ -53,27 +56,30 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 		values.put(HR_NOME, hotelRistorante.getNome());
 		values.put(HR_CITTA, hotelRistorante.getCitta());
 		values.put(HR_VALUTAZIONE, hotelRistorante.getValutazione());
-		//values.put(HR_ID, hotelRistorante.getId());
+		
+		Log.d("DB HR", hotelRistorante.toString());
 
-		db.insert(TABLE_HOTELRISTORANTI, null, values);
+		int id=(int) db.insert(TABLE_HOTELRISTORANTI, null, values);
 		db.close();
+		
+		return id;
 	}
 
 	// Aggiorna un hotel/ristorante
 	public int updateHotelRistorante(HotelRistorante hotelRistorante) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
+		
 		values.put(HR_TIPOLOGIA, hotelRistorante.getTipologia());
 		values.put(HR_NOME, hotelRistorante.getNome());
 		values.put(HR_CITTA, hotelRistorante.getCitta());
 		values.put(HR_VALUTAZIONE, hotelRistorante.getValutazione());
-		//values.put(HR_ID, hotelRistorante.getId());
 
-		return db.update(TABLE_HOTELRISTORANTI, values, HR_TIPOLOGIA+" = ?", new String[] {String.valueOf(hotelRistorante.getId())});
+		return db.update(TABLE_HOTELRISTORANTI, values, HR_ID+" = ?", new String[] {String.valueOf(hotelRistorante.getId())});
 	}
 
 	// Cancella un hotel/ristorante 
-	public void deleteUser(HotelRistorante hotelRistorante) {
+	public void deleteHotelRistorante(HotelRistorante hotelRistorante) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		db.delete(TABLE_HOTELRISTORANTI, HR_ID+" = ?", new String[] {String.valueOf(hotelRistorante.getId())});
 		db.close();
@@ -98,7 +104,7 @@ public class DatabaseHandlerHotelRistoranti extends SQLiteOpenHelper {
 		return hotelRistorante;
 	}
 
-	// Ritorna tutti gli utenti
+	// Ritorna tutti gli hotel e ristoranti
 	public ArrayList<HotelRistorante> getAllHotelRistoranti() {
 		ArrayList<HotelRistorante> hotelRistoranteList=new ArrayList<HotelRistorante>();
 		String selectQuery="SELECT * FROM "+TABLE_HOTELRISTORANTI;

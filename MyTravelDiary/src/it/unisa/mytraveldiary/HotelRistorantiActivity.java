@@ -1,8 +1,10 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandlerHotelRistoranti;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 public class HotelRistorantiActivity extends ActionBarActivity {
 
@@ -23,7 +28,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -58,44 +63,90 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			
+
 			View rootView = inflater.inflate(R.layout.fragment_inserisci_hotel_ristoranti, container, false);
-			
+
 			// Get a reference to the AutoCompleteTextView in the layout
-			 AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.cittaHotelRistoranteAutocomplete);
+			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.cittaHotelRistoranteAutocomplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
 			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
-			
+
 			return rootView;
 		}
 	}
 
+	private boolean hotelRistoranteSalvato=false;
+	private HotelRistorante hotelRistorante=new HotelRistorante();
+
 	public void salvaHotelRistorante(View view){
-		
+
+		// GET
 		// Tipologia
-			RadioButton hotel= (RadioButton) findViewById(R.id.hotel);
-		    RadioButton ristorante= (RadioButton) findViewById(R.id.ristorante);
-				
-		HotelRistorante dettaglio = new HotelRistorante();
+		RadioButton hotel= (RadioButton) findViewById(R.id.hotel);
+		RadioButton ristorante= (RadioButton) findViewById(R.id.ristorante);
 
-		if (hotel.isChecked()) 
-			dettaglio.setTipologia("Hotel");
+		// Nome
+		EditText nomeHR= (EditText) findViewById(R.id.nomeHotelRistoranteInput);
 
-		else if (ristorante.isChecked()) 
-		    dettaglio.setTipologia("Ristorante");
-		
-		Log.d("RISTORANTE", dettaglio.getTipologia());
+		// Città
+		AutoCompleteTextView cittaHR= (AutoCompleteTextView) findViewById(R.id.cittaHotelRistoranteAutocomplete);
+
+		// Valutazione
+		RatingBar valutazioneHR= (RatingBar) findViewById(R.id.ratingBar);
+
+		//SET
+		//Tipologia
+		if (hotel.isChecked()) {
+			hotelRistorante.setTipologia("Hotel");
+		}
+
+		else if (ristorante.isChecked()) {
+			hotelRistorante.setTipologia("Ristorante");
+		}
+
+		// Nome
+		hotelRistorante.setNome(nomeHR.getText().toString());
+
+		// Città
+		hotelRistorante.setCitta(cittaHR.getText().toString());
+
+		// Valutazione
+		hotelRistorante.setValutazione((int) valutazioneHR.getRating());
+
+		Log.d("HOTELRISTORANTI", hotelRistorante.toString());
+
+		DatabaseHandlerHotelRistoranti dbHandler=new DatabaseHandlerHotelRistoranti(this);
+
+		if (hotelRistoranteSalvato) {
+			dbHandler.updateHotelRistorante(hotelRistorante);
+		}
+
+		else {
+			hotelRistoranteSalvato=true;
+
+			hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
+		}
+
+		showToast("Hotel/Ristorante salvato correttamente!");
 	}
-	
-	
+
+
 	public void goInserisci(View view) {
-		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		  startActivity(intent);
-	  }
-	
+		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		startActivity(intent);
+	}
+
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
+
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
+	}	
 }
