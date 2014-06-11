@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=9;
+	private static final int DATABASE_VERSION=13;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRAVELS="travels";
 	private static final String T_TIPOLOGIA="tipologia";
@@ -26,6 +26,13 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 	private static final String T_COMPAGNI_VIAGGIO="compagniViaggio";
 	private static final String T_DESCRIZIONE="descrizione";
 	private static final String T_ID="id";
+	
+	private static final String TABLE_HOTELRISTORANTI="hotelRistoranti";
+	private static final String HR_TIPOLOGIA="tipologia";
+	private static final String HR_NOME="nome";
+	private static final String HR_CITTA="citta";
+	private static final String HR_VALUTAZIONE="valutazione";
+	private static final String HR_ID="id";
 
 	public DatabaseHandlerTravel(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,6 +49,14 @@ public class DatabaseHandlerTravel extends SQLiteOpenHelper {
 				T_DESCRIZIONE + " TEXT,"+
 				T_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRAVELS_TABLE);
+		
+		String CREATE_HOTELRISTORANTI_TABLE="CREATE TABLE "+TABLE_HOTELRISTORANTI+" (" +
+				HR_TIPOLOGIA+" VARCHAR(25)," +
+				HR_NOME+" VARCHAR(25)," +
+				HR_CITTA+" VARCHAR(30)," +
+				HR_VALUTAZIONE+" INTEGER," +
+				HR_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+		db.execSQL(CREATE_HOTELRISTORANTI_TABLE);
 
 		Log.d("Creating...", "Travels");
 	}
