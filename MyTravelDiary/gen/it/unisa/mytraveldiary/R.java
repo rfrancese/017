@@ -1244,14 +1244,14 @@ containing a value of this type.
         public static final int cercaButton=0x7f060091;
         public static final int cercaInput=0x7f06008f;
         public static final int checkbox=0x7f060030;
+        public static final int cittaArrivo=0x7f060086;
+        public static final int cittaArrivoAutocomplete=0x7f060087;
         public static final int cittaHotelRistorante=0x7f060051;
         public static final int cittaHotelRistoranteAutocomplete=0x7f060052;
         public static final int cittaMuseo=0x7f06005e;
         public static final int cittaMuseoAutocomplete=0x7f06005f;
         public static final int cittaPartenza=0x7f060084;
         public static final int cittaPartenzaAutocomplete=0x7f060085;
-        public static final int cittaRitorno=0x7f060086;
-        public static final int cittaRitornoAutocomplete=0x7f060087;
         public static final int cognomeUtente=0x7f060076;
         public static final int cognomeUtenteInput=0x7f060077;
         public static final int collapseActionView=0x7f060011;
@@ -1540,14 +1540,14 @@ containing a value of this type.
         public static final int auth_client_using_bad_version_title=0x7f070014;
         public static final int cerca=0x7f07004d;
         public static final int cercaSugg=0x7f07004c;
+        public static final int cittaArrivo=0x7f07005c;
+        public static final int cittaArrivoSugg=0x7f07005d;
         public static final int cittaHotelRistorante=0x7f070067;
         public static final int cittaHotelRistoranteSugg=0x7f070068;
         public static final int cittaMuseo=0x7f070061;
         public static final int cittaMuseoSugg=0x7f070062;
         public static final int cittaPartenza=0x7f07005a;
         public static final int cittaPartenzaSugg=0x7f07005b;
-        public static final int cittaRitorno=0x7f07005c;
-        public static final int cittaRitornoSugg=0x7f07005d;
         public static final int cognomeUtente=0x7f070030;
         public static final int cognomeUtenteSugg=0x7f070031;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it

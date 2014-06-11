@@ -12,13 +12,13 @@ import android.util.Log;
 
 public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=1;
+	private static final int DATABASE_VERSION=9;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_TRASPORTO="trasporto";
 	private static final String TR_TIPOLOGIA= "tipologia";
 	private static final String TR_COMPAGNIA="compagnia";
 	private static final String TR_CITTAPARTENZA="citt‡Partenza";
-	private static final String TR_CITTARITORNO="citt‡Ritorno";
+	private static final String TR_CITTAARRIVO="citt‡Arrivo";
 	private static final String TR_VALUTAZIONE="valutazione";
 	private static final String TR_ID="id";
 
@@ -30,11 +30,11 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_TRASPORTO_TABLE="CREATE TABLE "+TABLE_TRASPORTO +" (" +
-				TR_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
-				TR_COMPAGNIA + " VARCHAR(50) NOT NULL," +
-				TR_CITTAPARTENZA + " VARCHAR(30) NOT NULL," +
-				TR_CITTARITORNO + " VARCHAR(30) NOT NULL," +
-				TR_VALUTAZIONE + " INTEGER NOT NULL," +
+				TR_TIPOLOGIA + " VARCHAR(20)," +
+				TR_COMPAGNIA + " VARCHAR(50)," +
+				TR_CITTAPARTENZA + " VARCHAR(30)," +
+				TR_CITTAARRIVO + " VARCHAR(30)," +
+				TR_VALUTAZIONE + " INTEGER," +
 				TR_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_TRASPORTO_TABLE);
 		
@@ -52,18 +52,20 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 	// Metodi di modifica
 	// Aggiunge un trasporto
 
-	public void addTrasporto(Trasporto trasporto) {
+	public int addTrasporto(Trasporto trasporto) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
 		values.put(TR_TIPOLOGIA, trasporto.getTipologia());
 		values.put(TR_COMPAGNIA, trasporto.getCompagnia());
 		values.put(TR_CITTAPARTENZA, trasporto.getCitt‡Partenza());
-		values.put(TR_CITTARITORNO, trasporto.getCitt‡Ritorno());
-		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
+		values.put(TR_CITTAARRIVO, trasporto.getCitt‡Arrivo());
+		values.put(TR_VALUTAZIONE, trasporto.getValutazione());		
 		
-		db.insert(TABLE_TRASPORTO, null, values);
+		int id = (int) db.insert(TABLE_TRASPORTO, null, values);
 		db.close();
+		
+		return id;
 	}
 
 
@@ -76,7 +78,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 		values.put(TR_TIPOLOGIA, trasporto.getTipologia());
 		values.put(TR_COMPAGNIA, trasporto.getCompagnia());
 		values.put(TR_CITTAPARTENZA, trasporto.getCitt‡Partenza());
-		values.put(TR_CITTARITORNO, trasporto.getCitt‡Ritorno());
+		values.put(TR_CITTAARRIVO, trasporto.getCitt‡Arrivo());
 		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
 		//values.put(TR_ID, trasporto.getId());
 
@@ -99,7 +101,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 	public Trasporto getTrasporto(int id) throws NumberFormatException{
 		SQLiteDatabase db=this.getReadableDatabase();
 
-		Cursor cursor=db.query(TABLE_TRASPORTO, new String[] {TR_TIPOLOGIA, TR_COMPAGNIA, TR_CITTAPARTENZA, TR_CITTARITORNO,
+		Cursor cursor=db.query(TABLE_TRASPORTO, new String[] {TR_TIPOLOGIA, TR_COMPAGNIA, TR_CITTAPARTENZA, TR_CITTAARRIVO, 
 				TR_VALUTAZIONE, TR_ID}, 
 				TR_ID + "=?",
 				new String[] {String.valueOf(id)}, null, null, null, null);
@@ -128,7 +130,7 @@ public class DatabaseHandlerTrasporti extends SQLiteOpenHelper {
 				trasporto.setTipologia(cursor.getString(0));
 				trasporto.setCompagnia(cursor.getString(1));
 				trasporto.setCitt‡Partenza(cursor.getString(2));		
-				trasporto.setCitt‡Ritorno(cursor.getString(3));
+				trasporto.setCitt‡Arrivo(cursor.getString(3));
 				trasporto.setValutazione(Integer.parseInt(cursor.getString(4)));
 				trasporto.setId(Integer.parseInt(cursor.getString(5)));
 				trasportoList.add(trasporto);

@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION=1;
+	private static final int DATABASE_VERSION=9;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 	private static final String TABLE_MUSEO="museo";
 	private static final String M_TIPOLOGIA= "tipologia";
@@ -30,10 +30,10 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db=getWritableDatabase();
 		String CREATE_MUSEO_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
-				M_TIPOLOGIA + " VARCHAR(20) NOT NULL," +
-				M_NOME + " VARCHAR(50) NOT NULL," +
-				M_CITTA + " VARCHAR(30) NOT NULL," +
-				M_VALUTAZIONE + " INTEGER NOT NULL," +
+				M_TIPOLOGIA + " VARCHAR(20)," +
+				M_NOME + " VARCHAR(50)," +
+				M_CITTA + " VARCHAR(30)," +
+				M_VALUTAZIONE + " INTEGER," +
 				M_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_MUSEO_TABLE);
 		
@@ -51,21 +51,20 @@ public class DatabaseHandlerMusei extends SQLiteOpenHelper {
 	// Metodi di modifica
 	// Aggiunge un Museo
 
-	public void addMuseo(Museo museo) {
+	public int addMuseo(Museo museo) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
-		/*values.put(M_TIPOLOGIA, museo.getTipologia());
+		values.put(M_TIPOLOGIA, museo.getTipologia());
 		values.put(M_NOME, museo.getNome());
 		values.put(M_CITTA, museo.getCittà());
 		values.put(M_VALUTAZIONE, museo.getValutazione());
-		//values.put(M_ID, museo.getId());
+				
+		int id = (int) db.insert(TABLE_MUSEO, null, values);
 		
-		db.insert(TABLE_MUSEO, null, values);*/
-		String query="INSERT INTO "+TABLE_MUSEO+" ("+M_TIPOLOGIA+", "+M_NOME+", "+M_CITTA+", "+M_VALUTAZIONE+") VALUES ("+
-						museo.getTipologia()+", "+museo.getNome()+", "+museo.getCittà()+", "+museo.getValutazione()+")";
-		db.execSQL(query);
 		db.close();
+		
+		return id;
 	}
 
 

@@ -4,7 +4,7 @@ public class Trasporto {
 	private String tipologia;
 	private String compagnia;
 	private String citt‡Partenza;
-	private String citt‡Ritorno;
+	private String citt‡Arrivo;
 	private int valutazione;
 	private int id;
 	
@@ -12,11 +12,11 @@ public class Trasporto {
 	
 	}
 	
-	public Trasporto(String tip, String comp, String citt‡P, String citt‡R, int val, int i) {
+	public Trasporto(String tip, String comp, String citt‡P, String citt‡A, int val, int i) {
 		tipologia=tip;
 		compagnia= comp;
 		citt‡Partenza= citt‡P;
-		citt‡Ritorno= citt‡R;
+		citt‡Arrivo= citt‡A;
 		valutazione= val;
 		id= i;
 	}
@@ -36,8 +36,8 @@ public class Trasporto {
 		return citt‡Partenza;
 	}
 	
-	public String getCitt‡Ritorno(){
-		return citt‡Ritorno;
+	public String getCitt‡Arrivo(){
+		return citt‡Arrivo;
 	}
 	
 	public int getValutazione(){
@@ -64,8 +64,8 @@ public class Trasporto {
 		citt‡Partenza= citt‡P;
 	}
 	
-	public void setCitt‡Ritorno(String citt‡R){
-		citt‡Ritorno= citt‡R;
+	public void setCitt‡Arrivo(String citt‡A){
+		citt‡Arrivo= citt‡A;
 	}
 	
 	public void setValutazione(int val){
@@ -74,5 +74,18 @@ public class Trasporto {
 	
 	public void setId(int i){
 		id= i;
+	}
+	
+	public String toString(){
+		String s ="";
+		
+		s+="Tipologia: "+tipologia+"\n";
+		s+="Compagnia: "+compagnia+"\n";
+		s+="Citt‡Partenza: "+citt‡Partenza+"\n";
+		s+="Citt‡Arrivo: "+citt‡Arrivo+"\n";
+		s+="Valutazione: "+valutazione+"\n";
+		s+="Id: "+id+"\n";
+		
+		return s;
 	}
 }

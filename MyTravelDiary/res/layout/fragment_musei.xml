@@ -81,7 +81,7 @@
            android:layout_below="@+id/ratingBar"
            android:padding="4dip"
            android:background="@drawable/background" 
-           android:onClick="goInserisci"
+           android:onClick="salvaMuseo"
            style="@style/CodeFont" />
   
     </RelativeLayout>

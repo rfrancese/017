@@ -53,8 +53,8 @@
     <string name="compagniaSugg">Inserisci la compagnia di trasporto</string>
     <string name="cittaPartenza">Citta di partenza</string>
     <string name="cittaPartenzaSugg">Inserisci la citta di partenza</string>
-    <string name="cittaRitorno">Citta di ritorno</string>
-    <string name="cittaRitornoSugg">Inserisci la citta di ritorno</string>
+    <string name="cittaArrivo">Citta di arrivo</string>
+    <string name="cittaArrivoSugg">Inserisci la citta di arrivo</string>
     <string name="valutazione">Valutazione</string>
     <string name="nomeMuseo">Nome</string>
     <string name="nomeMuseoSugg">Inserisci il nome del museo</string>

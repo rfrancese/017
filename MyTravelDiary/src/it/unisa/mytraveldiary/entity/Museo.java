@@ -70,5 +70,18 @@ public class Museo {
 		public void setId(int i) {
 			id=i;
 		}
+		
+		
+		public String toString(){
+			String s ="";
+			
+			s+="Tipologia: "+tipologia+"\n";
+			s+="Nome: "+nome+"\n";
+			s+="Città: "+citta+"\n";
+			s+="Valutazione: "+valutazione+"\n";
+			s+="Id: "+id+"\n";
+			
+			return s;
+		}
 }
 

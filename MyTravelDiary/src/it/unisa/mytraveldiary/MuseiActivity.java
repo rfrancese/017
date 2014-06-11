@@ -1,15 +1,24 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandlerMusei;
+import it.unisa.mytraveldiary.entity.Museo;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 
 public class MuseiActivity extends ActionBarActivity {
 
@@ -65,6 +74,56 @@ public class MuseiActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
+	
+	
+	private boolean museoSalvato = false;
+	private Museo museo = new Museo();
+    
+//Salva Viaggio
+	public void salvaMuseo(View view){
+		
+	//Tipologia Museo
+		Spinner tipologiaMuseo = (Spinner) findViewById(R.id.tipoMusei);
+		
+	//Nome Museo
+        EditText editNome = (EditText) findViewById(R.id.nomeMuseoSugg);
+     
+     //Città Museo
+        AutoCompleteTextView cittaMuseo = (AutoCompleteTextView) findViewById(R.id.cittaMuseoAutocomplete);
+        
+    //Valutazione
+        RatingBar valutazioneM = (RatingBar) findViewById(R.id.ratingBar);
+        
+    //Tipologia Museo
+        museo.setTipologia(tipologiaMuseo.getSelectedItem().toString());
+		 
+	//Nome Museo
+        museo.setNome(editNome.getText().toString());
+        
+    //Città
+        museo.setCittà(cittaMuseo.getText().toString());
+                
+   //Valutazione
+        museo.setValutazione((int) valutazioneM.getRating());
+        
+        
+        Log.d("MUSEO", museo.toString());
+
+        DatabaseHandlerMusei dbHandler = new DatabaseHandlerMusei(this);
+        
+        if(museoSalvato){
+        	dbHandler.updateMuseo(museo);
+        }
+        else {
+        	museoSalvato = true;
+        	
+        	museo.setId(dbHandler.addMuseo(museo));
+        }
+        
+		showToast("Museo salvato correttamente!");
+
+	}
+
 
 	public void goInserisci(View view) {
 		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
@@ -76,4 +135,12 @@ public class MuseiActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 	
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
+	}	
 }
