@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
@@ -121,7 +120,7 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 
 	private boolean viaggioSalvato=false;
-	private Travel viaggio=new Travel();;
+	private Travel viaggio=new Travel();
 
 	public void showDatePickerDialogAndata(View v) {
 		TextView andata= (TextView) findViewById(R.id.andataText);
