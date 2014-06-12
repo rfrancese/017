@@ -238,9 +238,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				String compagniViaggio=cursor.getString(4);
 				String descrizione=cursor.getString(5);
 				String idTravel=cursor.getString(6);
-
-				Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
-				Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
+				Date dataA, dataR;
+				
+				if (dataAndata==null) {
+					dataA=null;
+				}
+				
+				else 
+					dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndata);
+				
+				if (dataRitorno==null)
+					dataR=null;
+				
+				else
+					dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
 
 				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
 						Integer.parseInt(idTravel));

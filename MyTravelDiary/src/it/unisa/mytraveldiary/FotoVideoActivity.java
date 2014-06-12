@@ -91,11 +91,17 @@ public class FotoVideoActivity extends ActionBarActivity {
 	
   
 	  public void upload(View view) {
-		  Intent i = new Intent(
-                  Intent.ACTION_PICK,
+		  /*Intent i = new Intent(
+                  Intent.ACTION_GET_CONTENT,
                   android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		  i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
            
-          startActivityForResult(i, RESULT_LOAD_IMAGE);
+          startActivityForResult(i, RESULT_LOAD_IMAGE);*/
+		  Intent intent = new Intent();
+		  intent.setType("image/*");
+		  intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+		  intent.setAction(Intent.ACTION_GET_CONTENT);
+		  startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
       }
 	  
 	  public void goInserisci(View view) {

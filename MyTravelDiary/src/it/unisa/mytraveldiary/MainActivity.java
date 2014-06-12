@@ -1,5 +1,10 @@
 package it.unisa.mytraveldiary;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v4.app.Fragment;
@@ -11,10 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +70,10 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
+		
+		private ListView listView;
 
+		
 		public PlaceholderFragment() {
 		}
 
@@ -72,6 +82,23 @@ public class MainActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_main, container, false);
+			
+			DatabaseHandler dbHandler=new DatabaseHandler(getActivity());
+			
+			try {
+				ArrayList<Travel> viaggi=new ArrayList<Travel>();
+				viaggi=dbHandler.getAllTravels();
+				
+				listView= (ListView) rootView.findViewById(R.id.listView1);
+				
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		                android.R.layout.simple_list_item_1);
+
+				listView.setAdapter(adapter);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
 			return rootView;
 		}
 	}

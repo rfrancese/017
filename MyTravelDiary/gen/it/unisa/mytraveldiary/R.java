@@ -1492,7 +1492,6 @@ containing a value of this type.
         public static final int LoginButton=0x7f050067;
         public static final int Logo=0x7f050064;
         public static final int MuseiButton=0x7f050059;
-        public static final int NoViaggioTextView=0x7f050069;
         public static final int Password=0x7f050066;
         public static final int RegistratiButton=0x7f050068;
         public static final int SalvaRegistrazioneButton=0x7f05008f;
@@ -1576,6 +1575,7 @@ containing a value of this type.
         public static final int imgView=0x7f050054;
         public static final int infoApp=0x7f050056;
         public static final int listMode=0x7f050001;
+        public static final int listView1=0x7f050069;
         public static final int list_item=0x7f05003b;
         public static final int localita=0x7f050098;
         public static final int localitaAutoComplete=0x7f050074;
