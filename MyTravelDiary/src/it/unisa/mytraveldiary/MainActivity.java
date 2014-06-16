@@ -1,16 +1,17 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Travel;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import it.unisa.mytraveldiary.db.DatabaseHandler;
-import it.unisa.mytraveldiary.entity.Travel;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,8 @@ import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
-	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+
 	}
 
 	@Override
@@ -49,18 +53,18 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-			
+
 		case R.id.action_search:
 			return true;
-			
+
 		case R.id.action_new_travel:
 			goNewTravel();
 			return true;
-			
+
 		case R.id.action_info:
 			goInfo();
 			return true;
-			
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -70,10 +74,12 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-		
 		private ListView listView;
+		//private DatabaseHandler dbHander;
+		//private ArrayAdapter<String> adapter;
+		//private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
 
-		
+
 		public PlaceholderFragment() {
 		}
 
@@ -82,23 +88,18 @@ public class MainActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_main, container, false);
-			
-			DatabaseHandler dbHandler=new DatabaseHandler(getActivity());
-			
-			try {
-				ArrayList<Travel> viaggi=new ArrayList<Travel>();
-				viaggi=dbHandler.getAllTravels();
-				
-				listView= (ListView) rootView.findViewById(R.id.listView1);
-				
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-		                android.R.layout.simple_list_item_1);
 
+			listView= (ListView) rootView.findViewById(R.id.listView1);
+
+			try {
+				ViaggiAdapter adapter = new ViaggiAdapter(getActivity().getApplicationContext());
 				listView.setAdapter(adapter);
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
+
 			return rootView;
 		}
 	}
@@ -107,12 +108,12 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void goNewTravel() {
 		Intent intent = new Intent(this, NewTravelActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);

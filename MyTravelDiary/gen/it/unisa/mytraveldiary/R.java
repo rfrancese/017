@@ -1507,13 +1507,13 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050035;
         public static final int action_bar_title=0x7f050034;
         public static final int action_context_bar=0x7f05002f;
-        public static final int action_info=0x7f0500a3;
+        public static final int action_info=0x7f0500a4;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050036;
-        public static final int action_new_travel=0x7f0500a6;
-        public static final int action_search=0x7f0500a5;
-        public static final int action_settings=0x7f0500a4;
+        public static final int action_new_travel=0x7f0500a7;
+        public static final int action_search=0x7f0500a6;
+        public static final int action_settings=0x7f0500a5;
         public static final int activity_chooser_view_content=0x7f050037;
         public static final int always=0x7f05000b;
         public static final int andata=0x7f050076;
@@ -1524,9 +1524,9 @@ containing a value of this type.
         public static final int buyButton=0x7f050022;
         public static final int buy_now=0x7f050027;
         public static final int buy_with_google=0x7f050026;
-        public static final int cerca=0x7f05009d;
-        public static final int cercaButton=0x7f0500a0;
-        public static final int cercaInput=0x7f05009e;
+        public static final int cerca=0x7f05009e;
+        public static final int cercaButton=0x7f0500a1;
+        public static final int cercaInput=0x7f05009f;
         public static final int checkbox=0x7f05003f;
         public static final int cittaArrivo=0x7f050095;
         public static final int cittaArrivoAutocomplete=0x7f050096;
@@ -1558,7 +1558,7 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050038;
         public static final int expanded_menu=0x7f05003e;
-        public static final int filtriRicerca=0x7f05009f;
+        public static final int filtriRicerca=0x7f0500a0;
         public static final int gallery=0x7f05009a;
         public static final int grayscale=0x7f05002a;
         public static final int holo_dark=0x7f05001d;
@@ -1603,8 +1603,8 @@ containing a value of this type.
         public static final int radio=0x7f050041;
         public static final int ratingBar=0x7f050063;
         public static final int ristorante=0x7f05005d;
-        public static final int risultatiRicerca=0x7f0500a1;
-        public static final int risultatoRicerca=0x7f0500a2;
+        public static final int risultatiRicerca=0x7f0500a2;
+        public static final int risultatoRicerca=0x7f0500a3;
         public static final int ritorno=0x7f050079;
         public static final int ritornoButton=0x7f05007a;
         public static final int ritornoText=0x7f05007b;
@@ -1647,6 +1647,7 @@ containing a value of this type.
         public static final int usernameUtente=0x7f050089;
         public static final int usernameUtenteInput=0x7f05008a;
         public static final int valutazione=0x7f050062;
+        public static final int viaggio=0x7f05009d;
         public static final int withText=0x7f05000c;
         public static final int wrap_content=0x7f050025;
     }
@@ -1725,8 +1726,9 @@ containing a value of this type.
         public static final int fragment_trasporti=0x7f03002d;
         public static final int fragment_visualizza_viaggio=0x7f03002e;
         public static final int list_item=0x7f03002f;
-        public static final int main=0x7f030030;
-        public static final int support_simple_spinner_dropdown_item=0x7f030031;
+        public static final int list_item_travel=0x7f030030;
+        public static final int main=0x7f030031;
+        public static final int support_simple_spinner_dropdown_item=0x7f030032;
     }
     public static final class menu {
         public static final int foto_video=0x7f0d0000;

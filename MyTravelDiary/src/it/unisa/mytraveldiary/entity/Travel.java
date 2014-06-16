@@ -98,9 +98,18 @@ public class Travel {
 		String s="";
 		
 		s+="Tipologia viaggio: "+getTipologiaViaggio()+"\n";
-		s+="Localita: "+località;
-		s+="Data andata: "+dataAndata+"\n";
-		s+="Data ritorno: "+dataRitorno+"\n";
+		s+="Localita: "+località+"\n";
+		
+		if (dataAndata==null) 
+			s+="Data andata:  "+"\n";
+		else
+			s+="Data andata: "+dataAndata+"\n";
+		
+		if (dataRitorno==null)
+			s+="Data ritorno:  "+"\n";
+		else
+			s+="Data ritorno: "+dataRitorno+"\n";
+		
 		s+="Descrizione: "+descrizione+"\n";
 		s+="Compagni viaggio: "+compagniViaggio+"\n";
 		s+="Id: "+id+"\n";
