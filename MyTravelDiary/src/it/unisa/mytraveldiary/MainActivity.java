@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,6 @@ import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +75,9 @@ public class MainActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 		private ListView listView;
-		//private DatabaseHandler dbHander;
-		//private ArrayAdapter<String> adapter;
-		//private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
+		private DatabaseHandler dbHandler;
+		private ArrayList<String> viaggi=new ArrayList<String>();
+		private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
 
 
 		public PlaceholderFragment() {
@@ -90,20 +90,33 @@ public class MainActivity extends ActionBarActivity {
 					R.layout.fragment_main, container, false);
 
 			listView= (ListView) rootView.findViewById(R.id.listView1);
-
+			dbHandler=new DatabaseHandler(getActivity());
+			
 			try {
-				ViaggiAdapter adapter = new ViaggiAdapter(getActivity().getApplicationContext());
+				viaggiList=dbHandler.getAllTravels();
+				
+				for (Travel t: viaggiList) {
+					viaggi.add(t.toString());
+				}
+				
+				ViaggiAdapter adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity(), viaggi);
 				listView.setAdapter(adapter);
-
-			} catch (ParseException e) {
-				e.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
 			}
-
-
+			
 			return rootView;
 		}
 	}
-
+	
+	public void doPositiveClick() {
+		/*DatabaseHandler dbHandler=new DatabaseHandler(this);
+		
+		dbHandler.deleteTravel(travel);*/
+		
+		Log.d("MAIN", "elimina");
+	}
+	
 	public void avantiVisualizzaViaggio(View view){
 		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
 		startActivity(intent);
@@ -118,4 +131,5 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
+	
 }

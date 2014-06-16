@@ -73,6 +73,14 @@
     <string name="compagniViaggioEsempio">Clarissa, Maria, Sarah</string>
     <string name="mappa">Mappa</string>
     <string name="listCittaMappa">Scegli una citta</string>
+    <string name="inserisciDettagli">Inserisci dettagli</string>
+    <string name="modifica">Modifica Viaggio</string>
+    <string name="elimina">Elimina Viaggio</string>
+    <string name="tipoViaggio">Tipologia Viaggio</string>
+    <string name="eliminaViaggio">Eliminare viaggio?</string>
+    <string name="OK">Elimina</string>
+    <string name="annulla">Annulla</string>
+    <string name="eliminaInfo">Tutti i dati saranno persi!</string>
     <string name="hello_world">Hello world!</string>
      <string name="noViaggio">Nessun viaggio inserito</string>
     
