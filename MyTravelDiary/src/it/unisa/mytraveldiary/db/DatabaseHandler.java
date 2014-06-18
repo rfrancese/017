@@ -8,7 +8,6 @@ import it.unisa.mytraveldiary.entity.Travel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import android.content.ContentValues;
@@ -118,7 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
 
-		String dataA=null, dataR=null;
+		/*String dataA=null, dataR=null;
 
 		if (!(travel.getDataAndata()==null)) {
 			dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).format(travel.getDataAndata());
@@ -130,12 +129,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		if (travel.getTipologiaViaggio()==null) {
 			travel.setTipologiaViaggio("");
-		}
+		}*/
 
 		values.put(T_TIPOLOGIA, travel.getTipologiaViaggio());
 		values.put(T_LOCALITA, travel.getLocalità());
-		values.put(T_DATA_ANDATA, dataA);
-		values.put(T_DATA_RITORNO, dataR);
+		//values.put(T_DATA_ANDATA, dataA);
+		//values.put(T_DATA_RITORNO, dataR);
+		values.put(T_DATA_ANDATA, travel.getDataAndata());
+		values.put(T_DATA_RITORNO, travel.getDataRitorno());
 		values.put(T_COMPAGNI_VIAGGIO, travel.getCompagniViaggio());
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
 
@@ -211,9 +212,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String compagniViaggio=cursor.getString(4);
 		String descrizione=cursor.getString(5);
 		String idTravel=cursor.getString(6);
-		Date dataA, dataR;
+//		Date dataA, dataR;
 
-		if (dataAndata==null) {
+		/*if (dataAndata==null) {
 			dataA=null;
 		}
 
@@ -224,9 +225,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			dataR=null;
 
 		else
-			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
+			dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);*/
 
-		Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
+		Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
 				Integer.parseInt(idTravel));
 
 
@@ -250,9 +251,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				String compagniViaggio=cursor.getString(4);
 				String descrizione=cursor.getString(5);
 				String idTravel=cursor.getString(6);
-				Date dataA, dataR;
+				//Date dataA, dataR;
 
-				if (dataAndata==null) {
+				/*if (dataAndata==null) {
 					dataA=null;
 				}
 
@@ -263,9 +264,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 					dataR=null;
 
 				else
-					dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);
+					dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitorno);*/
 
-				Travel travel= new Travel(tipologia, localita, dataA, dataR, compagniViaggio, descrizione, 
+				Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
 						Integer.parseInt(idTravel));
 
 				travelList.add(travel);

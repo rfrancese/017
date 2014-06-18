@@ -1,13 +1,11 @@
 package it.unisa.mytraveldiary.entity;
 
-import java.util.Date;
-
 public class Travel {
 	
 	private String tipologia;
 	private String località;
-	private Date dataAndata;
-	private Date dataRitorno;
+	private String dataAndata;
+	private String dataRitorno;
 	private String compagniViaggio;
 	private String descrizione;
 	private int id;
@@ -16,13 +14,24 @@ public class Travel {
 	
 	}
 	
-	public Travel(String tipViaggio, String loc, Date dataA, Date dataR, String compViaggio, 
+	public Travel(String tipViaggio, String loc, String dataA, String dataR, String compViaggio, 
 			      String descr, int i) {
 					
 		tipologia=tipViaggio;
 		località=loc;
-		dataAndata=dataA;
-		dataRitorno=dataR;
+		
+		if (dataA==null) 
+			dataAndata="";
+		
+		else 
+			dataAndata=dataA;
+		
+		if (dataR==null) 
+			dataRitorno="";
+		
+		else
+			dataRitorno=dataR;
+		
 		compagniViaggio=compViaggio;
 		descrizione=descr;
 		id=i;
@@ -39,11 +48,11 @@ public class Travel {
 		return località;
 	}
 	
-	public Date getDataAndata(){
+	public String getDataAndata(){
 		return dataAndata;
 	}
 	
-	public Date getDataRitorno(){
+	public String getDataRitorno(){
 		return dataRitorno;
 	}
 	
@@ -71,11 +80,11 @@ public class Travel {
 		 località= loc;
 	}
 	
-	public void setDataAndata(Date dataA){
+	public void setDataAndata(String dataA){
 		dataAndata= dataA;
 	}
 	
-	public void setDataRitorno(Date dataR){
+	public void setDataRitorno(String dataR){
 		dataRitorno= dataR;
 	}
 	

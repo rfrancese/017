@@ -1,9 +1,6 @@
 package it.unisa.mytraveldiary;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.app.DialogFragment;
@@ -40,7 +37,7 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) { 
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.new_travel_message, menu);
@@ -177,7 +174,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		String dataAndataString=dataAndata.getText().toString();
 		String dataRitornoString=dataRitorno.getText().toString();
 
-		if (!(dataAndataString.equals(""))) {
+		/*if (!(dataAndataString.equals(""))) {
 			Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndataString);
 			viaggio.setDataAndata(dataA);
 		}
@@ -185,7 +182,10 @@ public class NewTravelActivity extends ActionBarActivity {
 		if (!(dataRitornoString.equals(""))) {
 			Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitornoString);
 			viaggio.setDataRitorno(dataR);
-		}
+		}*/
+		
+		viaggio.setDataAndata(dataAndataString);
+		viaggio.setDataRitorno(dataRitornoString);
 
 		// Descrizione
 		viaggio.setDescrizione(descrizione.getText().toString());

@@ -94,7 +94,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			localita.setText("Localita: "+t.getLocalità());
 			dataAndata.setText(t.getDataAndata().toString());
 			dataRitorno.setText(t.getDataRitorno().toString());
-			compagniViaggio.setText("Compagni Viaggio: "+t.getCompagniViaggio());
+			compagniViaggio.setText(t.getCompagniViaggio());
 			descrizione.setText("Descrizione: "+t.getDescrizione());
 			
 			return rootView;

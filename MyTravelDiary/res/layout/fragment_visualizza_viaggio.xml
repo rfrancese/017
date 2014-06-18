@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="it.unisa.mytraveldiary.VisualizzaViaggioActivity$PlaceholderFragment" >
+    tools:context=".VisualizzaViaggioActivity$PlaceholderFragment" >
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -21,20 +21,33 @@
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar" />
+        android:layout_below="@id/ratingBar"
+        android:layout_marginBottom="10dp" />
+
+    <ImageView
+        android:id="@+id/localitaIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tipologiaViaggio"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/localitaIcon"
+        android:src="@drawable/ic_action_place" />
 
     <TextView
         android:id="@+id/localita"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tipologiaViaggio" />
+        android:layout_below="@id/tipologiaViaggio"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/localitaIcon" />
 
     <RelativeLayout
         android:id="@+id/date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/localita" >
+        android:layout_below="@id/localita"
+        android:layout_marginBottom="10dp" >
 
         <TextView
             android:id="@+id/dataAndata"
@@ -47,22 +60,43 @@
             style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/dataAndata" />
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/compagniViaggioIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/compagniViaggiIcon"
+        android:src="@drawable/ic_action_group" />
 
     <TextView
         android:id="@+id/compagniViaggio"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/date" />
+        android:layout_below="@id/date"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/compagniViaggioIcon" />
+
+    <TextView
+        android:id="@+id/descrizioneTitolo"
+        style="@style/CodeFont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/compagniViaggio"
+        android:layout_marginBottom="10dp"
+        android:text="@string/descrizione" />
 
     <TextView
         android:id="@+id/descrizione"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/compagniViaggio" />
+        android:layout_below="@id/descrizioneTitolo"
+        android:layout_marginBottom="10dp" />
 
     <HorizontalScrollView
         android:id="@+id/gallery"

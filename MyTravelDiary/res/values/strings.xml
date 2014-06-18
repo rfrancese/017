@@ -66,11 +66,11 @@
     <string name="nomeHotelRistoranteSugg">Inserisci il nome del ristorante/hotel</string>
     <string name="cittaHotelRistorante">Citta</string>
     <string name="cittaHotelRistoranteSugg">Inserisci la citta del ristorante/hotel</string>
-    <string name="risultatoRicerca">Viaggio 1</string>
-    <string name="localitaEsempio">Roma</string>
+    <string name="descrizione">Descrizione</string>
+    <string name="localitaIcon">Localita icon</string>
     <string name="dataAndataEsempio">Dal: 12/06/2013</string>
     <string name="dataRitornoEsempio">Al: 24/06/2013</string>
-    <string name="compagniViaggioEsempio">Clarissa, Maria, Sarah</string>
+    <string name="compagniViaggiIcon">Compagni viaggio icon</string>
     <string name="mappa">Mappa</string>
     <string name="listCittaMappa">Scegli una citta</string>
     <string name="inserisciDettagli">Inserisci dettagli</string>
