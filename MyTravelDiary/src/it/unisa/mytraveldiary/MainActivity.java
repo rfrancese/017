@@ -1,24 +1,24 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 
@@ -75,10 +75,7 @@ public class MainActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 		private ListView listView;
-		private DatabaseHandler dbHandler;
-		private ArrayList<String> viaggi=new ArrayList<String>();
-		private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
-
+		private ViaggiAdapter adapter;
 
 		public PlaceholderFragment() {
 		}
@@ -90,36 +87,27 @@ public class MainActivity extends ActionBarActivity {
 					R.layout.fragment_main, container, false);
 
 			listView= (ListView) rootView.findViewById(R.id.listView1);
-			dbHandler=new DatabaseHandler(getActivity());
 			
 			try {
-				viaggiList=dbHandler.getAllTravels();
-				
-				for (Travel t: viaggiList) {
-					viaggi.add(t.toString());
-				}
-				
-				ViaggiAdapter adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity(), viaggi);
+				adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity());
 				listView.setAdapter(adapter);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
+			
+			listView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Intent intent = new Intent(getActivity(), VisualizzaViaggioActivity.class);
+					intent.putExtra("id", adapter.getTravelId(position));
+					startActivity(intent);
+				}
+			});
 			
 			return rootView;
 		}
-	}
-	
-	public void doPositiveClick() {
-		/*DatabaseHandler dbHandler=new DatabaseHandler(this);
-		
-		dbHandler.deleteTravel(travel);*/
-		
-		Log.d("MAIN", "elimina");
-	}
-	
-	public void avantiVisualizzaViaggio(View view){
-		Intent intent = new Intent(this, VisualizzaViaggioActivity.class);
-		startActivity(intent);
 	}
 
 	private void goNewTravel() {
@@ -131,5 +119,4 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
 }

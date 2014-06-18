@@ -6,15 +6,11 @@ import it.unisa.mytraveldiary.entity.Travel;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import android.animation.AnimatorSet.Builder;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +23,26 @@ import android.widget.Toast;
 
 public class ViaggiAdapter extends ArrayAdapter<String> {
 
-	private ArrayList<String> viaggiList=new ArrayList<String>();
 	private Activity activityMain;
+	private DatabaseHandler dbHandler;
+	private ArrayList<String> viaggi=new ArrayList<String>();
+	private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
+	private Travel travel;
+	private int pos;
 
-	public ViaggiAdapter(Context context, Activity activity, ArrayList<String> viaggi) throws ParseException {
-		super(context, R.layout.list_item_travel, viaggi);
+	public ViaggiAdapter(Context context, Activity activity) throws ParseException {
+		super(context, R.layout.list_item_travel);
 
 		activityMain=activity;
-		viaggiList=viaggi;
+		dbHandler=new DatabaseHandler(activityMain);
+
+		viaggiList=dbHandler.getAllTravels();
+
+		for (Travel t: viaggiList) {
+			viaggi.add(t.toString());
+		}
+		
+		super.addAll(viaggi);
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,17 +53,20 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 			v=inflater.inflate(R.layout.list_item_travel, null);
 		}
 
-		String i=viaggiList.get(position);
+		// problema quando si cancella il primo elemento della list view
+		travel=viaggiList.get(position);
 
-		if (i!=null) {
+		if (travel!=null) {
 			TextView textView= (TextView) v.findViewById(R.id.viaggio);
 			ImageButton inserisciDettagli= (ImageButton) v.findViewById(R.id.inserisciDettagli);
 			ImageButton elimina= (ImageButton) v.findViewById(R.id.elimina);
 			ImageButton modifica= (ImageButton) v.findViewById(R.id.modifica);
 			final Context context=parent.getContext();
+			
+			elimina.setTag(position);
 
 			if (textView!=null) {
-				textView.setText(i.toString());
+				textView.setText(travel.toString());
 			}
 
 			if (inserisciDettagli!=null) {
@@ -80,36 +91,61 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 					{
 						//  Use position parameter of your getView() in this method it will current position of Clicked row button
 						// code for current Row deleted...
-						Log.d("ADAPTER", "elimina");
+						
+						pos=Integer.parseInt(v.getTag().toString());
+						Log.d("ADAPTER", ""+pos);
 
 						//DeleteDialogFragment elimina=new DeleteDialogFragment();
 						//elimina.show(activityMain.getFragmentManager(), "elimina");
-						
+
 						AlertDialog.Builder builder = new AlertDialog.Builder(activityMain);
-				        builder.setMessage(R.string.eliminaInfo);
-				        builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-				                   public void onClick(DialogInterface dialog, int id) {
-				                	   ((MainActivity) activityMain).doPositiveClick();
-				                	   showToast("Viaggio eliminato!");
-				                   }
-				               });
-				        builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-				                   public void onClick(DialogInterface dialog, int id) {
-				                       // User cancelled the dialog
-				                	   showToast("Eliminazione annullata...");
-				                   }
-				               });
-				        builder.setIcon(R.drawable.ic_action_warning);
-				        builder.setTitle(R.string.eliminaViaggio);
-				        
-				        builder.create();
-				        builder.show();
+						builder.setMessage(R.string.eliminaInfo);
+						builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								if (dbHandler!=null) {
+									dbHandler.deleteTravel(viaggiList.get(pos));
+									
+								}
+								
+								//remove(viaggi.get(pos));
+								viaggi.remove(pos);
+								viaggiList.remove(pos);
+								
+								notifyDataSetChanged();
+								showToast("Viaggio eliminato!");
+							}
+						});
+						builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// User cancelled the dialog
+								showToast("Eliminazione annullata...");
+							}
+						});
+						builder.setIcon(R.drawable.ic_action_warning);
+						builder.setTitle(R.string.eliminaViaggio);
+
+						builder.create();
+						builder.show();
 					}
 				});
 			}
 		}
 
 		return v;
+	}
+	
+	@Override
+	public int getCount() {
+		return viaggiList.size();
+	}
+
+	@Override
+	public String getItem(int position) {
+		return (viaggiList.get(position)).toString();
+	}
+	
+	public int getTravelId(int position) {
+		return (viaggiList.get(position)).getId();
 	}
 	
 	private void showToast(String msg) {
@@ -120,32 +156,4 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}	
-
-	
-	/*public class DeleteDialogFragment extends DialogFragment {
-
-		 @Override
-		    public Dialog onCreateDialog(Bundle savedInstanceState) {
-		        // Use the Builder class for convenient dialog construction
-		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		        builder.setMessage(R.string.eliminaInfo)
-		               .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		                	   ((MainActivity)getActivity()).doPositiveClick();
-		                	   showToast("Viaggio eliminato!");
-		                   }
-		               })
-		               .setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-		                   public void onClick(DialogInterface dialog, int id) {
-		                       // User cancelled the dialog
-		                	   showToast("Eliminazione annullata...");
-		                   }
-		               })
-		               .setIcon(R.drawable.ic_action_warning)
-		               .setTitle(R.string.eliminaViaggio);
-		        // Create the AlertDialog object and return it
-		        return builder.create();
-		    }
-	}
-*/
 }

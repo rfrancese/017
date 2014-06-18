@@ -14,97 +14,63 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:rating="3" />
+        android:isIndicator="true" />
 
-    <RadioGroup
+    <TextView
         android:id="@+id/tipologiaViaggio"
+        style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ratingBar"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal" >
+        android:layout_below="@id/ratingBar" />
 
-        <RadioButton
-            android:id="@+id/Svago"
+    <TextView
+        android:id="@+id/localita"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tipologiaViaggio" />
+
+    <RelativeLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/localita" >
+
+        <TextView
+            android:id="@+id/dataAndata"
+            style="@style/CodeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/dataRitorno"
             style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="90dp"
-            android:checked="true"
-            android:enabled="false"
-            android:text="@string/Svago" />
-    </RadioGroup>
-
-    <TableLayout
-        android:id="@+id/tabella1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tipologiaViaggio"
-        android:orientation="vertical"
-        android:stretchColumns="1" >
-
-        <TableRow
-            android:id="@+id/localita"
-            android:layout_marginBottom="20dp" >
-
-            <TextView
-                style="@style/CodeFont"
-                android:layout_column="1"
-                android:text="@string/localita" />
-
-            <EditText
-                style="@style/CodeFont"
-                android:layout_column="2"
-                android:enabled="false"
-                android:text="@string/localitaEsempio" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/andata"
-            android:layout_marginBottom="20dp" >
-
-            <TextView
-                style="@style/CodeFont"
-                android:layout_column="1"
-                android:text="@string/dataAndataEsempio" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/ritorno"
-            android:layout_marginBottom="20dp" >
-
-            <TextView
-                style="@style/CodeFont"
-                android:layout_column="1"
-                android:text="@string/dataRitornoEsempio" />
-        </TableRow>
-    </TableLayout>
+            android:layout_toRightOf="@id/dataAndata" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/compagniViaggio"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tabella1"
-        android:text="@string/compagniViaggio" />
+        android:layout_below="@id/date" />
 
     <TextView
-        android:id="@+id/compagniViaggioEsempio"
+        android:id="@+id/descrizione"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/compagniViaggio"
-        android:text="@string/compagniViaggioEsempio" />
+        android:layout_below="@id/compagniViaggio" />
 
     <HorizontalScrollView
         android:id="@+id/gallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/descrizione"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/compagniViaggioEsempio" >
+        android:layout_marginTop="20dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"

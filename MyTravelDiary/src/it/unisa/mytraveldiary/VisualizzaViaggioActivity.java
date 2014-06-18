@@ -1,33 +1,27 @@
 package it.unisa.mytraveldiary;
 
+import java.text.ParseException;
+
+import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
-import android.os.Build;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 public class VisualizzaViaggioActivity extends ActionBarActivity {
-	
-	//variable for selection intent
-	private final int PICKER = 1;
-	//variable to store the currently selected image
-	private int currentPic = 0;
-	//gallery object
-	private Gallery picGallery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_visualizza_viaggio);
-		         
-		//get the gallery view
-		picGallery = (Gallery) findViewById(R.id.gallery);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -59,6 +53,8 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
+		private DatabaseHandler dbHandler;
+		private Travel t;
 
 		public PlaceholderFragment() {
 		}
@@ -68,6 +64,39 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_visualizza_viaggio, container, false);
+			
+			Bundle extra=getActivity().getIntent().getExtras();
+			dbHandler=new DatabaseHandler(getActivity());
+			
+			if (extra!=null) {
+				int value=extra.getInt("id");
+				
+				try {
+					t=dbHandler.getTravel(value);
+					Log.d("VISUALIZZA", t.toString());
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			RatingBar valutazione= (RatingBar) rootView.findViewById(R.id.ratingBar);
+			TextView tipologiaViaggio= (TextView) rootView.findViewById(R.id.tipologiaViaggio);
+			TextView localita= (TextView) rootView.findViewById(R.id.localita);
+			TextView dataAndata= (TextView) rootView.findViewById(R.id.dataAndata);
+			TextView dataRitorno= (TextView) rootView.findViewById(R.id.dataRitorno);
+			TextView compagniViaggio= (TextView) rootView.findViewById(R.id.compagniViaggio);
+			TextView descrizione= (TextView) rootView.findViewById(R.id.descrizione);
+			
+			valutazione.setRating(0);
+			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
+			localita.setText("Localita: "+t.getLocalità());
+			dataAndata.setText(t.getDataAndata().toString());
+			dataRitorno.setText(t.getDataRitorno().toString());
+			compagniViaggio.setText("Compagni Viaggio: "+t.getCompagniViaggio());
+			descrizione.setText("Descrizione: "+t.getDescrizione());
+			
 			return rootView;
 		}
 	}

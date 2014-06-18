@@ -20,12 +20,12 @@ public class Travel {
 			      String descr, int i) {
 					
 		tipologia=tipViaggio;
-		località= loc;
-		dataAndata= dataA;
-		dataRitorno= dataR;
-		compagniViaggio= compViaggio;
-		descrizione= descr;
-		id= i;
+		località=loc;
+		dataAndata=dataA;
+		dataRitorno=dataR;
+		compagniViaggio=compViaggio;
+		descrizione=descr;
+		id=i;
 	}
 
 	
@@ -48,9 +48,7 @@ public class Travel {
 	}
 	
 	public String getCompagniViaggio(){
-		String compViaggio="";
-		
-		return compViaggio;
+		return compagniViaggio;
 	}
 	
 	public String getDescrizione(){

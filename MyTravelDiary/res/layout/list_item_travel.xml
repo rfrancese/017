@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants" >
 
     <ImageView
         android:id="@+id/tipoViaggio1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@string/tipoViaggio" />
+        android:contentDescription="@string/tipoViaggio"
+        android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/viaggio"
@@ -25,10 +26,10 @@
         android:layout_marginBottom="30dp"
         android:layout_toRightOf="@id/viaggio"
         android:background="@null"
+        android:contentDescription="@string/inserisciDettagli"
         android:onClick="inserisciDettagli"
         android:padding="4dip"
-        android:src="@drawable/ic_action_new"
-        android:contentDescription="@string/inserisciDettagli" />
+        android:src="@drawable/ic_action_new" />
 
     <ImageButton
         android:id="@+id/modifica"
@@ -37,10 +38,10 @@
         android:layout_marginBottom="30dp"
         android:layout_toRightOf="@id/inserisciDettagli"
         android:background="@null"
+        android:contentDescription="@string/modifica"
         android:onClick="tornaHomepage"
         android:padding="4dip"
-        android:src="@drawable/ic_action_edit"
-        android:contentDescription="@string/modifica" />
+        android:src="@drawable/ic_action_edit" />
 
     <ImageButton
         android:id="@+id/elimina"
@@ -49,8 +50,8 @@
         android:layout_marginBottom="30dp"
         android:layout_toRightOf="@id/modifica"
         android:background="@null"
+        android:contentDescription="@string/elimina"
         android:padding="4dip"
-        android:src="@drawable/ic_action_discard"
-        android:contentDescription="@string/elimina" />
+        android:src="@drawable/ic_action_discard" />
 
 </RelativeLayout>
