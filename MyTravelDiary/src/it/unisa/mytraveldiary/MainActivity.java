@@ -2,6 +2,9 @@ package it.unisa.mytraveldiary;
 
 import java.text.ParseException;
 
+import android.app.ActionBar;
+import android.app.ActionBar.OnNavigationListener;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,8 +35,22 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-
-
+		
+		/*SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
+		        R.array.filtriRicerca, android.R.layout.simple_spinner_dropdown_item);
+		
+		OnNavigationListener mOnNavigationListener = new OnNavigationListener() {
+			  // Get the same strings provided for the drop-down's ArrayAdapter
+			  @Override
+			  public boolean onNavigationItemSelected(int position, long itemId) {
+			    showToast(""+position);
+			    
+			    return true;
+			  }
+			};
+			
+			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+			getActionBar().setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);*/
 	}
 
 	@Override
@@ -105,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-
+	
 	private void goNewTravel() {
 		Intent intent = new Intent(this, NewTravelActivity.class);
 		startActivity(intent);
@@ -115,4 +135,14 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
+	
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
+	}	
+
 }

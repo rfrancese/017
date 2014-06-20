@@ -53,7 +53,6 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 			v=inflater.inflate(R.layout.list_item_travel, null);
 		}
 
-		// problema quando si cancella il primo elemento della list view
 		travel=viaggiList.get(position);
 
 		if (travel!=null) {

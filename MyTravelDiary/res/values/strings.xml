@@ -87,6 +87,7 @@
     <string name="action_new_travel">Nuovo viaggio</string>
     <string name="action_search">Cerca</string>
     <string name="action_info">Info</string>
+    <string name="action_filter">Filtra risultati</string>
     
     <string name="action_settings">Settings</string>
     <string name="title_activity_master_travel_message">My Travel Diary</string>
@@ -95,6 +96,7 @@
     <string name="title_activity_info_message">Informazioni</string>
 
     <string-array name="filtriRicerca">
+        <item>Tutti i viaggi</item>
         <item>Svago</item>
         <item>Lavoro</item>
         <item>*</item>
