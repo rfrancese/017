@@ -1,8 +1,12 @@
 package it.unisa.mytraveldiary;
 
-import java.text.ParseException;
+import it.unisa.mytraveldiary.R.id;
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
+
+import java.lang.reflect.Modifier;
+import java.text.ParseException;
+
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +38,8 @@ public class NewTravelActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+		Log.d("NEW TRAVEL", getIntent().toString());
 	}
 
 	@Override
@@ -65,26 +71,26 @@ public class NewTravelActivity extends ActionBarActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void onRadioButtonClicked(View view) {
-	    // Is the button now checked?
-	    boolean checked = ((RadioButton) view).isChecked();
-	    
-	    // Check which radio button was clicked
-	    switch(view.getId()) {
-	        case R.id.Svago:
-	            if (checked) {
-	            	setSvago();
-	            	Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
-	            }
-	            break;
-	        case R.id.Lavoro:
-	            if (checked) {
-	            	setLavoro();
-	            	Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
-	            }
-	            break;
-	    }
+		// Is the button now checked?
+		boolean checked = ((RadioButton) view).isChecked();
+
+		// Check which radio button was clicked
+		switch(view.getId()) {
+		case R.id.Svago:
+			if (checked) {
+				setSvago();
+				Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
+			}
+			break;
+		case R.id.Lavoro:
+			if (checked) {
+				setLavoro();
+				Log.d("TIPOLOGIA", viaggio.getTipologiaViaggio());
+			}
+			break;
+		}
 	}
 
 	/**
@@ -99,6 +105,31 @@ public class NewTravelActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
 			View rootView = inflater.inflate(R.layout.fragment_new_travel_message, container, false);
+
+			Bundle extra=getActivity().getIntent().getExtras();
+
+			if (extra!=null) {
+
+				// Fare in modo che se extra è settato si aggiunge il fragment della modifica
+				// nome action bar
+
+				//Log.d("modifica", extra.getInt("id")+"");
+
+				//Log.d("modifica", modifica+"");
+
+				AutoCompleteTextView localita=(AutoCompleteTextView) rootView.findViewById(id.localitaAutoComplete);
+				TextView dataA=(TextView) rootView.findViewById(R.id.andataText);
+				TextView dataR=(TextView) rootView.findViewById(R.id.ritornoText);
+				MultiAutoCompleteTextView compViaggio=(MultiAutoCompleteTextView) rootView.findViewById(R.id.compagniViaggioAutocomplete);
+				EditText descrizione=(EditText) rootView.findViewById(R.id.descrizioneViaggioInput);
+
+
+				localita.setText(extra.getString("localita"));
+				dataA.setText(extra.getString("dataA"));
+				dataR.setText(extra.getString("dataR"));
+				compViaggio.setText(extra.getString("compagni"));
+				descrizione.setText(extra.getString("descrizione"));
+			}
 
 			// Get a reference to the AutoCompleteTextView in the layout
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
@@ -147,7 +178,6 @@ public class NewTravelActivity extends ActionBarActivity {
 	public void salvaViaggio(View view) throws ParseException {
 
 		// GET
-
 		// Data andata e ritorno
 		TextView dataAndata=(TextView) findViewById(R.id.andataText);
 		TextView dataRitorno=(TextView) findViewById(R.id.ritornoText);
@@ -163,7 +193,7 @@ public class NewTravelActivity extends ActionBarActivity {
 
 		// SET
 		// Tipologia viaggio			
-		
+
 		//Log.d("Tipologia viaggio", viaggio.getTipologiaViaggio());
 
 		// Località
@@ -183,7 +213,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitornoString);
 			viaggio.setDataRitorno(dataR);
 		}*/
-		
+
 		viaggio.setDataAndata(dataAndataString);
 		viaggio.setDataRitorno(dataRitornoString);
 
@@ -195,12 +225,25 @@ public class NewTravelActivity extends ActionBarActivity {
 		viaggio.setCompagniViaggio(compViaggio);
 
 		DatabaseHandler dbHandler=new DatabaseHandler(this);
+		Bundle extra=getIntent().getExtras();
+		boolean modifica=false;
+		
+		if (extra!=null)
+			modifica=extra.getBoolean("modifica");
 
 		if (viaggioSalvato) {
+
+
 			Log.d("TRAVEL", "viaggio da modificare");
 			Log.d("New travel modifica", viaggio.toString());
 
 			// aggiornare viaggio nel database
+			dbHandler.updateTravel(viaggio);
+		}
+		
+		else if (modifica) {
+			Log.d("modifica", "yes");
+			viaggio.setId(extra.getInt("id"));
 			dbHandler.updateTravel(viaggio);
 		}
 
@@ -208,17 +251,17 @@ public class NewTravelActivity extends ActionBarActivity {
 			viaggioSalvato=true;
 
 			viaggio.setId(dbHandler.addTravel(viaggio));
-			
+
 			Log.d("New travel", viaggio.toString());
 		}
 
 		showToast("Viaggio salvato correttamente!");
 	}
-	
+
 	private void setSvago() {
 		viaggio.setTipologiaViaggio("Svago");
 	}
-	
+
 	private void setLavoro() {
 		viaggio.setTipologiaViaggio("Lavoro");
 	}

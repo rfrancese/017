@@ -11,6 +11,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +65,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 			final Context context=parent.getContext();
 			
 			elimina.setTag(position);
+			modifica.setTag(position);
 
 			if (textView!=null) {
 				textView.setText(travel.toString());
@@ -125,6 +128,30 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 
 						builder.create();
 						builder.show();
+					}
+				});
+			}
+			
+			if (modifica!=null) {
+				modifica.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						pos=Integer.parseInt(v.getTag().toString());
+						Travel t=viaggiList.get(pos);
+						
+						//parcelable?
+						Intent intent=new Intent(context, NewTravelActivity.class);
+						intent.putExtra("modifica", true);
+						intent.putExtra("tipologia", t.getTipologiaViaggio());
+						intent.putExtra("localita", t.getLocalità());
+						intent.putExtra("dataA", t.getDataAndata());
+						intent.putExtra("dataR", t.getDataRitorno());
+						intent.putExtra("compagni", t.getCompagniViaggio());
+						intent.putExtra("descrizione", t.getDescrizione());
+						intent.putExtra("id", t.getId());
+						context.startActivity(intent);
+						//showToast("Modifica");
 					}
 				});
 			}
