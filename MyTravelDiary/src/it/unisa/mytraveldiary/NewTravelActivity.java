@@ -1,10 +1,8 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.R.id;
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 
-import java.lang.reflect.Modifier;
 import java.text.ParseException;
 
 import android.app.DialogFragment;
@@ -71,6 +69,11 @@ public class NewTravelActivity extends ActionBarActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO mostrare dialog per l'utente
+	}
 
 	public void onRadioButtonClicked(View view) {
 		// Is the button now checked?
@@ -117,7 +120,7 @@ public class NewTravelActivity extends ActionBarActivity {
 
 				//Log.d("modifica", modifica+"");
 
-				AutoCompleteTextView localita=(AutoCompleteTextView) rootView.findViewById(id.localitaAutoComplete);
+				AutoCompleteTextView localita=(AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
 				TextView dataA=(TextView) rootView.findViewById(R.id.andataText);
 				TextView dataR=(TextView) rootView.findViewById(R.id.ritornoText);
 				MultiAutoCompleteTextView compViaggio=(MultiAutoCompleteTextView) rootView.findViewById(R.id.compagniViaggioAutocomplete);
@@ -242,9 +245,11 @@ public class NewTravelActivity extends ActionBarActivity {
 		}
 		
 		else if (modifica) {
+			setTitle("Modifica Viaggio");
 			Log.d("modifica", "yes");
 			viaggio.setId(extra.getInt("id"));
 			dbHandler.updateTravel(viaggio);
+			
 		}
 
 		else {

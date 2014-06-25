@@ -179,7 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(T_DESCRIZIONE, travel.getDescrizione());
 
 		Log.d("DB VIAGGIO UPDATE", travel.toString());
-		
+
 		return db.update(TABLE_TRAVELS, values, T_ID + "= ?", new String[] {String.valueOf(travel.getId())});
 	}
 
@@ -200,7 +200,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getReadableDatabase();
 
 		Cursor cursor=db.query(TABLE_TRAVELS, new String[] {T_TIPOLOGIA, T_LOCALITA, T_DATA_ANDATA, 
-									T_DATA_RITORNO, T_COMPAGNI_VIAGGIO, T_DESCRIZIONE, T_ID}, T_ID + "=?",
+				T_DATA_RITORNO, T_COMPAGNI_VIAGGIO, T_DESCRIZIONE, T_ID}, T_ID + "=?",
 				new String[] {String.valueOf(id)}, null, null, null, null);
 
 		if (cursor!=null)
@@ -214,7 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String compagniViaggio=cursor.getString(4);
 		String descrizione=cursor.getString(5);
 		String idTravel=cursor.getString(6);
-//		Date dataA, dataR;
+		//		Date dataA, dataR;
 
 		/*if (dataAndata==null) {
 			dataA=null;
@@ -275,6 +275,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		return travelList;
+	}
+
+	public ArrayList<Travel> doMySearch(String query) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor cursor=db.query(TABLE_TRAVELS, null, T_LOCALITA+" LIKE ?", new String[] {"%"+query+"%"}, null, null, null);
+		ArrayList<Travel> travelList=new ArrayList<Travel>();
+
+		if (cursor.moveToFirst()) {
+			do {
+				String tipologia=cursor.getString(0);
+				String localita=cursor.getString(1);
+				String dataAndata=cursor.getString(2);
+				String dataRitorno=cursor.getString(3);
+				String compagniViaggio=cursor.getString(4);
+				String descrizione=cursor.getString(5);
+				String idTravel=cursor.getString(6);
+
+				Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
+						Integer.parseInt(idTravel));
+
+				travelList.add(travel);
+			} 
+			while (cursor.moveToNext());
+		}
+
+		return travelList;
+	}
+
+	public ArrayList<Travel> getViaggiSvago(String filter) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor cursor=db.query(TABLE_TRAVELS, null, T_TIPOLOGIA+"=?", new String[] {filter}, null, null, null);
+
+		ArrayList<Travel> travelList=new ArrayList<Travel>();
+
+		if (cursor.moveToFirst()) {
+			do {
+				String tipologia=cursor.getString(0);
+				String localita=cursor.getString(1);
+				String dataAndata=cursor.getString(2);
+				String dataRitorno=cursor.getString(3);
+				String compagniViaggio=cursor.getString(4);
+				String descrizione=cursor.getString(5);
+				String idTravel=cursor.getString(6);
+
+				Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
+						Integer.parseInt(idTravel));
+
+				travelList.add(travel);
+			} 
+			while (cursor.moveToNext());
+		}
+
 		return travelList;
 	}
 

@@ -1,30 +1,33 @@
 package it.unisa.mytraveldiary;
 
-import java.text.ParseException;
+import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Travel;
 
-import android.app.ActionBar;
-import android.app.ActionBar.OnNavigationListener;
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
+	private ViaggiAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +39,69 @@ public class MainActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		/*SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
-		        R.array.filtriRicerca, android.R.layout.simple_spinner_dropdown_item);
-		
-		OnNavigationListener mOnNavigationListener = new OnNavigationListener() {
-			  // Get the same strings provided for the drop-down's ArrayAdapter
-			  @Override
-			  public boolean onNavigationItemSelected(int position, long itemId) {
-			    showToast(""+position);
-			    
-			    return true;
-			  }
-			};
-			
-			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-			getActionBar().setListNavigationCallbacks(mSpinnerAdapter, mOnNavigationListener);*/
+		handleIntent(getIntent());
 	}
 
+	private void handleIntent(Intent intent) {
+		// Get the intent, verify the action and get the query
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      doMySearch(query);
+	    }
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		handleIntent(intent);
+	}
+	
+	private void doMySearch(String query) {
+		DatabaseHandler dbHandler=new DatabaseHandler(this);
+		ArrayList<Travel> listaViaggi=new ArrayList<Travel>();
+		listaViaggi=dbHandler.doMySearch(query);
+		
+		Log.d("search", query);
+		
+		
+		for (Travel t: listaViaggi)
+			Log.d("search", t.toString());
+		
+		ListView listView=(ListView) findViewById(R.id.listView1);
+		adapter=new ViaggiAdapter(this, listaViaggi);
+		
+		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), VisualizzaViaggioActivity.class);
+				intent.putExtra("id", adapter.getTravelId(position));
+				startActivity(intent);
+			}
+		});
+	}
+	
+	private void filter(CharSequence charSequence) {
+		MainActivity.this.adapter.getFilter().filter(charSequence);  
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		MenuItem searchItem = menu.findItem(R.id.action_search);
-		SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+		// Inflate the options menu from XML
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+
+		// Get the SearchView and set the searchable configuration
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+		// Assumes current activity is the searchable activity
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+		searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+		searchView.setSubmitButtonEnabled(true);
+
 		return true;
 	}
 
@@ -71,6 +113,7 @@ public class MainActivity extends ActionBarActivity {
 		switch (item.getItemId()) {
 
 		case R.id.action_search:
+			onSearchRequested();
 			return true;
 
 		case R.id.action_new_travel:
@@ -81,6 +124,64 @@ public class MainActivity extends ActionBarActivity {
 			goInfo();
 			return true;
 
+		case R.id.svago:
+			if (item.isChecked()) {
+				item.setChecked(false);
+				filter(item.getTitle());
+			}
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.lavoro:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.uno:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.due:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.tre:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.quattro:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
+		case R.id.cinque:
+			if (item.isChecked())
+				item.setChecked(false);
+			
+			else
+				item.setChecked(true);
+			return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -102,15 +203,16 @@ public class MainActivity extends ActionBarActivity {
 			View rootView = inflater.inflate(
 					R.layout.fragment_main, container, false);
 
+
 			listView= (ListView) rootView.findViewById(R.id.listView1);
-			
+
 			try {
 				adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity());
 				listView.setAdapter(adapter);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -121,11 +223,11 @@ public class MainActivity extends ActionBarActivity {
 					startActivity(intent);
 				}
 			});
-			
+
 			return rootView;
 		}
 	}
-	
+
 	private void goNewTravel() {
 		Intent intent = new Intent(this, NewTravelActivity.class);
 		startActivity(intent);
@@ -135,14 +237,4 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
-	private void showToast(String msg) {
-		Context context=getApplicationContext();
-		CharSequence text=msg;
-		int duration=Toast.LENGTH_SHORT;
-
-		Toast toast=Toast.makeText(context, text, duration);
-		toast.show();
-	}	
-
 }

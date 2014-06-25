@@ -19,11 +19,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView; 
 import android.widget.Toast;
 
-public class ViaggiAdapter extends ArrayAdapter<String> {
+public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 	private Activity activityMain;
 	private DatabaseHandler dbHandler;
@@ -43,7 +45,20 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 		for (Travel t: viaggiList) {
 			viaggi.add(t.toString());
 		}
-		
+
+		super.addAll(viaggi);
+	}
+
+	public ViaggiAdapter(Context context, ArrayList<Travel> listaViaggi) {
+		super(context, R.layout.list_item_travel);
+
+		viaggiList=listaViaggi;
+
+		for (Travel t: viaggiList) {
+			Log.d("ADAPTER", t.toString());
+			viaggi.add(t.toString());
+		}
+
 		super.addAll(viaggi);
 	}
 
@@ -63,9 +78,10 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 			ImageButton elimina= (ImageButton) v.findViewById(R.id.elimina);
 			ImageButton modifica= (ImageButton) v.findViewById(R.id.modifica);
 			final Context context=parent.getContext();
-			
+
 			elimina.setTag(position);
 			modifica.setTag(position);
+			v.setId(position);
 
 			if (textView!=null) {
 				textView.setText(travel.toString());
@@ -93,7 +109,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 					{
 						//  Use position parameter of your getView() in this method it will current position of Clicked row button
 						// code for current Row deleted...
-						
+
 						pos=Integer.parseInt(v.getTag().toString());
 						Log.d("ADAPTER", ""+pos);
 
@@ -106,13 +122,13 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 							public void onClick(DialogInterface dialog, int id) {
 								if (dbHandler!=null) {
 									dbHandler.deleteTravel(viaggiList.get(pos));
-									
+
 								}
-								
+
 								//remove(viaggi.get(pos));
 								viaggi.remove(pos);
 								viaggiList.remove(pos);
-								
+
 								notifyDataSetChanged();
 								showToast("Viaggio eliminato!");
 							}
@@ -131,15 +147,15 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 					}
 				});
 			}
-			
+
 			if (modifica!=null) {
 				modifica.setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						pos=Integer.parseInt(v.getTag().toString());
 						Travel t=viaggiList.get(pos);
-						
+
 						//parcelable?
 						Intent intent=new Intent(context, NewTravelActivity.class);
 						intent.putExtra("modifica", true);
@@ -159,7 +175,37 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 
 		return v;
 	}
-	
+
+
+	@Override
+	public Filter getFilter() {
+		Filter filter = new Filter() {
+			@Override
+			protected FilterResults performFiltering(CharSequence constraint) {
+				FilterResults filterResults = new FilterResults();
+				if (constraint != null) {
+					
+					///viaggiList=dbHandler.getViaggiSvago();
+
+					// Assign the data to the FilterResults
+					filterResults.values = viaggiList;
+					filterResults.count = viaggiList.size();
+				}
+				return filterResults;
+			}
+
+			@Override
+			protected void publishResults(CharSequence constraint, FilterResults results) {
+				if (results != null && results.count > 0) {
+					notifyDataSetChanged();
+				}
+				else {
+					notifyDataSetInvalidated();
+				}
+			}};
+			return filter;
+	}
+
 	@Override
 	public int getCount() {
 		return viaggiList.size();
@@ -169,11 +215,11 @@ public class ViaggiAdapter extends ArrayAdapter<String> {
 	public String getItem(int position) {
 		return (viaggiList.get(position)).toString();
 	}
-	
+
 	public int getTravelId(int position) {
 		return (viaggiList.get(position)).getId();
 	}
-	
+
 	private void showToast(String msg) {
 		Context context=getContext().getApplicationContext();
 		CharSequence text=msg;

@@ -29,7 +29,7 @@
         android:contentDescription="@string/inserisciDettagli"
         android:onClick="inserisciDettagli"
         android:padding="4dip"
-        android:src="@drawable/ic_action_new" />
+        android:src="@drawable/ic_action_new_event" />
 
     <ImageButton
         android:id="@+id/modifica"
