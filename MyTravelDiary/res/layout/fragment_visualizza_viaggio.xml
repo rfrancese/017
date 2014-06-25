@@ -82,20 +82,11 @@
         android:layout_toRightOf="@id/compagniViaggioIcon" />
 
     <TextView
-        android:id="@+id/descrizioneTitolo"
-        style="@style/CodeFont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/compagniViaggio"
-        android:layout_marginBottom="10dp"
-        android:text="@string/descrizione" />
-
-    <TextView
         android:id="@+id/descrizione"
         style="@style/CodeFont"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/descrizioneTitolo"
+        android:layout_below="@id/compagniViaggio"
         android:layout_marginBottom="10dp" />
 
     <HorizontalScrollView
@@ -124,5 +115,13 @@
                 android:src="@drawable/images" />
         </LinearLayout>
     </HorizontalScrollView>
+
+    <ListView
+        android:id="@+id/hotelRistoranti"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gallery"
+        android:clickable="false" >
+    </ListView>
 
 </RelativeLayout>

@@ -99,6 +99,7 @@
     <string name="tre">***</string>
     <string name="quattro">****</string>
     <string name="cinque">*****</string>
+    <string name="nuovaLocalita">Nuova localita</string>
 
     <string-array name="tipoTrasporti" style="@style/CodeFont">
         <item>Automobile</item>
@@ -128,5 +129,8 @@
     <string name="title_activity_registrazione">Registrazione</string>
     <string name="title_activity_my_gradient">MyGradient</string>
     <string name="title_activity_searchable">SearchableActivity</string>
+    
+     <!-- Address format -->
+    <string name="address_output_string">%1$s</string>
 
 </resources>

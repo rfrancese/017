@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants" >
-
-    <ImageView
-        android:id="@+id/tipoViaggio1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/tipoViaggio"
-        android:src="@drawable/ic_launcher" />
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/viaggio"
         style="@style/CodeFont"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tipoViaggio1" >
-    </TextView>
+        android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/inserisciDettagli"
+    <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_toRightOf="@id/viaggio"
-        android:background="@null"
-        android:contentDescription="@string/inserisciDettagli"
-        android:onClick="inserisciDettagli"
-        android:padding="4dip"
-        android:src="@drawable/ic_action_new_event" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/viaggio"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal" >
 
-    <ImageButton
-        android:id="@+id/modifica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_toRightOf="@id/inserisciDettagli"
-        android:background="@null"
-        android:contentDescription="@string/modifica"
-        android:onClick="tornaHomepage"
-        android:padding="4dip"
-        android:src="@drawable/ic_action_edit" />
+        <ImageButton
+            android:id="@+id/inserisciDettagli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/inserisciDettagli"
+            android:onClick="inserisciDettagli"
+            android:padding="4dip"
+            android:src="@drawable/ic_action_new_event" />
 
-    <ImageButton
-        android:id="@+id/elimina"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_toRightOf="@id/modifica"
-        android:background="@null"
-        android:contentDescription="@string/elimina"
-        android:padding="4dip"
-        android:src="@drawable/ic_action_discard" />
+        <ImageButton
+            android:id="@+id/modifica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/modifica"
+            android:onClick="tornaHomepage"
+            android:padding="4dip"
+            android:src="@drawable/ic_action_edit" />
+
+        <ImageButton
+            android:id="@+id/elimina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/elimina"
+            android:padding="4dip"
+            android:src="@drawable/ic_action_discard" />
+    </LinearLayout>
 
 </RelativeLayout>

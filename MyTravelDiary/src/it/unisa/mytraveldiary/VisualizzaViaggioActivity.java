@@ -1,8 +1,10 @@
 package it.unisa.mytraveldiary;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.HotelRistorante;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -67,13 +71,19 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
+			ArrayList<HotelRistorante> hotelRistoranteList=new ArrayList<HotelRistorante>();
+			
 			
 			if (extra!=null) {
 				int value=extra.getInt("id");
 				
 				try {
 					t=dbHandler.getTravel(value);
+					hotelRistoranteList=dbHandler.getHotelRistoranti(value);
 					Log.d("VISUALIZZA", t.toString());
+					
+					for (HotelRistorante hr: hotelRistoranteList)
+						Log.d("visualizza", hr.toString());
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
@@ -89,6 +99,8 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			TextView compagniViaggio= (TextView) rootView.findViewById(R.id.compagniViaggio);
 			TextView descrizione= (TextView) rootView.findViewById(R.id.descrizione);
 			
+			ListView lvHotelRistoranti=(ListView) rootView.findViewById(R.id.hotelRistoranti);
+			
 			valutazione.setRating(0);
 			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
 			localita.setText("Localita: "+t.getLocalità());
@@ -96,6 +108,11 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			dataRitorno.setText(t.getDataRitorno().toString());
 			compagniViaggio.setText(t.getCompagniViaggio());
 			descrizione.setText("Descrizione: "+t.getDescrizione());
+			
+			ArrayAdapter<HotelRistorante> hrAdapter=new ArrayAdapter<HotelRistorante>(getActivity(), 
+														R.layout.list_item_hotel_ristorante, hotelRistoranteList);
+			lvHotelRistoranti.setAdapter(hrAdapter);
+			
 			
 			return rootView;
 		}

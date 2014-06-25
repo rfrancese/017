@@ -77,8 +77,14 @@ public class InserisciDettagliActivity extends ActionBarActivity {
     }
 	
 	public void avantiHotelRistoranti(View view){
-    	Intent intent = new Intent(this, HotelRistorantiActivity.class);
-    	startActivity(intent);
+		Bundle extra=getIntent().getExtras();
+		
+		if (extra!=null) {
+			int id=extra.getInt("id");
+			Intent intent = new Intent(this, HotelRistorantiActivity.class);
+			intent.putExtra("id", id);
+	    	startActivity(intent);
+		}
     }
 	
 	public void tornaHomepage(View view){

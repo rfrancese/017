@@ -75,7 +75,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		}
 	}
 
-	private boolean hotelRistoranteSalvato=false;
+//	private boolean hotelRistoranteSalvato=false;
 	private HotelRistorante hotelRistorante=new HotelRistorante();
 
 	public void salvaHotelRistorante(View view){
@@ -114,18 +114,18 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		hotelRistorante.setValutazione((int) valutazioneHR.getRating());
 
 		Log.d("HOTELRISTORANTI", hotelRistorante.toString());
+		
+		Bundle extra=getIntent().getExtras();
+		
+		if (extra!=null) {
+			hotelRistorante.setTId(extra.getInt("id"));
+		}
 
 		DatabaseHandler dbHandler=new DatabaseHandler(this);
 
-		if (hotelRistoranteSalvato) {
-			dbHandler.updateHotelRistorante(hotelRistorante);
-		}
+//		dbHandler.updateHotelRistorante(hotelRistorante);
 
-		else {
-			hotelRistoranteSalvato=true;
-
-			hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
-		}
+		hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
 
 		showToast("Hotel/Ristorante salvato correttamente!");
 		goInserisci();

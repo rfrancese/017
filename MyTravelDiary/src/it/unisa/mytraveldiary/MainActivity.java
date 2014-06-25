@@ -223,7 +223,7 @@ public class MainActivity extends ActionBarActivity {
 					startActivity(intent);
 				}
 			});
-
+			
 			return rootView;
 		}
 	}

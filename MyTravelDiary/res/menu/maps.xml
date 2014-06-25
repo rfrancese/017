@@ -4,9 +4,9 @@
     tools:context="it.unisa.mytraveldiary.MapsActivity" >
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@+id/action_accept"
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_action_accept"
+        app:showAsAction="ifRoom"/>
 
 </menu>

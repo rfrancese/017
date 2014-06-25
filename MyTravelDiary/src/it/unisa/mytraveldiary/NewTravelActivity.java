@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,6 @@ public class NewTravelActivity extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 
-		Log.d("NEW TRAVEL", getIntent().toString());
 	}
 
 	@Override
@@ -70,11 +70,6 @@ public class NewTravelActivity extends ActionBarActivity {
 		}
 	}
 	
-	@Override
-	public void onBackPressed() {
-		// TODO mostrare dialog per l'utente
-	}
-
 	public void onRadioButtonClicked(View view) {
 		// Is the button now checked?
 		boolean checked = ((RadioButton) view).isChecked();
@@ -112,21 +107,19 @@ public class NewTravelActivity extends ActionBarActivity {
 			Bundle extra=getActivity().getIntent().getExtras();
 
 			if (extra!=null) {
-
-				// Fare in modo che se extra è settato si aggiunge il fragment della modifica
-				// nome action bar
-
-				//Log.d("modifica", extra.getInt("id")+"");
-
-				//Log.d("modifica", modifica+"");
-
+				RadioButton svago=(RadioButton) rootView.findViewById(R.id.Svago);
+				RadioButton lavoro=(RadioButton) rootView.findViewById(R.id.Lavoro);
 				AutoCompleteTextView localita=(AutoCompleteTextView) rootView.findViewById(R.id.localitaAutoComplete);
 				TextView dataA=(TextView) rootView.findViewById(R.id.andataText);
 				TextView dataR=(TextView) rootView.findViewById(R.id.ritornoText);
 				MultiAutoCompleteTextView compViaggio=(MultiAutoCompleteTextView) rootView.findViewById(R.id.compagniViaggioAutocomplete);
 				EditText descrizione=(EditText) rootView.findViewById(R.id.descrizioneViaggioInput);
 
-
+				if ((extra.getString("tipologia")).equals("Svago"))
+					svago.setChecked(true);
+				else if ((extra.getString("tipologia")).equals("Lavoro"))
+					lavoro.setChecked(true);
+				
 				localita.setText(extra.getString("localita"));
 				dataA.setText(extra.getString("dataA"));
 				dataR.setText(extra.getString("dataR"));
@@ -274,11 +267,26 @@ public class NewTravelActivity extends ActionBarActivity {
 	public void openMaps(View view){
 		Intent intent = new Intent(this, MapsActivity.class);
 		//intent.putExtra("Citta", value)
-		startActivity(intent);
+		startActivityForResult(intent, 1);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("città", requestCode+" "+resultCode);
+		if (requestCode==1 && resultCode==RESULT_OK) {
+			Log.d("città", requestCode+" "+resultCode);
+			if (data!=null) {
+				Log.d("città", requestCode+" "+resultCode);
+				String city=data.getExtras().getString("citta");
+				AutoCompleteTextView localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
+				localita.setText(city);
+			}
+		}
 	}
 
 	private void goInserisciDettagli() {
 		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		intent.putExtra("id", viaggio.getId());
 		startActivity(intent);
 	}
 

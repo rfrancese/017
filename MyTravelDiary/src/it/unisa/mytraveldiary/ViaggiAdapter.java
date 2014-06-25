@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView; 
 import android.widget.Toast;
 
@@ -84,9 +85,9 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 			v.setId(position);
 
 			if (textView!=null) {
-				textView.setText(travel.toString());
+				textView.setText(travel.getLocalità());
 			}
-
+			
 			if (inserisciDettagli!=null) {
 				inserisciDettagli.setOnClickListener(new OnClickListener()
 				{
@@ -99,6 +100,8 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 						context.startActivity(intent);
 					}
 				});
+				
+				notifyDataSetChanged();
 			}
 
 			if (elimina!=null) {

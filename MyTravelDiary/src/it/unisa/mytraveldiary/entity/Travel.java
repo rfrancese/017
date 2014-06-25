@@ -17,22 +17,31 @@ public class Travel {
 	public Travel(String tipViaggio, String loc, String dataA, String dataR, String compViaggio, 
 			      String descr, int i) {
 					
-		tipologia=tipViaggio;
+		if (tipViaggio==null) 
+			tipologia="";
+		else
+			tipologia=tipViaggio;
+		
+		if (loc==null) 
+			località="";
+		else
 		località=loc;
 		
 		if (dataA==null) 
 			dataAndata="";
-		
 		else 
 			dataAndata=dataA;
 		
 		if (dataR==null) 
 			dataRitorno="";
-		
 		else
 			dataRitorno=dataR;
 		
-		compagniViaggio=compViaggio;
+		if (compViaggio==null) 
+			compagniViaggio="";
+		else
+			compagniViaggio=compViaggio;
+		
 		descrizione=descr;
 		id=i;
 	}

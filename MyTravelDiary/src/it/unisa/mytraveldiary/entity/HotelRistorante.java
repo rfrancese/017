@@ -7,6 +7,7 @@ public class HotelRistorante {
 	private String citta;
 	private int valutazione;
 	private int id;
+	private int t_id;
 	
 	public HotelRistorante() {
 		
@@ -24,6 +25,15 @@ public class HotelRistorante {
 		nome=n;
 		citta=c;
 		valutazione=val;
+		id=i;
+	}
+	
+	public HotelRistorante(String tip, String n, String c, int val, int t_i, int i) {
+		tipologia=tip;
+		nome=n;
+		citta=c;
+		valutazione=val;
+		t_id=t_i;
 		id=i;
 	}
 	
@@ -49,6 +59,10 @@ public class HotelRistorante {
 		return id;
 	}
 	
+	public int getTId() {
+		return t_id;
+	}
+	
 	// Metodi di modifica
 	
 	public void setTipologia(String tip) {
@@ -71,14 +85,47 @@ public class HotelRistorante {
 		id=i;
 	}
 	
+	public void setTId(int i) {
+		t_id=i;
+	}
+	
 	public String toString() {
 		String s="";
 		
-		s+="Tipologia: "+tipologia+"\n";
+		/*s+="Tipologia: "+tipologia+"\n";
 		s+="Nome: "+nome+"\n";
 		s+="Città: "+citta+"\n";
 		s+="Valutazione: "+valutazione+"\n";
-		s+="Id: "+id+"\n";
+		s+="Id: "+id+"\n";*/
+		
+		s+=(tipologia+": "+nome+"\n");
+		s+="Località: "+citta+"\n";
+		s+="Valutazione: ";
+		
+		switch (valutazione) {
+			case 1:
+				s+="*";
+				break;
+				
+			case 2:
+				s+="**";
+				break;
+				
+			case 3:
+				s+="***";
+				break;
+				
+			case 4:
+				s+="****";
+				break;
+				
+			case 5:
+				s+="*****";
+				break;
+				
+			default:
+				s+=" ";
+		}
 		
 		return s;
 	}
