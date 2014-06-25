@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
+import it.unisa.mytraveldiary.entity.Museo;
+import it.unisa.mytraveldiary.entity.Trasporto;
 import it.unisa.mytraveldiary.entity.Travel;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -21,7 +23,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class VisualizzaViaggioActivity extends ActionBarActivity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -68,29 +70,32 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_visualizza_viaggio, container, false);
-			
+
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
 			ArrayList<HotelRistorante> hotelRistoranteList=new ArrayList<HotelRistorante>();
-			
-			
+			ArrayList<Museo> museiList=new ArrayList<Museo>();
+			ArrayList<Trasporto> trasportiList=new ArrayList<Trasporto>();
+
 			if (extra!=null) {
 				int value=extra.getInt("id");
-				
+
 				try {
 					t=dbHandler.getTravel(value);
 					hotelRistoranteList=dbHandler.getHotelRistoranti(value);
+					museiList=dbHandler.getMusei(value);
+					trasportiList=dbHandler.getTrasporti(value);
 					Log.d("VISUALIZZA", t.toString());
-					
-					for (HotelRistorante hr: hotelRistoranteList)
-						Log.d("visualizza", hr.toString());
+
+					/*for (HotelRistorante hr: hotelRistoranteList)
+						Log.d("visualizza", hr.toString());*/
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 			}
-			
+
 			RatingBar valutazione= (RatingBar) rootView.findViewById(R.id.ratingBar);
 			TextView tipologiaViaggio= (TextView) rootView.findViewById(R.id.tipologiaViaggio);
 			TextView localita= (TextView) rootView.findViewById(R.id.localita);
@@ -98,9 +103,11 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			TextView dataRitorno= (TextView) rootView.findViewById(R.id.dataRitorno);
 			TextView compagniViaggio= (TextView) rootView.findViewById(R.id.compagniViaggio);
 			TextView descrizione= (TextView) rootView.findViewById(R.id.descrizione);
-			
+
 			ListView lvHotelRistoranti=(ListView) rootView.findViewById(R.id.hotelRistoranti);
-			
+			ListView lvTrasporti=(ListView) rootView.findViewById(R.id.trasporti);
+			ListView lvMusei=(ListView) rootView.findViewById(R.id.musei);
+
 			valutazione.setRating(0);
 			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
 			localita.setText("Localita: "+t.getLocalità());
@@ -108,12 +115,19 @@ public class VisualizzaViaggioActivity extends ActionBarActivity {
 			dataRitorno.setText(t.getDataRitorno().toString());
 			compagniViaggio.setText(t.getCompagniViaggio());
 			descrizione.setText("Descrizione: "+t.getDescrizione());
-			
+
 			ArrayAdapter<HotelRistorante> hrAdapter=new ArrayAdapter<HotelRistorante>(getActivity(), 
-														R.layout.list_item_hotel_ristorante, hotelRistoranteList);
+					R.layout.list_item_dettagli, hotelRistoranteList);
 			lvHotelRistoranti.setAdapter(hrAdapter);
-			
-			
+
+			ArrayAdapter<Trasporto> tAdapter=new ArrayAdapter<Trasporto>(getActivity(), 
+					R.layout.list_item_dettagli, trasportiList);
+			lvTrasporti.setAdapter(tAdapter);
+
+			ArrayAdapter<Museo> mAdapter=new ArrayAdapter<Museo>(getActivity(), 
+					R.layout.list_item_dettagli, museiList);
+			lvMusei.setAdapter(mAdapter);
+
 			return rootView;
 		}
 	}

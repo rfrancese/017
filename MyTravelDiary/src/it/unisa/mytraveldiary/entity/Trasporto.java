@@ -7,6 +7,7 @@ public class Trasporto {
 	private String citt‡Arrivo;
 	private int valutazione;
 	private int id;
+	private int t_id;
 	
 	public Trasporto(){
 	
@@ -18,6 +19,16 @@ public class Trasporto {
 		citt‡Partenza= citt‡P;
 		citt‡Arrivo= citt‡A;
 		valutazione= val;
+		id= i;
+	}
+	
+	public Trasporto(String tip, String comp, String citt‡P, String citt‡A, int val, int t_i, int i) {
+		tipologia=tip;
+		compagnia= comp;
+		citt‡Partenza= citt‡P;
+		citt‡Arrivo= citt‡A;
+		valutazione= val;
+		t_id=t_i;
 		id= i;
 	}
 
@@ -48,7 +59,9 @@ public class Trasporto {
 		return id;
 	}
 	
-	
+	public int getTId(){
+		return t_id;
+	}
 	
 	// Metodi di modifica
 	
@@ -76,15 +89,42 @@ public class Trasporto {
 		id= i;
 	}
 	
+	public void setTId(int t_i){
+		t_id=t_i;
+	}
+	
 	public String toString(){
 		String s ="";
 		
-		s+="Tipologia: "+tipologia+"\n";
-		s+="Compagnia: "+compagnia+"\n";
-		s+="Citt‡Partenza: "+citt‡Partenza+"\n";
-		s+="Citt‡Arrivo: "+citt‡Arrivo+"\n";
-		s+="Valutazione: "+valutazione+"\n";
-		s+="Id: "+id+"\n";
+		s+=(tipologia+": "+compagnia+"\n");
+		s+="Localit‡ partenza: "+citt‡Partenza+"\n";
+		s+="Localit‡ arrivo: "+citt‡Arrivo+"\n";
+		s+="Valutazione: ";
+		
+		switch (valutazione) {
+			case 1:
+				s+="*";
+				break;
+				
+			case 2:
+				s+="**";
+				break;
+				
+			case 3:
+				s+="***";
+				break;
+				
+			case 4:
+				s+="****";
+				break;
+				
+			case 5:
+				s+="*****";
+				break;
+				
+			default:
+				s+=" ";
+		}
 		
 		return s;
 	}

@@ -242,7 +242,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			Log.d("modifica", "yes");
 			viaggio.setId(extra.getInt("id"));
 			dbHandler.updateTravel(viaggio);
-			
+			viaggioSalvato=true;
 		}
 
 		else {

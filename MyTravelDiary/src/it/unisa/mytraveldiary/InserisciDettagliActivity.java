@@ -19,7 +19,7 @@ public class InserisciDettagliActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -60,41 +60,53 @@ public class InserisciDettagliActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
+
 	public void avantiFotoVideo(View view){
-    	Intent intent = new Intent(this, FotoVideoActivity.class);
-    	startActivity(intent);
-    }
-	
+		Intent intent = new Intent(this, FotoVideoActivity.class);
+		startActivity(intent);
+	}
+
 	public void avantiTrasporti(View view){
-    	Intent intent = new Intent(this, TrasportiActivity.class);
-    	startActivity(intent);
-    }
-	
+		Bundle extra=getIntent().getExtras();
+
+		if (extra!=null) {
+			int id=extra.getInt("id");
+			Intent intent = new Intent(this, TrasportiActivity.class);
+			intent.putExtra("id", id);
+			startActivity(intent);
+		}
+	}
+
 	public void avantiMusei(View view){
-    	Intent intent = new Intent(this, MuseiActivity.class);
-    	startActivity(intent);
-    }
-	
+		Bundle extra=getIntent().getExtras();
+
+		if (extra!=null) {
+			int id=extra.getInt("id");
+			Intent intent = new Intent(this, MuseiActivity.class);
+			intent.putExtra("id", id);
+			startActivity(intent);
+		}
+	}
+
 	public void avantiHotelRistoranti(View view){
 		Bundle extra=getIntent().getExtras();
-		
+
 		if (extra!=null) {
 			int id=extra.getInt("id");
 			Intent intent = new Intent(this, HotelRistorantiActivity.class);
 			intent.putExtra("id", id);
-	    	startActivity(intent);
+			startActivity(intent);
 		}
-    }
-	
+	}
+
 	public void tornaHomepage(View view){
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
+
 }

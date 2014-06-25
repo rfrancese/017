@@ -28,7 +28,7 @@ public class TrasportiActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -65,78 +65,77 @@ public class TrasportiActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_trasporti, container, false);
-			
+
 			// Get a reference to the AutoCompleteTextView in the layout
-			 AutoCompleteTextView textViewAndata = (AutoCompleteTextView) rootView.findViewById(R.id.cittaPartenzaAutocomplete);
-			 AutoCompleteTextView textViewArrivo = (AutoCompleteTextView) rootView.findViewById(R.id.cittaArrivoAutocomplete);
+			AutoCompleteTextView textViewAndata = (AutoCompleteTextView) rootView.findViewById(R.id.cittaPartenzaAutocomplete);
+			AutoCompleteTextView textViewArrivo = (AutoCompleteTextView) rootView.findViewById(R.id.cittaArrivoAutocomplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
 			textViewAndata.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
 			textViewArrivo.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
-			
+
 			return rootView;
 		}
 	}
 
 	private boolean trasportoSalvato = false;
 	private Trasporto trasporto = new Trasporto();
-    
-//Salva Viaggio
+
+	//Salva Viaggio
 	public void salvaTrasporto(View view){
-		
-	//TipologiaTrasporto
+
+		//TipologiaTrasporto
 		Spinner tipologiaTrasporto = (Spinner) findViewById(R.id.tipoTrasporti);
-		
-	//CompagniaTrasporto
-        EditText editCompagnia = (EditText) findViewById(R.id.compagniaSugg);
-     
-     //Citt‡
-        AutoCompleteTextView cittaP = (AutoCompleteTextView) findViewById(R.id.cittaPartenzaAutocomplete);
-        AutoCompleteTextView cittaA = (AutoCompleteTextView) findViewById(R.id.cittaArrivoAutocomplete);
 
-    //Valutazione
-        RatingBar valutazioneT = (RatingBar) findViewById(R.id.ratingBar);
-        
-    //TipologiaTrasporto
-        trasporto.setTipologia(tipologiaTrasporto.getSelectedItem().toString());
-		 
-	//CompagniaTrasporto
-        trasporto.setCompagnia(editCompagnia.getText().toString());
-        
-    //Citt‡
-        trasporto.setCitt‡Partenza(cittaP.getText().toString());
-        trasporto.setCitt‡Arrivo(cittaA.getText().toString());
-        
-   //Valutazione
-        trasporto.setValutazione((int) valutazioneT.getRating());
-        
-        
-        Log.d("TRASPORTI", trasporto.toString());
+		//CompagniaTrasporto
+		EditText editCompagnia = (EditText) findViewById(R.id.compagniaSugg);
 
-        DatabaseHandler dbHandler = new DatabaseHandler(this);
-        
-        if(trasportoSalvato){
-        	dbHandler.updateTrasporto(trasporto);
-        }
-        else {
-        	trasportoSalvato = true;
-        	
-        	trasporto.setId(dbHandler.addTrasporto(trasporto));
-        }
-        
+		//Citt‡
+		AutoCompleteTextView cittaP = (AutoCompleteTextView) findViewById(R.id.cittaPartenzaAutocomplete);
+		AutoCompleteTextView cittaA = (AutoCompleteTextView) findViewById(R.id.cittaArrivoAutocomplete);
+
+		//Valutazione
+		RatingBar valutazioneT = (RatingBar) findViewById(R.id.ratingBar);
+
+		//TipologiaTrasporto
+		trasporto.setTipologia(tipologiaTrasporto.getSelectedItem().toString());
+
+		//CompagniaTrasporto
+		trasporto.setCompagnia(editCompagnia.getText().toString());
+
+		//Citt‡
+		trasporto.setCitt‡Partenza(cittaP.getText().toString());
+		trasporto.setCitt‡Arrivo(cittaA.getText().toString());
+
+		//Valutazione
+		trasporto.setValutazione((int) valutazioneT.getRating());
+
+
+		Log.d("TRASPORTI", trasporto.toString());
+
+		Bundle extra=getIntent().getExtras();
+
+		if (extra!=null) {
+			trasporto.setTId(extra.getInt("id"));
+		}
+
+		DatabaseHandler dbHandler = new DatabaseHandler(this);
+
+		trasporto.setId(dbHandler.addTrasporto(trasporto));
+
 		showToast("Trasporto salvato correttamente!");
 		goInserisci();
 	}
-	
+
 	public void goInserisci() {
-		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		  startActivity(intent);
-	  }
-	
+		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		startActivity(intent);
+	}
+
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void showToast(String msg) {
 		Context context=getApplicationContext();
 		CharSequence text=msg;

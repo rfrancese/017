@@ -29,7 +29,7 @@ public class MuseiActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}        
 	}
 
@@ -66,75 +66,74 @@ public class MuseiActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_musei, container, false);
-			
+
 			AutoCompleteTextView textView = (AutoCompleteTextView) rootView.findViewById(R.id.cittaMuseoAutocomplete);
 			// Create the adapter and set it to the AutoCompleteTextView 
 			textView.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item));
-			
+
 			return rootView;
 		}
 	}
-	
-	
+
+
 	private boolean museoSalvato = false;
 	private Museo museo = new Museo();
-    
-//Salva Viaggio
-	public void salvaMuseo(View view){
-		
-	//Tipologia Museo
-		Spinner tipologiaMuseo = (Spinner) findViewById(R.id.tipoMusei);
-		
-	//Nome Museo
-        EditText editNome = (EditText) findViewById(R.id.nomeMuseoSugg);
-     
-     //Città Museo
-        AutoCompleteTextView cittaMuseo = (AutoCompleteTextView) findViewById(R.id.cittaMuseoAutocomplete);
-        
-    //Valutazione
-        RatingBar valutazioneM = (RatingBar) findViewById(R.id.ratingBar);
-        
-    //Tipologia Museo
-        museo.setTipologia(tipologiaMuseo.getSelectedItem().toString());
-		 
-	//Nome Museo
-        museo.setNome(editNome.getText().toString());
-        
-    //Città
-        museo.setCittà(cittaMuseo.getText().toString());
-                
-   //Valutazione
-        museo.setValutazione((int) valutazioneM.getRating());
-        
-        
-        Log.d("MUSEO", museo.toString());
 
-        DatabaseHandler dbHandler = new DatabaseHandler(this);
-        
-        if(museoSalvato){
-        	dbHandler.updateMuseo(museo);
-        }
-        else {
-        	museoSalvato = true;
-        	
-        	museo.setId(dbHandler.addMuseo(museo));
-        }
-        
+	//Salva Viaggio
+	public void salvaMuseo(View view){
+
+		//Tipologia Museo
+		Spinner tipologiaMuseo = (Spinner) findViewById(R.id.tipoMusei);
+
+		//Nome Museo
+		EditText editNome = (EditText) findViewById(R.id.nomeMuseoSugg);
+
+		//Città Museo
+		AutoCompleteTextView cittaMuseo = (AutoCompleteTextView) findViewById(R.id.cittaMuseoAutocomplete);
+
+		//Valutazione
+		RatingBar valutazioneM = (RatingBar) findViewById(R.id.ratingBar);
+
+		//Tipologia Museo
+		museo.setTipologia(tipologiaMuseo.getSelectedItem().toString());
+
+		//Nome Museo
+		museo.setNome(editNome.getText().toString());
+
+		//Città
+		museo.setCittà(cittaMuseo.getText().toString());
+
+		//Valutazione
+		museo.setValutazione((int) valutazioneM.getRating());
+
+
+		Log.d("MUSEO", museo.toString());
+
+		Bundle extra=getIntent().getExtras();
+
+		if (extra!=null) {
+			museo.setTId(extra.getInt("id"));
+		}
+
+		DatabaseHandler dbHandler = new DatabaseHandler(this);
+
+		museo.setId(dbHandler.addMuseo(museo));
+
 		showToast("Museo salvato correttamente!");
 		goInserisci();
 	}
 
 
 	public void goInserisci() {
-		  Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		  startActivity(intent);
-	  }
-	
+		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+		startActivity(intent);
+	}
+
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void showToast(String msg) {
 		Context context=getApplicationContext();
 		CharSequence text=msg;

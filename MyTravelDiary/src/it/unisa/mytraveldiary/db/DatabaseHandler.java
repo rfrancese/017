@@ -283,7 +283,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(TR_COMPAGNIA, trasporto.getCompagnia());
 		values.put(TR_CITTAPARTENZA, trasporto.getCitt‡Partenza());
 		values.put(TR_CITTAARRIVO, trasporto.getCitt‡Arrivo());
-		values.put(TR_VALUTAZIONE, trasporto.getValutazione());		
+		values.put(TR_T_ID, trasporto.getTId());
+		values.put(TR_VALUTAZIONE, trasporto.getValutazione());	
 
 		int id = (int) db.insert(TABLE_TRASPORTO, null, values);
 		db.close();
@@ -302,6 +303,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(TR_COMPAGNIA, trasporto.getCompagnia());
 		values.put(TR_CITTAPARTENZA, trasporto.getCitt‡Partenza());
 		values.put(TR_CITTAARRIVO, trasporto.getCitt‡Arrivo());
+		values.put(TR_T_ID, trasporto.getTId());
 		values.put(TR_VALUTAZIONE, trasporto.getValutazione());
 
 		return db.update(TABLE_TRASPORTO, values, TR_ID + "= ?", new String[] {String.valueOf(trasporto.getId())});
@@ -324,7 +326,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db=this.getReadableDatabase();
 
 		Cursor cursor=db.query(TABLE_TRASPORTO, new String[] {TR_TIPOLOGIA, TR_COMPAGNIA, TR_CITTAPARTENZA, TR_CITTAARRIVO, 
-				TR_VALUTAZIONE, TR_ID}, 
+				TR_VALUTAZIONE, TR_T_ID, TR_ID}, 
 				TR_ID + "=?",
 				new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -333,7 +335,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 		Trasporto trasporto= new Trasporto(cursor.getString(0), cursor.getString(1), cursor.getString(2), 
-				cursor.getString(3), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
+				cursor.getString(3), Integer.parseInt(cursor.getString(4)), 
+				Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
 
 		return trasporto;
 	}
@@ -351,7 +354,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				trasporto.setCitt‡Partenza(cursor.getString(2));		
 				trasporto.setCitt‡Arrivo(cursor.getString(3));
 				trasporto.setValutazione(Integer.parseInt(cursor.getString(4)));
-				trasporto.setId(Integer.parseInt(cursor.getString(5)));
+				trasporto.setTId(Integer.parseInt(cursor.getString(5)));
+				trasporto.setId(Integer.parseInt(cursor.getString(6)));
 				trasportoList.add(trasporto);
 			} 
 			while (cursor.moveToNext());
@@ -376,7 +380,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				trasporto.setCitt‡Partenza(cursor.getString(2));		
 				trasporto.setCitt‡Arrivo(cursor.getString(3));
 				trasporto.setValutazione(Integer.parseInt(cursor.getString(4)));
-				trasporto.setId(Integer.parseInt(cursor.getString(5)));
+				trasporto.setTId(Integer.parseInt(cursor.getString(5)));
+				trasporto.setId(Integer.parseInt(cursor.getString(6)));
 				trasportoList.add(trasporto);
 			} 
 			while (cursor.moveToNext());
@@ -497,6 +502,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(M_TIPOLOGIA, museo.getTipologia());
 		values.put(M_NOME, museo.getNome());
 		values.put(M_CITTA, museo.getCitt‡());
+		values.put(M_T_ID, museo.getTId());
 		values.put(M_VALUTAZIONE, museo.getValutazione());
 
 		int id = (int) db.insert(TABLE_MUSEO, null, values);
@@ -516,6 +522,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(M_TIPOLOGIA, museo.getTipologia());
 		values.put(M_NOME, museo.getNome());
 		values.put(M_CITTA, museo.getCitt‡());
+		values.put(M_T_ID, museo.getTId());
 		values.put(M_VALUTAZIONE, museo.getValutazione());
 
 		return db.update(TABLE_MUSEO, values, M_ID + "= ?", new String[] {String.valueOf(museo.getId())});
@@ -537,7 +544,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public Museo getMuseo(int id) throws NumberFormatException{
 		SQLiteDatabase db=this.getReadableDatabase();
 
-		Cursor cursor=db.query(TABLE_MUSEO, new String[] {M_TIPOLOGIA, M_NOME, M_CITTA, M_VALUTAZIONE, M_ID}, 
+		Cursor cursor=db.query(TABLE_MUSEO, new String[] {M_TIPOLOGIA, M_NOME, M_CITTA, M_VALUTAZIONE, M_T_ID, M_ID}, 
 				M_ID + "=?",
 				new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -546,7 +553,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 		Museo museo= new Museo(cursor.getString(0), cursor.getString(1), cursor.getString(2), 
-				Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+				Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
+				Integer.parseInt(cursor.getString(5)));
 
 		return museo;
 	}
@@ -562,7 +570,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				museo.setTipologia(cursor.getString(0));
 				museo.setNome(cursor.getString(1));
 				museo.setCitt‡(cursor.getString(2));		
-				museo.setValutazione(Integer.parseInt(cursor.getString(4)));
+				museo.setValutazione(Integer.parseInt(cursor.getString(3)));
+				museo.setTId(Integer.parseInt(cursor.getString(4)));
 				museo.setId(Integer.parseInt(cursor.getString(5)));
 				museiList.add(museo);
 			} 
@@ -587,7 +596,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				museo.setNome(cursor.getString(1));
 				museo.setCitt‡(cursor.getString(2));		
 				museo.setValutazione(Integer.parseInt(cursor.getString(3)));
-				museo.setId(Integer.parseInt(cursor.getString(4)));
+				museo.setTId(Integer.parseInt(cursor.getString(4)));
+				museo.setId(Integer.parseInt(cursor.getString(5)));
 				museoList.add(museo);
 			} 
 			while (cursor.moveToNext());

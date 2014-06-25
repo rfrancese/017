@@ -116,12 +116,54 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+     <TextView
+        android:id="@+id/hotelRistorantiText"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gallery"
+        android:layout_marginBottom="10dp"
+        android:text="@string/HotelRistorantiButton"/>
+     
     <ListView
         android:id="@+id/hotelRistoranti"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gallery"
+        android:layout_below="@id/hotelRistorantiText"
+        android:clickable="false" >
+    </ListView>
+    
+     <TextView
+        android:id="@+id/trasportiText"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hotelRistoranti"
+        android:layout_marginBottom="10dp"
+        android:text="@string/TrasportiButton"/>
+    
+    <ListView
+        android:id="@+id/trasporti"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/trasportiText"
         android:clickable="false" >
     </ListView>
 
+    <TextView
+        android:id="@+id/museiText"
+        style="@style/CodeFont"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/trasporti"
+        android:layout_marginBottom="10dp"
+        android:text="@string/MuseiButton"/>
+    
+    <ListView
+        android:id="@+id/musei"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/museiText"
+        android:clickable="false" >
+    </ListView>
 </RelativeLayout>

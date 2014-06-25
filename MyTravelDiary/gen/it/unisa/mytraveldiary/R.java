@@ -1514,7 +1514,7 @@ containing a value of this type.
         public static final int Svago=0x7f060071;
         public static final int TrasportiButton=0x7f060058;
         public static final int Video=0x7f060052;
-        public static final int action_accept=0x7f0600b7;
+        public static final int action_accept=0x7f0600bc;
         public static final int action_bar=0x7f06002e;
         public static final int action_bar_activity_content=0x7f060015;
         public static final int action_bar_container=0x7f06002d;
@@ -1523,14 +1523,14 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f060035;
         public static final int action_bar_title=0x7f060034;
         public static final int action_context_bar=0x7f06002f;
-        public static final int action_filter=0x7f0600ae;
-        public static final int action_info=0x7f0600aa;
+        public static final int action_filter=0x7f0600b3;
+        public static final int action_info=0x7f0600af;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060036;
-        public static final int action_new_travel=0x7f0600ad;
-        public static final int action_search=0x7f0600ac;
-        public static final int action_settings=0x7f0600ab;
+        public static final int action_new_travel=0x7f0600b2;
+        public static final int action_search=0x7f0600b1;
+        public static final int action_settings=0x7f0600b0;
         public static final int activity_chooser_view_content=0x7f060037;
         public static final int always=0x7f06000b;
         public static final int andata=0x7f060077;
@@ -1542,7 +1542,7 @@ containing a value of this type.
         public static final int buy_now=0x7f060027;
         public static final int buy_with_google=0x7f060026;
         public static final int checkbox=0x7f06003f;
-        public static final int cinque=0x7f0600b6;
+        public static final int cinque=0x7f0600bb;
         public static final int cittaArrivo=0x7f060096;
         public static final int cittaArrivoAutocomplete=0x7f060097;
         public static final int cittaHotelRistorante=0x7f060060;
@@ -1573,9 +1573,9 @@ containing a value of this type.
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
-        public static final int due=0x7f0600b3;
+        public static final int due=0x7f0600b8;
         public static final int edit_query=0x7f060042;
-        public static final int elimina=0x7f0600a9;
+        public static final int elimina=0x7f0600ae;
         public static final int end=0x7f060013;
         public static final int expand_activities_button=0x7f060038;
         public static final int expanded_menu=0x7f06003e;
@@ -1586,8 +1586,8 @@ containing a value of this type.
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
         public static final int hotel=0x7f06005c;
-        public static final int hotelRistoranteItem=0x7f0600a4;
-        public static final int hotelRistoranti=0x7f0600a3;
+        public static final int hotelRistoranti=0x7f0600a4;
+        public static final int hotelRistorantiText=0x7f0600a3;
         public static final int hybrid=0x7f06001c;
         public static final int icon=0x7f06003c;
         public static final int ifRoom=0x7f06000a;
@@ -1596,9 +1596,10 @@ containing a value of this type.
         public static final int imageBenvenuto2=0x7f0600a2;
         public static final int imgView=0x7f060054;
         public static final int infoApp=0x7f060056;
-        public static final int inserisciDettagli=0x7f0600a7;
-        public static final int lavoro=0x7f0600b1;
-        public static final int linear=0x7f0600a6;
+        public static final int inserisciDettagli=0x7f0600ac;
+        public static final int itemDettagli=0x7f0600a9;
+        public static final int lavoro=0x7f0600b6;
+        public static final int linear=0x7f0600ab;
         public static final int listMode=0x7f060001;
         public static final int listView1=0x7f060069;
         public static final int list_item=0x7f06003b;
@@ -1612,8 +1613,10 @@ containing a value of this type.
         public static final int mappa=0x7f060075;
         public static final int match_parent=0x7f060024;
         public static final int middle=0x7f060012;
-        public static final int modifica=0x7f0600a8;
+        public static final int modifica=0x7f0600ad;
         public static final int monochrome=0x7f06002b;
+        public static final int musei=0x7f0600a8;
+        public static final int museiText=0x7f0600a7;
         public static final int never=0x7f060009;
         public static final int nomeHotelRistorante=0x7f06005e;
         public static final int nomeHotelRistoranteInput=0x7f06005f;
@@ -1628,7 +1631,7 @@ containing a value of this type.
         public static final int production=0x7f06001f;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
-        public static final int quattro=0x7f0600b5;
+        public static final int quattro=0x7f0600ba;
         public static final int radio=0x7f060041;
         public static final int ratingBar=0x7f060063;
         public static final int ristorante=0x7f06005d;
@@ -1658,7 +1661,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f060030;
         public static final int strict_sandbox=0x7f060021;
         public static final int submit_area=0x7f06004b;
-        public static final int svago=0x7f0600b0;
+        public static final int svago=0x7f0600b5;
         public static final int tabMode=0x7f060002;
         public static final int tabella1=0x7f060076;
         public static final int tabella2=0x7f06007d;
@@ -1670,15 +1673,17 @@ containing a value of this type.
         public static final int title=0x7f06003d;
         public static final int top_action_bar=0x7f060032;
         public static final int tornaHomepageButton=0x7f06005b;
-        public static final int tre=0x7f0600b4;
-        public static final int tuttiViaggi=0x7f0600af;
-        public static final int uno=0x7f0600b2;
+        public static final int trasporti=0x7f0600a6;
+        public static final int trasportiText=0x7f0600a5;
+        public static final int tre=0x7f0600b9;
+        public static final int tuttiViaggi=0x7f0600b4;
+        public static final int uno=0x7f0600b7;
         public static final int up=0x7f060033;
         public static final int useLogo=0x7f060003;
         public static final int usernameUtente=0x7f06008a;
         public static final int usernameUtenteInput=0x7f06008b;
         public static final int valutazione=0x7f060062;
-        public static final int viaggio=0x7f0600a5;
+        public static final int viaggio=0x7f0600aa;
         public static final int withText=0x7f06000c;
         public static final int wrap_content=0x7f060025;
     }
@@ -1758,7 +1763,7 @@ containing a value of this type.
         public static final int fragment_trasporti=0x7f03002e;
         public static final int fragment_visualizza_viaggio=0x7f03002f;
         public static final int list_item=0x7f030030;
-        public static final int list_item_hotel_ristorante=0x7f030031;
+        public static final int list_item_dettagli=0x7f030031;
         public static final int list_item_travel=0x7f030032;
         public static final int support_simple_spinner_dropdown_item=0x7f030033;
     }
