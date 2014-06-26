@@ -167,7 +167,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Ritorna un viaggio
 
 	public Travel getTravel(int id) throws NumberFormatException, ParseException {
-		SQLiteDatabase db=this.getReadableDatabase();
+		SQLiteDatabase db=this.getWritableDatabase();
 
 		Cursor cursor=db.query(TABLE_TRAVELS, new String[] {T_TIPOLOGIA, T_LOCALITA, T_DATA_ANDATA, 
 				T_DATA_RITORNO, T_COMPAGNI_VIAGGIO, T_DESCRIZIONE, T_ID}, T_ID + "=?",
@@ -188,7 +188,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
 				Integer.parseInt(idTravel));
 
-
+		
+		db.close();
+		
 		return travel;
 	}
 
@@ -217,12 +219,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
+		
 		return travelList;
 	}
 
 	public ArrayList<Travel> doMySearch(String query) {
 		SQLiteDatabase db=this.getWritableDatabase();
-		Cursor cursor=db.query(TABLE_TRAVELS, null, T_LOCALITA+" LIKE ?", new String[] {"%"+query+"%"}, null, null, null);
+		Cursor cursor;
+		
+		if (query.equalsIgnoreCase("svago") || query.equalsIgnoreCase("Lavoro")) 
+			cursor=db.query(TABLE_TRAVELS, null, T_TIPOLOGIA+" LIKE ?", new String[] {"%"+query+"%"}, null, null, null);
+		
+		else {
+			cursor=db.query(TABLE_TRAVELS, null, T_LOCALITA+" LIKE ?", new String[] {"%"+query+"%"}, null, null, null);
+		}
+		
 		ArrayList<Travel> travelList=new ArrayList<Travel>();
 
 		if (cursor.moveToFirst()) {
@@ -243,6 +256,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			while (cursor.moveToNext());
 		}
 
+		db.close();
+		
 		return travelList;
 	}
 
@@ -269,6 +284,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
 
 		return travelList;
 	}
@@ -338,6 +355,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				cursor.getString(3), Integer.parseInt(cursor.getString(4)), 
 				Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)));
 
+		db.close();
+		
 		return trasporto;
 	}
 	
@@ -360,6 +379,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
 		
 		return trasportoList;
 	}
@@ -386,6 +407,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
+		
 		return trasportoList;
 	}
 
@@ -445,6 +469,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)), 
 				Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)));
 
+		db.close();
+		
 		return hotelRistorante;
 	}
 	
@@ -466,6 +492,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
 		
 		return hotelRistorantiList;
 	}
@@ -489,6 +517,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				hotelRistoranteList.add(hotelRistorante);
 			} while (cursor.moveToNext());
 		}
+		
+		db.close();
 
 		return hotelRistoranteList;
 	}
@@ -556,6 +586,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)),
 				Integer.parseInt(cursor.getString(5)));
 
+		db.close();
+		
 		return museo;
 	}
 	
@@ -577,6 +609,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
 		
 		return museiList;
 	}
@@ -602,6 +636,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			} 
 			while (cursor.moveToNext());
 		}
+		
+		db.close();
+		
 		return museoList;
 	}
 

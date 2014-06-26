@@ -2,6 +2,8 @@ package it.unisa.mytraveldiary;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,11 +37,20 @@ public class InfoActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (item.getItemId()) {
+		case R.id.action_logout:
+			SharedPreferences settings = getSharedPreferences("login", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("username", null);
+			// Commit the edits!
+			editor.commit();
+			goLogin();
+			finish();
 			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -58,4 +69,8 @@ public class InfoActivity extends ActionBarActivity {
 		}
 	}
 
+	private void goLogin() {
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+	}
 }

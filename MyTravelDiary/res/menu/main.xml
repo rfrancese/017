@@ -15,6 +15,10 @@
         android:title="@string/action_new_travel"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/action_logout"
+        android:title="@string/action_logout"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_action_sort_by_size"
         android:title="@string/action_filter"
@@ -53,5 +57,4 @@
                 android:title="@string/cinque"/>
         </menu>
     </item>
-
-</menu>
+</menu>

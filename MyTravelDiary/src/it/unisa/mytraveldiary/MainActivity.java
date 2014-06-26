@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -23,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -38,39 +38,39 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
+
 		handleIntent(getIntent());
 	}
 
 	private void handleIntent(Intent intent) {
 		// Get the intent, verify the action and get the query
-	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	      String query = intent.getStringExtra(SearchManager.QUERY);
-	      doMySearch(query);
-	    }
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			doMySearch(query);
+		}
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		handleIntent(intent);
 	}
-	
+
 	private void doMySearch(String query) {
 		DatabaseHandler dbHandler=new DatabaseHandler(this);
 		ArrayList<Travel> listaViaggi=new ArrayList<Travel>();
 		listaViaggi=dbHandler.doMySearch(query);
-		
+
 		Log.d("search", query);
-		
-		
+
+
 		for (Travel t: listaViaggi)
 			Log.d("search", t.toString());
-		
+
 		ListView listView=(ListView) findViewById(R.id.listView1);
 		adapter=new ViaggiAdapter(this, listaViaggi);
-		
+
 		listView.setAdapter(adapter);
-		
+
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -82,11 +82,11 @@ public class MainActivity extends ActionBarActivity {
 			}
 		});
 	}
-	
+
 	private void filter(CharSequence charSequence) {
 		MainActivity.this.adapter.getFilter().filter(charSequence);  
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -129,59 +129,69 @@ public class MainActivity extends ActionBarActivity {
 				item.setChecked(false);
 				filter(item.getTitle());
 			}
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.lavoro:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.uno:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.due:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.tre:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.quattro:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
 		case R.id.cinque:
 			if (item.isChecked())
 				item.setChecked(false);
-			
+
 			else
 				item.setChecked(true);
 			return true;
-			
+
+		case R.id.action_logout:
+			SharedPreferences settings = getSharedPreferences("login", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("username", null);
+			// Commit the edits!
+			editor.commit();
+			goLogin();
+			finish();
+			return true;
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -223,7 +233,7 @@ public class MainActivity extends ActionBarActivity {
 					startActivity(intent);
 				}
 			});
-			
+
 			return rootView;
 		}
 	}
@@ -235,6 +245,11 @@ public class MainActivity extends ActionBarActivity {
 
 	private void goInfo() {
 		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+
+	private void goLogin() {
+		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 }

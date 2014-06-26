@@ -1,169 +1,186 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".VisualizzaViaggioActivity$PlaceholderFragment" >
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:isIndicator="true" />
-
-    <TextView
-        android:id="@+id/tipologiaViaggio"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar"
-        android:layout_marginBottom="10dp" />
-
-    <ImageView
-        android:id="@+id/localitaIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tipologiaViaggio"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/localitaIcon"
-        android:src="@drawable/ic_action_place" />
-
-    <TextView
-        android:id="@+id/localita"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tipologiaViaggio"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@id/localitaIcon" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
     <RelativeLayout
-        android:id="@+id/date"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/localita"
-        android:layout_marginBottom="10dp" >
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
 
-        <TextView
-            android:id="@+id/dataAndata"
-            style="@style/CodeFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/dataRitorno"
-            style="@style/CodeFont"
+        <RatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:isIndicator="true" />
+
+        <TextView
+            android:id="@+id/tipologiaViaggio"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBar"
+            android:layout_marginBottom="10dp" />
+
+        <ImageView
+            android:id="@+id/localitaIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tipologiaViaggio"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/localitaIcon"
+            android:src="@drawable/ic_action_place" />
+
+        <TextView
+            android:id="@+id/localita"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tipologiaViaggio"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/localitaIcon" />
+
+        <RelativeLayout
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localita"
+            android:layout_marginBottom="10dp" >
+
+            <TextView
+                android:id="@+id/dataAndata"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/dataRitorno"
+                style="@style/CodeFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/compagniViaggioIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/compagniViaggiIcon"
+            android:src="@drawable/ic_action_group" />
+
+        <TextView
+            android:id="@+id/compagniViaggio"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/compagniViaggioIcon" />
+
+        <TextView
+            android:id="@+id/descrizione"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/compagniViaggio"
+            android:layout_marginBottom="10dp" />
+
+        <HorizontalScrollView
+            android:id="@+id/gallery"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descrizione"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/imageBenvenuto1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/images" />
+
+                <ImageView
+                    android:id="@+id/imageBenvenuto2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/images" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/hotelRistorantiText"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gallery"
+            android:gravity="center"
+            android:text="@string/HotelRistorantiButton" />
+
+        <Button
+            android:id="@+id/hotelRistoranti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hotelRistorantiText"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/visualizza" >
+        </Button>
+
+        <TextView
+            android:id="@+id/trasportiText"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hotelRistoranti"
+            android:gravity="center"
+            android:text="@string/TrasportiButton" />
+
+        <Button
+            android:id="@+id/trasporti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trasportiText"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/visualizza" >
+        </Button>
+
+        <TextView
+            android:id="@+id/museiText"
+            style="@style/CodeFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trasporti"
+            android:gravity="center"
+            android:text="@string/MuseiButton" />
+
+        <Button
+            android:id="@+id/musei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/museiText"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/visualizza" >
+        </Button>
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/compagniViaggioIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/compagniViaggiIcon"
-        android:src="@drawable/ic_action_group" />
-
-    <TextView
-        android:id="@+id/compagniViaggio"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/date"
-        android:layout_marginBottom="10dp"
-        android:layout_toRightOf="@id/compagniViaggioIcon" />
-
-    <TextView
-        android:id="@+id/descrizione"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/compagniViaggio"
-        android:layout_marginBottom="10dp" />
-
-    <HorizontalScrollView
-        android:id="@+id/gallery"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/descrizione"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/imageBenvenuto1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/images" />
-
-            <ImageView
-                android:id="@+id/imageBenvenuto2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/images" />
-        </LinearLayout>
-    </HorizontalScrollView>
-
-     <TextView
-        android:id="@+id/hotelRistorantiText"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gallery"
-        android:layout_marginBottom="10dp"
-        android:text="@string/HotelRistorantiButton"/>
-     
-    <ListView
-        android:id="@+id/hotelRistoranti"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hotelRistorantiText"
-        android:clickable="false" >
-    </ListView>
-    
-     <TextView
-        android:id="@+id/trasportiText"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hotelRistoranti"
-        android:layout_marginBottom="10dp"
-        android:text="@string/TrasportiButton"/>
-    
-    <ListView
-        android:id="@+id/trasporti"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/trasportiText"
-        android:clickable="false" >
-    </ListView>
-
-    <TextView
-        android:id="@+id/museiText"
-        style="@style/CodeFont"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/trasporti"
-        android:layout_marginBottom="10dp"
-        android:text="@string/MuseiButton"/>
-    
-    <ListView
-        android:id="@+id/musei"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/museiText"
-        android:clickable="false" >
-    </ListView>
-</RelativeLayout>
+</ScrollView>

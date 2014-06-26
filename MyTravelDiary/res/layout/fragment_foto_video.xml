@@ -47,8 +47,8 @@
         android:layout_below="@id/tipologia"
         android:layout_centerHorizontal="true"
         android:text="@string/InserisciButton"
-        android:onClick="upload"
         android:padding="4dip"
+        android:onClick="upload"
         android:background="@drawable/background" 
         style="@style/CodeFont"/>
     

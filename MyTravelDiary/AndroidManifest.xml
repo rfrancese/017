@@ -14,7 +14,8 @@
 
     <!--
      The following two permissions are not required to use
-     Google Maps Android API v2, but are recommended.-->
+     Google Maps Android API v2, but are recommended.
+    -->
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -26,8 +27,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
-    
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -143,6 +144,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.unisa.mytraveldiary.LoginActivity" />
+        </activity>
+        <activity
+            android:name="it.unisa.mytraveldiary.CameraActivity"
+            android:label="@string/title_activity_camera" >
         </activity>
     </application>
 

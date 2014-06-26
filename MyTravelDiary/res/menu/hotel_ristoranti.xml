@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.unisa.mytraveldiary.HotelRistorantiActivity" >
 
-     <item
+    <item
         android:id="@+id/action_info"
         android:icon="@drawable/ic_action_about"
         android:title="@string/action_info"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/action_logout"
+        app:showAsAction="never"/>
 
 </menu>

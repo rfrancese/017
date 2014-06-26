@@ -100,6 +100,10 @@
     <string name="quattro">****</string>
     <string name="cinque">*****</string>
     <string name="nuovaLocalita">Nuova localita</string>
+    <string name="ok">OK</string>
+    <string name="visualizza">Visualizza</string>
+    <string name="Capture">Cattura</string>
+    <string name="action_logout">Esci</string>
 
     <string-array name="tipoTrasporti" style="@style/CodeFont">
         <item>Automobile</item>
@@ -129,8 +133,9 @@
     <string name="title_activity_registrazione">Registrazione</string>
     <string name="title_activity_my_gradient">MyGradient</string>
     <string name="title_activity_searchable">SearchableActivity</string>
-    
-     <!-- Address format -->
+
+    <!-- Address format -->
     <string name="address_output_string">%1$s</string>
+    <string name="title_activity_camera">Camera</string>
 
 </resources>

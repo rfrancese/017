@@ -86,6 +86,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 			if (textView!=null) {
 				textView.setText(travel.getLocalità());
+				notifyDataSetChanged();
 			}
 			
 			if (inserisciDettagli!=null) {
@@ -159,7 +160,6 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 						pos=Integer.parseInt(v.getTag().toString());
 						Travel t=viaggiList.get(pos);
 
-						//parcelable?
 						Intent intent=new Intent(context, NewTravelActivity.class);
 						intent.putExtra("modifica", true);
 						intent.putExtra("tipologia", t.getTipologiaViaggio());
@@ -173,6 +173,8 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 						//showToast("Modifica");
 					}
 				});
+				
+				notifyDataSetChanged();
 			}
 		}
 
@@ -222,7 +224,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 	public int getTravelId(int position) {
 		return (viaggiList.get(position)).getId();
 	}
-
+	
 	private void showToast(String msg) {
 		Context context=getContext().getApplicationContext();
 		CharSequence text=msg;
