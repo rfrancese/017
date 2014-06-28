@@ -1,11 +1,17 @@
 package it.unisa.mytraveldiary;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class FotoVideoActivity extends ActionBarActivity {
@@ -28,7 +36,8 @@ public class FotoVideoActivity extends ActionBarActivity {
 	private Uri fileUri;
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
-
+	private ImageView imageView;
+	private static String photoUrl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,29 +74,72 @@ public class FotoVideoActivity extends ActionBarActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				// Image captured and saved to fileUri specified in the Intent
-				Toast.makeText(this, "Image saved to:\n" +
-						data.getData(), Toast.LENGTH_LONG).show();
+				LinearLayout ll=(LinearLayout) findViewById(R.id.linear);
+				imageView=new ImageView(this);
+				imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), 450, 450));
+				ll.addView(imageView);
+				
+				Toast.makeText(this, "Immagine salvata!", Toast.LENGTH_LONG).show();
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
-				Log.d("result_canceled", "result_canceled");
+				Toast.makeText(this, "Operazione annullata!", Toast.LENGTH_LONG).show();
 			} else {
 				// Image capture failed, advise user
-				Log.d("result_failed", "result_failed");
+				Toast.makeText(this, "Errore nella cattura dell'immagine!", Toast.LENGTH_LONG).show();
 			}
 		}
 
 		if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				// Video captured and saved to fileUri specified in the Intent
-				Toast.makeText(this, "Video saved to:\n" +
-						data.getData(), Toast.LENGTH_LONG).show();
+				/*Toast.makeText(this, "Video saved to:\n" +
+						data.getData(), Toast.LENGTH_LONG).show();*/
+				Toast.makeText(this, "Video salvato!", Toast.LENGTH_LONG).show();
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the video capture
 			} else {
 				// Video capture failed, advise user
 			}
 		}
+	}
+
+	public static int calculateInSampleSize(
+			BitmapFactory.Options options, int reqWidth, int reqHeight) {
+		// Raw height and width of image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+
+		if (height > reqHeight || width > reqWidth) {
+
+			final int halfHeight = height / 2;
+			final int halfWidth = width / 2;
+
+			// Calculate the largest inSampleSize value that is a power of 2 and keeps both
+			// height and width larger than the requested height and width.
+			while ((halfHeight / inSampleSize) > reqHeight
+					&& (halfWidth / inSampleSize) > reqWidth) {
+				inSampleSize *= 2;
+			}
+		}
+
+		return inSampleSize;
+	}
+
+	public static Bitmap decodeSampledBitmapFromResource(Resources res, 
+			int reqWidth, int reqHeight) {
+
+		// First decode with inJustDecodeBounds=true to check dimensions
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(photoUrl, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(photoUrl, options);
 	}
 
 	@Override
@@ -173,13 +225,10 @@ public class FotoVideoActivity extends ActionBarActivity {
 		  startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);*/
 
 		// create Intent to take a picture and return control to the calling application
-		Intent intent = new Intent();
-		intent.setType("image/*");
-		intent.setAction(Intent.ACTION_GET_CONTENT);
-		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		//	fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-		//intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 		// start the image capture Intent
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -223,6 +272,11 @@ public class FotoVideoActivity extends ActionBarActivity {
 		} else {
 			return null;
 		}
+
+		photoUrl=mediaStorageDir.getPath() + File.separator +
+				"IMG_"+ timeStamp + ".jpg";
+		Log.d("foto", mediaStorageDir.getPath() + File.separator +
+				"IMG_"+ timeStamp + ".jpg");
 
 		return mediaFile;
 	}
