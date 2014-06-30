@@ -37,43 +37,11 @@
                 android:text="@string/Lavoro" />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/localitaTextView"
-            style="@style/CodeFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tipologiaViaggio"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/localita" />
-
-        <AutoCompleteTextView
-            android:id="@+id/localitaAutoComplete"
-            style="@style/CodeFont"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/localitaTextView"
-            android:layout_marginBottom="15dp"
-            android:singleLine="true"
-            android:hint="@string/localitaSugg" />
-
-        <ImageButton
-            android:id="@+id/mappa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tipologiaViaggio"
-            android:layout_marginBottom="20dp"
-            android:layout_toRightOf="@id/localitaTextView"
-            android:background="@null"
-            android:contentDescription="@string/mappa"
-            android:onClick="openMaps"
-            android:src="@drawable/ic_action_map" />
-
         <TableLayout
             android:id="@+id/tabella1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/localitaAutoComplete"
+            android:layout_below="@id/tipologiaViaggio"
             android:orientation="vertical"
             android:stretchColumns="1" >
 
@@ -178,41 +146,59 @@
                     android:hint="@string/descrizioneViaggioSugg"
                     android:inputType="textMultiLine" />
             </TableRow>
-                    
         </TableLayout>
-       
-        <LinearLayout 
+
+        <TextView
+            android:id="@+id/localitaTextView"
+            style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tabella2" 
-            android:layout_centerHorizontal="true" >
-            
-                <Button
-                    android:id="@+id/SalvaViaggioButton"
-                    style="@style/CodeFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/background"
-                    android:drawableLeft="@drawable/ic_action_save"
-                    android:onClick="salvaViaggio"
-                    android:padding="4dp"
-                    android:text="@string/SalvaViaggioButton" />       
+            android:layout_below="@id/tabella2"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/localita" />
 
-                <Button
-                    android:id="@+id/InserisciDettagliButton"
-                    style="@style/CodeFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/background"
-                    android:drawableLeft="@drawable/ic_action_new_event"
-                    android:onClick="avantiInserisciDettagli"
-                    android:padding="4dp"
-                    android:text="@string/InserisciDettagliButton" />
- </LinearLayout>
+        <AutoCompleteTextView
+            android:id="@+id/localitaAutoComplete"
+            style="@style/CodeFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localitaTextView"
+            android:layout_marginBottom="15dp"
+            android:hint="@string/localitaSugg"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/nuovaLocalita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localitaTextView"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@id/localitaAutoComplete"
+            android:background="@null"
+            android:contentDescription="@string/nuovaLocalita"
+            android:onClick="addLocalita"
+            android:src="@drawable/ic_action_new" />
+
+        <LinearLayout
+            android:id="@+id/localita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localitaAutoComplete"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/mappa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tabella2"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@id/localitaTextView"
+            android:background="@null"
+            android:contentDescription="@string/mappa"
+            android:onClick="openMaps"
+            android:src="@drawable/ic_action_map" />
     </RelativeLayout>
 
 </ScrollView>

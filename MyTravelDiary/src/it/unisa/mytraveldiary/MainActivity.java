@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -212,9 +213,8 @@ public class MainActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_main, container, false);
-
-
-			listView= (ListView) rootView.findViewById(R.id.listView1);
+			
+			ListView listView=(ListView) rootView.findViewById(R.id.listView1);
 
 			try {
 				adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity());

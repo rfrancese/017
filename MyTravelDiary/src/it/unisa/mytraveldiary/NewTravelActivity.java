@@ -5,8 +5,10 @@ import it.unisa.mytraveldiary.entity.Travel;
 
 import java.text.ParseException;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,9 +19,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -54,6 +59,14 @@ public class NewTravelActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_salva:
+			salvaViaggio();
+			return true;
+			
+		case R.id.action_inserisci:
+			goInserisciDettagli();
+			return true;
+		
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -72,7 +85,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void onRadioButtonClicked(View view) {
 		// Is the button now checked?
 		boolean checked = ((RadioButton) view).isChecked();
@@ -122,7 +135,7 @@ public class NewTravelActivity extends ActionBarActivity {
 					svago.setChecked(true);
 				else if ((extra.getString("tipologia")).equals("Lavoro"))
 					lavoro.setChecked(true);
-				
+
 				localita.setText(extra.getString("localita"));
 				dataA.setText(extra.getString("dataA"));
 				dataR.setText(extra.getString("dataR"));
@@ -174,7 +187,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			showToast("Salva prima il viaggio!");
 	}
 
-	public void salvaViaggio(View view) throws ParseException {
+	public void salvaViaggio() {
 
 		// GET
 		// Data andata e ritorno
@@ -226,7 +239,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		DatabaseHandler dbHandler=new DatabaseHandler(this);
 		Bundle extra=getIntent().getExtras();
 		boolean modifica=false;
-		
+
 		if (extra!=null)
 			modifica=extra.getBoolean("modifica");
 
@@ -239,7 +252,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			// aggiornare viaggio nel database
 			dbHandler.updateTravel(viaggio);
 		}
-		
+
 		else if (modifica) {
 			setTitle("Modifica Viaggio");
 			Log.d("modifica", "yes");
@@ -272,7 +285,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		//intent.putExtra("Citta", value)
 		startActivityForResult(intent, 1);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d("città", requestCode+" "+resultCode);
@@ -306,10 +319,69 @@ public class NewTravelActivity extends ActionBarActivity {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}	
-	
+
 	private void goLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
+	}
+	
+	private LinearLayout ll;
+	private int tag;
+
+	public void addLocalita(View view) {
+		ll=(LinearLayout) findViewById(R.id.localita);
+		AutoCompleteTextView autocompleteTextView=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
+		String localita=(autocompleteTextView.getText()).toString();
+
+
+		if (!(localita.equals(""))) {
+			TextView textView=new TextView(this);
+			textView.setTag(ll.getChildCount());
+			Log.d("child ll", ll.getChildCount()+"");
+			textView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 
+					LayoutParams.WRAP_CONTENT));
+			textView.setPadding(0, 0, 0, 20);
+			textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_cancel, 0);
+			textView.setCompoundDrawablePadding(20);
+			textView.setTextAppearance(this, R.style.CodeFont);
+			textView.setClickable(true);
+			textView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View view) {
+					
+					tag=Integer.parseInt(view.getTag().toString());
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(NewTravelActivity.this);
+					builder.setMessage(R.string.eliminaLocalitaInfo);
+					builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+						
+						public void onClick(DialogInterface dialog, int id) {
+							
+							ll.removeViewAt(tag);
+							showToast("Località eliminata!");
+						}
+					});
+					builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							// User cancelled the dialog
+							showToast("Eliminazione annullata...");
+						}
+					});
+					builder.setIcon(R.drawable.ic_action_warning);
+					builder.setTitle(R.string.eliminaLocalita);
+
+					builder.create();
+					builder.show();
+				}
+			});
+			Log.d("add localita", "+"+(autocompleteTextView.getText()).toString()+"+");
+			textView.setText(localita);
+
+			ll.addView(textView);
+			
+			autocompleteTextView.setText("");
+		}
 	}
 }
 

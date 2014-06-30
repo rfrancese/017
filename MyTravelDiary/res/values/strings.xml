@@ -12,7 +12,7 @@
     <string name="cognomeUtente">Cognome</string>
     <string name="cognomeUtenteSugg">Inserisci il tuo cognome</string>
     <string name="localitaUtente">Localita</string>
-    <string name="localitaUtenteSugg">Inserisci la localita</string>
+    <string name="localitaUtenteSugg">Inserisci la località</string>
     <string name="usernameUtente">Username</string>
     <string name="usernameUtenteSugg">Inserisci l username</string>
     <string name="passwordUtente">Password</string>
@@ -51,28 +51,28 @@
     <string name="InserisciButton">Inserisci</string>
     <string name="compagnia">Compagnia</string>
     <string name="compagniaSugg">Inserisci la compagnia di trasporto</string>
-    <string name="cittaPartenza">Citta di partenza</string>
-    <string name="cittaPartenzaSugg">Inserisci la citta di partenza</string>
-    <string name="cittaArrivo">Citta di arrivo</string>
-    <string name="cittaArrivoSugg">Inserisci la citta di arrivo</string>
+    <string name="cittaPartenza">Città di partenza</string>
+    <string name="cittaPartenzaSugg">Inserisci la città di partenza</string>
+    <string name="cittaArrivo">Città di arrivo</string>
+    <string name="cittaArrivoSugg">Inserisci la città di arrivo</string>
     <string name="valutazione">Valutazione</string>
     <string name="nomeMuseo">Nome</string>
     <string name="nomeMuseoSugg">Inserisci il nome del museo</string>
-    <string name="cittaMuseo">Citta</string>
-    <string name="cittaMuseoSugg">Inserisci la citta del museo</string>
+    <string name="cittaMuseo">Città</string>
+    <string name="cittaMuseoSugg">Inserisci la città del museo</string>
     <string name="hotel">Hotel</string>
     <string name="ristorante">Ristorante</string>
     <string name="nomeHotelRistorante">Nome</string>
     <string name="nomeHotelRistoranteSugg">Inserisci il nome del ristorante/hotel</string>
-    <string name="cittaHotelRistorante">Citta</string>
-    <string name="cittaHotelRistoranteSugg">Inserisci la citta del ristorante/hotel</string>
+    <string name="cittaHotelRistorante">Città</string>
+    <string name="cittaHotelRistoranteSugg">Inserisci la città del ristorante/hotel</string>
     <string name="descrizione">Descrizione</string>
     <string name="localitaIcon">Localita icon</string>
     <string name="dataAndataEsempio">Dal: 12/06/2013</string>
     <string name="dataRitornoEsempio">Al: 24/06/2013</string>
     <string name="compagniViaggiIcon">Compagni viaggio icon</string>
     <string name="mappa">Mappa</string>
-    <string name="listCittaMappa">Scegli una citta</string>
+    <string name="listCittaMappa">Scegli una città</string>
     <string name="inserisciDettagli">Inserisci dettagli</string>
     <string name="modifica">Modifica Viaggio</string>
     <string name="elimina">Elimina Viaggio</string>
@@ -83,7 +83,7 @@
     <string name="eliminaInfo">Tutti i dati saranno persi!</string>
     <string name="hello_world">Hello world!</string>
     <string name="noViaggio">Nessun viaggio inserito</string>
-    <string name="search_hint">Cerca una localita</string>
+    <string name="search_hint">Cerca una località</string>
     <string name="action_new_travel">Nuovo viaggio</string>
     <string name="action_search">Cerca</string>
     <string name="action_info">Info</string>
@@ -99,11 +99,13 @@
     <string name="tre">***</string>
     <string name="quattro">****</string>
     <string name="cinque">*****</string>
-    <string name="nuovaLocalita">Nuova localita</string>
+    <string name="nuovaLocalita">Nuova località</string>
     <string name="ok">OK</string>
     <string name="visualizza">Visualizza</string>
     <string name="Capture">Cattura</string>
     <string name="action_logout">Esci</string>
+    <string name="eliminaLocalitaInfo">La località sarà eliminata</string>
+    <string name="eliminaLocalita">Elimina località</string>
 
     <string-array name="tipoTrasporti" style="@style/CodeFont">
         <item>Automobile</item>
