@@ -8,6 +8,8 @@ import it.unisa.mytraveldiary.entity.Travel;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.internal.fo;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -25,6 +27,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -142,6 +146,39 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			dataRitorno.setText(t.getDataRitorno().toString());
 			compagniViaggio.setText(t.getCompagniViaggio());
 			descrizione.setText("Descrizione: "+t.getDescrizione());
+
+			return rootView;
+		}
+	}
+
+	public static class FotoFragment extends Fragment {
+		private DatabaseHandler dbHandler;
+		private ArrayList<String> fotoList=new ArrayList<String>();
+		private ArrayAdapter<String> fAdapter;
+
+		public FotoFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(
+					R.layout.fragment_foto_video, container, false);
+
+			Bundle extra=getActivity().getIntent().getExtras();
+			dbHandler=new DatabaseHandler(getActivity());
+
+			if (extra!=null) {
+				int value=extra.getInt("id");
+				fotoList=dbHandler.getFoto(value);
+			}
+
+			for (String s: fotoList) {
+				LinearLayout ll=(LinearLayout) rootView.findViewById(R.id.linear);
+				ImageView imageView=new ImageView(getActivity());
+				imageView.setImageBitmap(FotoVideoActivity.decodeSampledBitmapFromResource(getResources(), 450, 450, s));
+				ll.addView(imageView);
+			}
 
 			return rootView;
 		}
@@ -283,8 +320,8 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				// a launchpad into the other demonstrations in this example application.
 				return new PlaceholderFragment();
 
-				/*case 1:
-                	return new MuseiFragment();*/
+			case 1:
+				return new FotoFragment();
 
 			case 2:
 				return new HotelRistorantiFragment();

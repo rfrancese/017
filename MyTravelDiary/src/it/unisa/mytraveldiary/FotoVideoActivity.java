@@ -1,9 +1,13 @@
 package it.unisa.mytraveldiary;
 
+import it.unisa.mytraveldiary.db.DatabaseHandler;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -29,11 +33,10 @@ public class FotoVideoActivity extends ActionBarActivity {
 
 	//private static int RESULT_LOAD_IMAGE = 1;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 	private Uri fileUri;
 	public static final int MEDIA_TYPE_IMAGE = 1;
-	public static final int MEDIA_TYPE_VIDEO = 2;
 	private ImageView imageView;
+	private ArrayList<String> foto=new ArrayList<String>();
 	private static String photoUrl;
 
 	@Override
@@ -41,31 +44,8 @@ public class FotoVideoActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_foto_video);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-			.add(R.id.container, new PlaceholderFragment()).commit();
-		}      
+		upload();      
 	}
-
-	/*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-			Cursor cursor = getContentResolver().query(selectedImage,
-					filePathColumn, null, null, null);
-			cursor.moveToFirst();
-
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			String picturePath = cursor.getString(columnIndex);
-			cursor.close();
-
-			ImageView imageView = (ImageView) findViewById(R.id.imgView);
-			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-		}	
-	}*/
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -76,26 +56,15 @@ public class FotoVideoActivity extends ActionBarActivity {
 				imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), 450, 450));
 				ll.addView(imageView);
 				
-				Toast.makeText(this, "Immagine salvata!", Toast.LENGTH_LONG).show();
+				foto.add(photoUrl);
+				
+				Toast.makeText(this, "Immagine salvata in "+photoUrl+"!", Toast.LENGTH_LONG).show();
 			} else if (resultCode == RESULT_CANCELED) {
 				// User cancelled the image capture
 				Toast.makeText(this, "Operazione annullata!", Toast.LENGTH_LONG).show();
 			} else {
 				// Image capture failed, advise user
 				Toast.makeText(this, "Errore nella cattura dell'immagine!", Toast.LENGTH_LONG).show();
-			}
-		}
-
-		if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
-			if (resultCode == RESULT_OK) {
-				// Video captured and saved to fileUri specified in the Intent
-				/*Toast.makeText(this, "Video saved to:\n" +
-						data.getData(), Toast.LENGTH_LONG).show();*/
-				Toast.makeText(this, "Video salvato!", Toast.LENGTH_LONG).show();
-			} else if (resultCode == RESULT_CANCELED) {
-				// User cancelled the video capture
-			} else {
-				// Video capture failed, advise user
 			}
 		}
 	}
@@ -138,6 +107,22 @@ public class FotoVideoActivity extends ActionBarActivity {
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeFile(photoUrl, options);
 	}
+	
+	public static Bitmap decodeSampledBitmapFromResource(Resources res, 
+			int reqWidth, int reqHeight, String path) {
+
+		// First decode with inJustDecodeBounds=true to check dimensions
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(path, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(path, options);
+	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -170,6 +155,15 @@ public class FotoVideoActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+
+		case R.id.action_camera:
+			upload();
+			return true;
+
+		case R.id.action_salva:
+			salvaFoto();
+			return true;
+
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -188,38 +182,27 @@ public class FotoVideoActivity extends ActionBarActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	private void salvaFoto() {
+		
+		int t_id=-1;
+		Bundle extra=getIntent().getExtras();
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
+		if (extra!=null) {
+			t_id=extra.getInt("id");
 		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_foto_video,
-					container, false);
-			return rootView;
-		}
+		DatabaseHandler dbHandler = new DatabaseHandler(this);
+		
+		for (String s: foto)
+			dbHandler.addFoto(s, t_id);
+		
+		showToast("Foto salvate correttamente!");
+		goMain();
 	}
 
 
-	public void upload(View view) {
-		/*Intent i = new Intent(
-                  Intent.ACTION_GET_CONTENT,
-                  android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		  i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-
-          startActivityForResult(i, RESULT_LOAD_IMAGE);*/
-		/*
-		  Intent intent = new Intent();
-		  intent.setType("image/*");
-		  intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-		  intent.setAction(Intent.ACTION_GET_CONTENT);
-		  startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);*/
+	private void upload() {
 
 		// create Intent to take a picture and return control to the calling application
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -263,10 +246,7 @@ public class FotoVideoActivity extends ActionBarActivity {
 		if (type == MEDIA_TYPE_IMAGE){
 			mediaFile = new File(mediaStorageDir.getPath() + File.separator +
 					"IMG_"+ timeStamp + ".jpg");
-		} else if(type == MEDIA_TYPE_VIDEO) {
-			mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-					"VID_"+ timeStamp + ".mp4");
-		} else {
+		}  else {
 			return null;
 		}
 
@@ -291,5 +271,14 @@ public class FotoVideoActivity extends ActionBarActivity {
 	private void goLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
+	}
+	
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
 	}
 }

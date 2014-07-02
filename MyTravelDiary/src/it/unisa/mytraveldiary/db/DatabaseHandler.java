@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION=16;
+	private static final int DATABASE_VERSION=17;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 
 	private static final String TABLE_TRAVELS="travels";
@@ -55,6 +55,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String L_T_ID="t_id";
 	private static final String L_NOME="nome";
 	private static final String L_ID="id";
+	
+	private static final String TABLE_FOTO="foto";
+	private static final String F_FILE="file";
+	private static final String F_T_ID="t_id";
+	private static final String F_ID="id";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -104,6 +109,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				L_T_ID+" INTEGER,"+
 				L_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
 		db.execSQL(CREATE_LOCALITA_TABLE);
+		
+		String CREATE_FOTO_TABLE="CREATE TABLE "+TABLE_FOTO+" ("+
+				F_FILE+" VARCHAR(50),"+
+				F_T_ID+" INTEGER,"+
+				F_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+		db.execSQL(CREATE_FOTO_TABLE);
 
 		Log.d("Creating...", "Database");
 	}
@@ -117,6 +128,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_MUSEO);
 
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_TRASPORTO);
+		
+		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_LOCALITA);
+		
+		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_FOTO);
 
 		onCreate(db);
 	}
@@ -699,5 +714,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 
 		return localita;
+	}
+	
+	// FOTO
+	
+	public int addFoto(String file, int t_id) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		ContentValues values=new ContentValues();
+
+		values.put(F_FILE, file);
+		values.put(F_T_ID, t_id);
+
+		int id = (int) db.insert(TABLE_FOTO, null, values);
+
+		db.close();
+
+		return id;
+	}
+	
+	public void deleteFoto(String file) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		db.delete(TABLE_FOTO, F_FILE + "= ?", new String[] {file});
+		db.close();
+	}
+	
+	public ArrayList<String> getFoto(int t_id) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor cursor=db.query(TABLE_FOTO, null, F_T_ID+"=?", new String[] {String.valueOf(t_id)}, null, null, null);
+		ArrayList<String> fotoList=new ArrayList<String>();
+
+		if (cursor.moveToFirst()) {
+			do {
+				String foto="";
+				foto=cursor.getString(0);
+				fotoList.add(foto);
+			} 
+			while (cursor.moveToNext());
+		}
+
+		db.close();
+
+		return fotoList;
 	}
 }
