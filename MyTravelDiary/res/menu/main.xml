@@ -18,43 +18,4 @@
         android:id="@+id/action_logout"
         android:title="@string/action_logout"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_filter"
-        android:icon="@drawable/ic_action_sort_by_size"
-        android:title="@string/action_filter"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/tuttiViaggi"
-                android:title="@string/tuttiViaggi"/>
-            <item
-                android:id="@+id/svago"
-                android:checkable="true"
-                android:title="@string/Svago"/>
-            <item
-                android:id="@+id/lavoro"
-                android:checkable="true"
-                android:title="@string/Lavoro"/>
-            <item
-                android:id="@+id/uno"
-                android:checkable="true"
-                android:title="@string/uno"/>
-            <item
-                android:id="@+id/due"
-                android:checkable="true"
-                android:title="@string/due"/>
-            <item
-                android:id="@+id/tre"
-                android:checkable="true"
-                android:title="@string/tre"/>
-            <item
-                android:id="@+id/quattro"
-                android:checkable="true"
-                android:title="@string/quattro"/>
-            <item
-                android:id="@+id/cinque"
-                android:checkable="true"
-                android:title="@string/cinque"/>
-        </menu>
-    </item>
 </menu>

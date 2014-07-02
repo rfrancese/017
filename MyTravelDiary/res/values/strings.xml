@@ -75,8 +75,8 @@
     <string name="mappa">Mappa</string>
     <string name="listCittaMappa">Scegli una città</string>
     <string name="inserisciDettagli">Inserisci dettagli</string>
-    <string name="modifica">Modifica Viaggio</string>
-    <string name="elimina">Elimina Viaggio</string>
+    <string name="modifica">Modifica viaggio</string>
+    <string name="elimina">Elimina viaggio</string>
     <string name="tipoViaggio">Tipologia Viaggio</string>
     <string name="eliminaViaggio">Eliminare viaggio?</string>
     <string name="OK">Elimina</string>
@@ -102,7 +102,7 @@
     <string name="cinque">*****</string>
     <string name="nuovaLocalita">Nuova località</string>
     <string name="ok">OK</string>
-    <string name="visualizza">Visualizza</string>
+    <string name="visualizzaViaggio">Visualizza viaggio</string>
     <string name="Capture">Cattura</string>
     <string name="action_logout">Esci</string>
     <string name="eliminaLocalitaInfo">La località sarà eliminata</string>

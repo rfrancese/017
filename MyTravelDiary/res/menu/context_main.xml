@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.unisa.mytraveldiary.SearchTravelMessageActivity" >
 
+     <item
+        android:id="@+id/action_visualizza"
+        android:title="@string/visualizzaViaggio"/>
     <item
         android:id="@+id/action_add_dettagli"
         android:title="@string/InserisciDettagli"/>

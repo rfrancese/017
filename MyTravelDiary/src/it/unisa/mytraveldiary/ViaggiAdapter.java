@@ -60,13 +60,9 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 		if (travel!=null) {
 			TextView textView= (TextView) v.findViewById(R.id.viaggio);
-			ImageButton inserisciDettagli= (ImageButton) v.findViewById(R.id.inserisciDettagli);
-			ImageButton elimina= (ImageButton) v.findViewById(R.id.elimina);
-			ImageButton modifica= (ImageButton) v.findViewById(R.id.modifica);
-			final Context context=parent.getContext();
+			
 
-			elimina.setTag(position);
-			modifica.setTag(position);
+			
 			v.setId(position);
 
 			if (textView!=null) {
@@ -74,101 +70,9 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 				notifyDataSetChanged();
 			}
 			
-			if (inserisciDettagli!=null) {
-				inserisciDettagli.setOnClickListener(new OnClickListener()
-				{
-					@Override
-					public void onClick(View v)
-					{
-						//  Use position parameter of your getView() in this method it will current position of Clicked row button
-						// code for current Row deleted...              
-						//Intent intent=new Intent(context, InserisciDettagliActivity.class);
-						//context.startActivity(intent);
-						
-						SharedPreferences settings = getContext().getSharedPreferences("viaggio", 0);
-						SharedPreferences.Editor editor = settings.edit();
-						editor.putInt("id", travel.getId());
-
-						// Commit the edits!
-						editor.commit();
-
-						
-						DettagliDialogFragment dettagli=new DettagliDialogFragment();
-						dettagli.show(activityMain.getFragmentManager(), "dettagli");
-					}
-				});
+			
 				
-				notifyDataSetChanged();
-			}
-
-			if (elimina!=null) {
-				elimina.setOnClickListener(new OnClickListener()
-				{
-					@Override
-					public void onClick(View v)
-					{
-						//  Use position parameter of your getView() in this method it will current position of Clicked row button
-						// code for current Row deleted...
-
-						pos=Integer.parseInt(v.getTag().toString());
-						Log.d("ADAPTER", ""+pos);
-
-						AlertDialog.Builder builder = new AlertDialog.Builder(activityMain);
-						builder.setMessage(R.string.eliminaInfo);
-						builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								/*if (dbHandler!=null) {
-									dbHandler.deleteTravel(viaggiList.get(pos));
-
-								}*/
-
-								//remove(viaggi.get(pos));
-								viaggi.remove(pos);
-								viaggiList.remove(pos);
-
-								notifyDataSetChanged();
-								showToast("Viaggio eliminato!");
-							}
-						});
-						builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// User cancelled the dialog
-								showToast("Eliminazione annullata...");
-							}
-						});
-						builder.setIcon(R.drawable.ic_action_warning);
-						builder.setTitle(R.string.eliminaViaggio);
-
-						builder.create();
-						builder.show();
-					}
-				});
-			}
-
-			if (modifica!=null) {
-				modifica.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						pos=Integer.parseInt(v.getTag().toString());
-						Travel t=viaggiList.get(pos);
-
-						Intent intent=new Intent(context, NewTravelActivity.class);
-						intent.putExtra("modifica", true);
-						intent.putExtra("tipologia", t.getTipologiaViaggio());
-						intent.putExtra("localita", t.getLocalitaString());
-						intent.putExtra("dataA", t.getDataAndata());
-						intent.putExtra("dataR", t.getDataRitorno());
-						intent.putExtra("compagni", t.getCompagniViaggio());
-						intent.putExtra("descrizione", t.getDescrizione());
-						intent.putExtra("id", t.getId());
-						context.startActivity(intent);
-						//showToast("Modifica");
-					}
-				});
-				
-				notifyDataSetChanged();
-			}
+			
 		}
 
 		return v;

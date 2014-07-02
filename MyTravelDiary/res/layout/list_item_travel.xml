@@ -11,43 +11,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/viaggio"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/inserisciDettagli"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="@string/inserisciDettagli"
-            android:onClick="inserisciDettagli"
-            android:padding="4dip"
-            android:src="@drawable/ic_action_new_event" />
-
-        <ImageButton
-            android:id="@+id/modifica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="@string/modifica"
-            android:onClick="tornaHomepage"
-            android:padding="4dip"
-            android:src="@drawable/ic_action_edit" />
-
-        <ImageButton
-            android:id="@+id/elimina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="@string/elimina"
-            android:padding="4dip"
-            android:src="@drawable/ic_action_discard" />
-    </LinearLayout>
-
 </RelativeLayout>

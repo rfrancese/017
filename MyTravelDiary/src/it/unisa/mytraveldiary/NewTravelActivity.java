@@ -4,9 +4,6 @@ import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Localita;
 import it.unisa.mytraveldiary.entity.Travel;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -133,7 +130,7 @@ public class NewTravelActivity extends ActionBarActivity {
 				TextView dataR=(TextView) rootView.findViewById(R.id.ritornoText);
 				MultiAutoCompleteTextView compViaggio=(MultiAutoCompleteTextView) rootView.findViewById(R.id.compagniViaggioAutocomplete);
 				EditText descrizione=(EditText) rootView.findViewById(R.id.descrizioneViaggioInput);
-
+				
 				if ((extra.getString("tipologia")).equals("Svago"))
 					svago.setChecked(true);
 				else if ((extra.getString("tipologia")).equals("Lavoro"))
@@ -261,6 +258,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			viaggio.setId(extra.getInt("id"));
 			dbHandler.updateTravel(viaggio);
 			viaggioSalvato=true;
+			
 		}
 
 		else {
@@ -271,7 +269,9 @@ public class NewTravelActivity extends ActionBarActivity {
 			Log.d("New travel", viaggio.toString());
 		}
 
+		setResult(RESULT_OK);
 		showToast("Viaggio salvato correttamente!");
+		finish();
 	}
 
 	private void setSvago() {
@@ -383,6 +383,10 @@ public class NewTravelActivity extends ActionBarActivity {
 
 			autocompleteTextView.setText("");
 		}
+	}
+	
+	private static class ViewHolder {
+		
 	}
 }
 
