@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="it.unisa.mytraveldiary.SearchTravelMessageActivity" >
+
+    <item
+        android:id="@+id/action_add_dettagli"
+        android:title="@string/InserisciDettagli"/>
+    <item
+        android:id="@+id/action_modifica"
+        android:title="@string/modifica"/>
+    <item
+        android:id="@+id/action_elimina"
+        android:title="@string/elimina"/>
+
+</menu>

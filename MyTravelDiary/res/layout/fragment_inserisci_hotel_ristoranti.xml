@@ -62,13 +62,13 @@
 
         <AutoCompleteTextView
             android:id="@+id/cittaHotelRistoranteAutocomplete"
+            style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/cittaHotelRistorante"
             android:layout_marginBottom="20dp"
-            android:singleLine="true"
             android:hint="@string/cittaHotelRistoranteSugg"
-            style="@style/CodeFont" />
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/valutazione"
@@ -87,19 +87,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:numStars="5" />
-
-        <Button
-            android:id="@+id/salvaButton"
-            style="@style/CodeFont"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/ratingBar"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:padding="4dip"
-            android:background="@drawable/background" 
-            android:onClick="salvaHotelRistorante"
-            android:text="@string/salvaButton" />
     </RelativeLayout>
 
 </ScrollView>

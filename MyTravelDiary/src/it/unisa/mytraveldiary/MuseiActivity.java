@@ -1,6 +1,7 @@
 package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Localita;
 import it.unisa.mytraveldiary.entity.Museo;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -48,6 +49,10 @@ public class MuseiActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_salva:
+			salvaMuseo();
+			return true;
+			
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -92,7 +97,7 @@ public class MuseiActivity extends ActionBarActivity {
 	private Museo museo = new Museo();
 
 	//Salva Viaggio
-	public void salvaMuseo(View view){
+	public void salvaMuseo(){
 
 		//Tipologia Museo
 		Spinner tipologiaMuseo = (Spinner) findViewById(R.id.tipoMusei);
@@ -113,7 +118,7 @@ public class MuseiActivity extends ActionBarActivity {
 		museo.setNome(editNome.getText().toString());
 
 		//Città
-		museo.setCittà(cittaMuseo.getText().toString());
+		museo.setLocalita(new Localita(cittaMuseo.getText().toString()));
 
 		//Valutazione
 		museo.setValutazione((int) valutazioneM.getRating());
@@ -132,13 +137,12 @@ public class MuseiActivity extends ActionBarActivity {
 		museo.setId(dbHandler.addMuseo(museo));
 
 		showToast("Museo salvato correttamente!");
-		goInserisci(museo.getTId());
+		goMain();
 	}
 
 
-	public void goInserisci(int t_id) {
-		Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		intent.putExtra("id", t_id);
+	public void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 

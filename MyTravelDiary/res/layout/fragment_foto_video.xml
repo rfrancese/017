@@ -12,39 +12,11 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="it.unisa.mytraveldiary.NewTravelMessageActivity$PlaceholderFragment" >
 
-        <RadioGroup
-            android:id="@+id/tipologia"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/Foto"
-                style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="70dp"
-                android:checked="true"
-                android:text="@string/Foto" />
-
-            <RadioButton
-                android:id="@+id/Video"
-                style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:text="@string/Video" />
-        </RadioGroup>
-
         <Button
             android:id="@+id/InserisciButton"
             style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tipologia"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:background="@drawable/background"

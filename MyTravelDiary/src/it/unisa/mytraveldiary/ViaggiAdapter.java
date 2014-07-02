@@ -11,8 +11,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.sax.StartElementListener;
+import android.content.SharedPreferences;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,36 +22,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView; 
 import android.widget.Toast;
 
 public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 	private Activity activityMain;
-	private DatabaseHandler dbHandler;
 	private ArrayList<String> viaggi=new ArrayList<String>();
 	private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
 	private Travel travel;
 	private int pos;
 
-	public ViaggiAdapter(Context context, Activity activity) throws ParseException {
+	public ViaggiAdapter(Context context, Activity activity, ArrayList<Travel> listaViaggi) {
 		super(context, R.layout.list_item_travel);
-
+		
 		activityMain=activity;
-		dbHandler=new DatabaseHandler(activityMain);
-
-		viaggiList=dbHandler.getAllTravels();
-
-		for (Travel t: viaggiList) {
-			viaggi.add(t.toString());
-		}
-
-		super.addAll(viaggi);
-	}
-
-	public ViaggiAdapter(Context context, ArrayList<Travel> listaViaggi) {
-		super(context, R.layout.list_item_travel);
 
 		viaggiList=listaViaggi;
 
@@ -85,7 +70,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 			v.setId(position);
 
 			if (textView!=null) {
-				textView.setText(travel.getLocalità());
+				textView.setText(travel.getLocalitaString());
 				notifyDataSetChanged();
 			}
 			
@@ -97,8 +82,19 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 					{
 						//  Use position parameter of your getView() in this method it will current position of Clicked row button
 						// code for current Row deleted...              
-						Intent intent=new Intent(context, InserisciDettagliActivity.class);
-						context.startActivity(intent);
+						//Intent intent=new Intent(context, InserisciDettagliActivity.class);
+						//context.startActivity(intent);
+						
+						SharedPreferences settings = getContext().getSharedPreferences("viaggio", 0);
+						SharedPreferences.Editor editor = settings.edit();
+						editor.putInt("id", travel.getId());
+
+						// Commit the edits!
+						editor.commit();
+
+						
+						DettagliDialogFragment dettagli=new DettagliDialogFragment();
+						dettagli.show(activityMain.getFragmentManager(), "dettagli");
 					}
 				});
 				
@@ -117,17 +113,14 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 						pos=Integer.parseInt(v.getTag().toString());
 						Log.d("ADAPTER", ""+pos);
 
-						//DeleteDialogFragment elimina=new DeleteDialogFragment();
-						//elimina.show(activityMain.getFragmentManager(), "elimina");
-
 						AlertDialog.Builder builder = new AlertDialog.Builder(activityMain);
 						builder.setMessage(R.string.eliminaInfo);
 						builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								if (dbHandler!=null) {
+								/*if (dbHandler!=null) {
 									dbHandler.deleteTravel(viaggiList.get(pos));
 
-								}
+								}*/
 
 								//remove(viaggi.get(pos));
 								viaggi.remove(pos);
@@ -163,7 +156,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 						Intent intent=new Intent(context, NewTravelActivity.class);
 						intent.putExtra("modifica", true);
 						intent.putExtra("tipologia", t.getTipologiaViaggio());
-						intent.putExtra("localita", t.getLocalità());
+						intent.putExtra("localita", t.getLocalitaString());
 						intent.putExtra("dataA", t.getDataAndata());
 						intent.putExtra("dataR", t.getDataRitorno());
 						intent.putExtra("compagni", t.getCompagniViaggio());
@@ -179,36 +172,6 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 		}
 
 		return v;
-	}
-
-
-	@Override
-	public Filter getFilter() {
-		Filter filter = new Filter() {
-			@Override
-			protected FilterResults performFiltering(CharSequence constraint) {
-				FilterResults filterResults = new FilterResults();
-				if (constraint != null) {
-					
-					///viaggiList=dbHandler.getViaggiSvago();
-
-					// Assign the data to the FilterResults
-					filterResults.values = viaggiList;
-					filterResults.count = viaggiList.size();
-				}
-				return filterResults;
-			}
-
-			@Override
-			protected void publishResults(CharSequence constraint, FilterResults results) {
-				if (results != null && results.count > 0) {
-					notifyDataSetChanged();
-				}
-				else {
-					notifyDataSetInvalidated();
-				}
-			}};
-			return filter;
 	}
 
 	@Override

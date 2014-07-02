@@ -1,9 +1,6 @@
 package it.unisa.mytraveldiary;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -281,8 +278,8 @@ public class FotoVideoActivity extends ActionBarActivity {
 		return mediaFile;
 	}
 
-	public void goInserisci(View view) {
-		Intent intent = new Intent(this, InserisciDettagliActivity.class);
+	public void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 

@@ -3,8 +3,8 @@ package it.unisa.mytraveldiary.entity;
 public class Trasporto {
 	private String tipologia;
 	private String compagnia;
-	private String citt‡Partenza;
-	private String citt‡Arrivo;
+	private Localita localitaPartenza;
+	private Localita localitaArrivo;
 	private int valutazione;
 	private int id;
 	private int t_id;
@@ -13,20 +13,20 @@ public class Trasporto {
 	
 	}
 	
-	public Trasporto(String tip, String comp, String citt‡P, String citt‡A, int val, int i) {
+	public Trasporto(String tip, String comp, Localita localitaP, Localita localitaA, int val, int t_i) {
 		tipologia=tip;
 		compagnia= comp;
-		citt‡Partenza= citt‡P;
-		citt‡Arrivo= citt‡A;
+		localitaPartenza= localitaP;
+		localitaArrivo= localitaA;
 		valutazione= val;
-		id= i;
+		t_id=t_i;
 	}
 	
-	public Trasporto(String tip, String comp, String citt‡P, String citt‡A, int val, int t_i, int i) {
+	public Trasporto(String tip, String comp, Localita localitaP, Localita localitaA, int val, int t_i, int i) {
 		tipologia=tip;
 		compagnia= comp;
-		citt‡Partenza= citt‡P;
-		citt‡Arrivo= citt‡A;
+		localitaPartenza= localitaP;
+		localitaArrivo= localitaA;
 		valutazione= val;
 		t_id=t_i;
 		id= i;
@@ -43,24 +43,24 @@ public class Trasporto {
 		return compagnia;
 	}
 	
-	public String getCitt‡Partenza(){
-		return citt‡Partenza;
+	public Localita getLocalitaPartenza(){
+		return localitaPartenza;
 	}
 	
-	public String getCitt‡Arrivo(){
-		return citt‡Arrivo;
+	public Localita getLocalitaArrivo(){
+		return localitaArrivo;
 	}
 	
 	public int getValutazione(){
 		return valutazione;
 	}
 	
-	public int getId(){
-		return id;
-	}
-	
 	public int getTId(){
 		return t_id;
+	}
+	
+	public int getId(){
+		return id;
 	}
 	
 	// Metodi di modifica
@@ -73,32 +73,32 @@ public class Trasporto {
 		 compagnia= comp;
 	}
 	
-	public void setCitt‡Partenza(String citt‡P){
-		citt‡Partenza= citt‡P;
+	public void setLocalitaPartenza(Localita localitaP){
+		localitaPartenza= localitaP;
 	}
 	
-	public void setCitt‡Arrivo(String citt‡A){
-		citt‡Arrivo= citt‡A;
+	public void setLocalitaArrivo(Localita localitaA){
+		localitaArrivo= localitaA;
 	}
 	
 	public void setValutazione(int val){
 	   valutazione=val;
 	}
 	
-	public void setId(int i){
-		id= i;
-	}
-	
 	public void setTId(int t_i){
 		t_id=t_i;
+	}
+	
+	public void setId(int i){
+		id= i;
 	}
 	
 	public String toString(){
 		String s ="";
 		
 		s+=(tipologia+": "+compagnia+"\n");
-		s+="Localit‡ partenza: "+citt‡Partenza+"\n";
-		s+="Localit‡ arrivo: "+citt‡Arrivo+"\n";
+		s+="Localit‡ partenza: "+localitaPartenza+"\n";
+		s+="Localit‡ arrivo: "+localitaArrivo+"\n";
 		s+="Valutazione: ";
 		
 		switch (valutazione) {

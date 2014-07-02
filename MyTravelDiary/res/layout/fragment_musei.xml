@@ -58,31 +58,18 @@
             style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center"
             android:layout_below="@+id/cittaMuseoAutocomplete"
+            android:gravity="center"
             android:text="@string/valutazione" />
-       
-       <RatingBar
+
+        <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/valutazione"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/valutazione"
             android:numStars="5" />
-
-       <Button
-           android:id="@+id/salvaMuseiButton"
-           android:text="@string/salvaButton"
-           android:layout_width="fill_parent"
-           android:layout_height="fill_parent"
-           android:gravity="center"
-           android:layout_marginTop="30dp"
-           android:layout_below="@+id/ratingBar"
-           android:padding="4dip"
-           android:background="@drawable/background" 
-           android:onClick="salvaMuseo"
-           style="@style/CodeFont" />
-  
     </RelativeLayout>
+
 </ScrollView>

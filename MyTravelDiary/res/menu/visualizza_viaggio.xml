@@ -9,11 +9,18 @@
         android:title="@string/action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"/>
+    
     <item
         android:id="@+id/action_new_travel"
         android:icon="@drawable/ic_action_new"
         android:title="@string/action_new_travel"
         app:showAsAction="ifRoom"/>
+    
+    <item
+        android:id="@+id/action_info"
+        android:title="@string/action_info"
+        app:showAsAction="never"/>
+    
     <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout"

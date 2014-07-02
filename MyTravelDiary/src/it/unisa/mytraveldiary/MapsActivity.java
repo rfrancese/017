@@ -1,12 +1,15 @@
 package it.unisa.mytraveldiary;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,7 +20,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.app.ProgressDialog;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends ActionBarActivity  implements OnMapClickListener {
@@ -35,7 +39,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 	private Marker marker=null;
 	private ProgressDialog progressDialog;
 	private String city;
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +66,16 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 				mMap.setMyLocationEnabled(true);
 				mMap.getUiSettings().setMyLocationButtonEnabled(true);
 				mMap.setOnMapClickListener(this);
+
+				ArrayList<String> listaLocalita=getIntent().getStringArrayListExtra("city");
+
+				if (listaLocalita!=null) {
+					setMarkerFromList(listaLocalita);
+				}
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -76,7 +86,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 			setResult(RESULT_OK, getIntent().putExtra("citta", city));
 			finish();
 			return true;
-		
+
 		case R.id.action_logout:
 			SharedPreferences settings = getSharedPreferences("login", 0);
 			SharedPreferences.Editor editor = settings.edit();
@@ -94,144 +104,174 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 
 	@Override
 	public void onMapClick(LatLng point) {
-		
+
 		if (marker==null) {
 			setMarker(point);
 		}
-		
+
 		else {
 			marker.remove();
 			setMarker(point);
 		}
 	}
-	
+
+	private void setMarkerFromList(ArrayList<String> listaLoc) {
+		Geocoder geodecoder=new Geocoder(this);
+		PolylineOptions rectOptions = new PolylineOptions();
+		
+		for (String s: listaLoc) {
+			List<Address> listAdress;
+			try {
+				listAdress = geodecoder.getFromLocationName(s, 1);
+				Address a=listAdress.get(0);
+				LatLng point=new LatLng(a.getLatitude(), a.getLongitude());
+				rectOptions.add(point);
+				
+				marker=mMap.addMarker(new MarkerOptions()
+				.position(point)
+				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (IndexOutOfBoundsException e) {
+				continue;
+			}
+		}
+		
+		mMap.addPolyline(rectOptions
+				.width(7)
+				.color(Color.BLUE)
+				.geodesic(true));
+	}
+
 	private void setMarker(LatLng point) {
+
 		Location location=new Location("Maps");
 		location.setLatitude(point.latitude);
 		location.setLongitude(point.longitude);
-		
+
 		progressDialog=ProgressDialog.show(this, "Attendi...", "Ricerca località...");
 		progressDialog.setCancelable(false);
-		
+
 		(new MapsActivity.GetAddressTask(this)).execute(location);
-		
+
 		marker=mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(point.latitude, point.longitude))
 		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-		
+
 		// Move the camera instantly with a zoom of 10.
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
-		
+
 		Log.d("MAPS", point.latitude+", "+point.longitude);
 	}
-	
-    protected class GetAddressTask extends AsyncTask<Location, Void, String> {
 
-        // Store the context passed to the AsyncTask when the system instantiates it.
-        Context localContext;
+	protected class GetAddressTask extends AsyncTask<Location, Void, String> {
 
-        // Constructor called by the system to instantiate the task
-        public GetAddressTask(Context context) {
+		// Store the context passed to the AsyncTask when the system instantiates it.
+		Context localContext;
 
-            // Required by the semantics of AsyncTask
-            super();
+		// Constructor called by the system to instantiate the task
+		public GetAddressTask(Context context) {
 
-            // Set a Context for the background task
-            localContext = context;
-        }
+			// Required by the semantics of AsyncTask
+			super();
 
-        /**
-         * Get a geocoding service instance, pass latitude and longitude to it, format the returned
-         * address, and return the address to the UI thread.
-         */
-        @Override
-        protected String doInBackground(Location... params) {
-            /*
-             * Get a new geocoding service instance, set for localized addresses. This example uses
-             * android.location.Geocoder, but other geocoders that conform to address standards
-             * can also be used.
-             */
-            Geocoder geocoder = new Geocoder(localContext, Locale.getDefault());
+			// Set a Context for the background task
+			localContext = context;
+		}
 
-            // Get the current location from the input parameter list
-            Location location = params[0];
+		/**
+		 * Get a geocoding service instance, pass latitude and longitude to it, format the returned
+		 * address, and return the address to the UI thread.
+		 */
+		@Override
+		protected String doInBackground(Location... params) {
+			/*
+			 * Get a new geocoding service instance, set for localized addresses. This example uses
+			 * android.location.Geocoder, but other geocoders that conform to address standards
+			 * can also be used.
+			 */
+			Geocoder geocoder = new Geocoder(localContext, Locale.getDefault());
 
-            // Create a list to contain the result address
-            List <Address> addresses = null;
+			// Get the current location from the input parameter list
+			Location location = params[0];
 
-            // Try to get an address for the current location. Catch IO or network problems.
-            try {
+			// Create a list to contain the result address
+			List <Address> addresses = null;
 
-                /*
-                 * Call the synchronous getFromLocation() method with the latitude and
-                 * longitude of the current location. Return at most 1 address.
-                 */
-                addresses = geocoder.getFromLocation(location.getLatitude(),
-                    location.getLongitude(), 1
-                );
+			// Try to get an address for the current location. Catch IO or network problems.
+			try {
 
-                // Catch network or other I/O problems.
-                } catch (IOException exception1) {
+				/*
+				 * Call the synchronous getFromLocation() method with the latitude and
+				 * longitude of the current location. Return at most 1 address.
+				 */
+				addresses = geocoder.getFromLocation(location.getLatitude(),
+						location.getLongitude(), 1
+						);
 
-                    // print the stack trace
-                    exception1.printStackTrace();
+				// Catch network or other I/O problems.
+			} catch (IOException exception1) {
 
-                    // Return an error message
-                    return "IO Exception in Geocoder.getFromLocation()";
+				// print the stack trace
+				exception1.printStackTrace();
 
-                // Catch incorrect latitude or longitude values
-                } catch (IllegalArgumentException exception2) {
+				// Return an error message
+				return "IO Exception in Geocoder.getFromLocation()";
 
-                    exception2.printStackTrace();
+				// Catch incorrect latitude or longitude values
+			} catch (IllegalArgumentException exception2) {
 
-                    return  "Illegal arguments: Latitude +"+location.getLatitude()+
-                    		" Longitude "+location.getLongitude();
-                }
-                // If the reverse geocode returned an address
-                if (addresses != null && addresses.size() > 0) {
+				exception2.printStackTrace();
 
-                    // Get the first address
-                    Address address = addresses.get(0);
+				return  "Illegal arguments: Latitude +"+location.getLatitude()+
+						" Longitude "+location.getLongitude();
+			}
+			// If the reverse geocode returned an address
+			if (addresses != null && addresses.size() > 0) {
 
-                    // Format the first line of address
-                    String addressText = getString(R.string.address_output_string,
+				// Get the first address
+				Address address = addresses.get(0);
 
-                            // Locality is usually a city
-                            address.getLocality()
-                    );
-                    
-                    city=addressText;
+				// Format the first line of address
+				String addressText = getString(R.string.address_output_string,
 
-                    // Return the text
-                    return addressText;
+						// Locality is usually a city
+						address.getLocality()
+						);
 
-                // If there aren't any addresses, post a message
-                } else {
-                  return "No address found for location";
-                }
-        }
+				city=addressText;
 
-        /**
-         * A method that's called once doInBackground() completes. Set the text of the
-         * UI element that displays the address. This method runs on the UI thread.
-         */
-        @Override
-        protected void onPostExecute(String address) {
+				// Return the text
+				return addressText;
 
-            // Turn off the progress bar
-            progressDialog.dismiss();
-            
-            if (marker!=null) {
-            	marker.setTitle(address);
-            }
+				// If there aren't any addresses, post a message
+			} else {
+				return "No address found for location";
+			}
+		}
 
-            // Set the address in the UI
-            Log.d("MAPS", address);
-            showToast("Hai selezionato "+address);
-        }
-    }
+		/**
+		 * A method that's called once doInBackground() completes. Set the text of the
+		 * UI element that displays the address. This method runs on the UI thread.
+		 */
+		@Override
+		protected void onPostExecute(String address) {
 
-    private void showToast(String msg) {
+			// Turn off the progress bar
+			progressDialog.dismiss();
+
+			if (marker!=null) {
+				marker.setTitle(address);
+			}
+
+			// Set the address in the UI
+			Log.d("MAPS", address);
+			showToast("Hai selezionato "+address);
+		}
+	}
+
+	private void showToast(String msg) {
 		Context context=getApplicationContext();
 		CharSequence text=msg;
 		int duration=Toast.LENGTH_SHORT;
@@ -239,8 +279,8 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}
-    
-    private void goLogin() {
+
+	private void goLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}

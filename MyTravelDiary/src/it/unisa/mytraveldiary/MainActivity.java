@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,13 +23,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
 	private ViaggiAdapter adapter;
+	private DatabaseHandler dbHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
 			Log.d("search", t.toString());
 
 		ListView listView=(ListView) findViewById(R.id.listView1);
-		adapter=new ViaggiAdapter(this, listaViaggi);
+		adapter=new ViaggiAdapter(getApplicationContext(), this, listaViaggi);
 
 		listView.setAdapter(adapter);
 
@@ -128,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
 		case R.id.svago:
 			if (item.isChecked()) {
 				item.setChecked(false);
-				filter(item.getTitle());
+				filter("Svago");
 			}
 
 			else
@@ -202,8 +204,8 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-		private ListView listView;
 		private ViaggiAdapter adapter;
+		private DatabaseHandler dbHandler;
 
 		public PlaceholderFragment() {
 		}
@@ -213,15 +215,12 @@ public class MainActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_main, container, false);
-			
+
+			dbHandler=new DatabaseHandler(getActivity());
 			ListView listView=(ListView) rootView.findViewById(R.id.listView1);
 
-			try {
-				adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity());
-				listView.setAdapter(adapter);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			adapter = new ViaggiAdapter(getActivity().getApplicationContext(), getActivity(), dbHandler.getAllTravels());
+			listView.setAdapter(adapter);
 
 			listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -234,8 +233,60 @@ public class MainActivity extends ActionBarActivity {
 				}
 			});
 
+			/*listView.setOnLongClickListener(new View.OnLongClickListener() {
+			    // Called when the user long-clicks on someView
+			    public boolean onLongClick(View view) {
+			        if (mActionMode != null) {
+			            return false;
+			        }
+
+			        // Start the CAB using the ActionMode.Callback defined above
+			        mActionMode = getActivity().startActionMode(mActionModeCallback);
+			        view.setSelected(true);
+			        return true;
+			    }
+			});*/
+
 			return rootView;
 		}
+
+		/*private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+		    // Called when the action mode is created; startActionMode() was called
+		    @Override
+		    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		        // Inflate a menu resource providing context menu items
+		        MenuInflater inflater = mode.getMenuInflater();
+		        inflater.inflate(R.menu.context_main, menu);
+		        return true;
+		    }
+
+		    // Called each time the action mode is shown. Always called after onCreateActionMode, but
+		    // may be called multiple times if the mode is invalidated.
+		    @Override
+		    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		        return false; // Return false if nothing is done
+		    }
+
+		    // Called when the user selects a contextual menu item
+		    @Override
+		    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		        switch (item.getItemId()) {
+		            case R.id.action_add_dettagli:
+		                //shareCurrentItem();
+		                mode.finish(); // Action picked, so close the CAB
+		                return true;
+		            default:
+		                return false;
+		        }
+		    }
+
+		    // Called when the user exits the action mode
+		    @Override
+		    public void onDestroyActionMode(ActionMode mode) {
+		        mActionMode = null;
+		    }
+		};*/
 	}
 
 	private void goNewTravel() {

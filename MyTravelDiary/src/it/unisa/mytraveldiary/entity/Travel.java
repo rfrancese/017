@@ -1,135 +1,151 @@
 package it.unisa.mytraveldiary.entity;
 
+import java.util.ArrayList;
+
 public class Travel {
-	
+
 	private String tipologia;
-	private String località;
+	private ArrayList<Localita> localita;
 	private String dataAndata;
 	private String dataRitorno;
 	private String compagniViaggio;
 	private String descrizione;
 	private int id;
-	
+
 	public Travel(){
-	
+
 	}
-	
-	public Travel(String tipViaggio, String loc, String dataA, String dataR, String compViaggio, 
-			      String descr, int i) {
-					
+
+	public Travel(String tipViaggio, ArrayList<Localita> loc, String dataA, String dataR, String compViaggio, 
+			String descr, int i) {
+
 		if (tipViaggio==null) 
 			tipologia="";
 		else
 			tipologia=tipViaggio;
-		
-		if (loc==null) 
-			località="";
-		else
-		località=loc;
-		
+
+		localita=loc;
+
 		if (dataA==null) 
 			dataAndata="";
 		else 
 			dataAndata=dataA;
-		
+
 		if (dataR==null) 
 			dataRitorno="";
 		else
 			dataRitorno=dataR;
-		
+
 		if (compViaggio==null) 
 			compagniViaggio="";
 		else
 			compagniViaggio=compViaggio;
-		
-		descrizione=descr;
+
+		if (descr==null)
+			descrizione="";
+		else
+			descrizione=descr;
+
 		id=i;
 	}
 
-	
+
 	// Metodi di accesso
-	
+
 	public String getTipologiaViaggio() {		
 		return tipologia;
 	}
-	
-	public String getLocalità(){
-		return località;
+
+	public ArrayList<Localita> getLocalita(){
+		return localita;
 	}
 	
+	public String getLocalitaString() {
+		String s="";
+		
+		for (Localita l: localita)
+			s+=(l.toString());
+		
+		return s;
+	}
+
 	public String getDataAndata(){
 		return dataAndata;
 	}
-	
+
 	public String getDataRitorno(){
 		return dataRitorno;
 	}
-	
+
 	public String getCompagniViaggio(){
 		return compagniViaggio;
 	}
-	
+
 	public String getDescrizione(){
 		return descrizione;
 	}
-	
+
 	public int getId(){
 		return id;
 	}
-	
-	
-	
+
 	// Metodi di modifica
-	
+
 	public void setTipologiaViaggio(String tipViaggio) {		
 		tipologia=tipViaggio;
 	}
-	
-	public void setLocalità(String loc){
-		 località= loc;
-	}
-	
-	public void setDataAndata(String dataA){
-		dataAndata= dataA;
-	}
-	
-	public void setDataRitorno(String dataR){
-		dataRitorno= dataR;
-	}
-	
-	public void setCompagniViaggio(String compViaggio){
-	   compagniViaggio=compViaggio;
-	}
-	
-	public void setDescrizione(String descr){
-		descrizione= descr;
-	}
-	
-	public void setId(int i){
-		id= i;
+
+	public void setLocalità(ArrayList<Localita> loc){
+		localita=loc;
 	}
 
+	public void setDataAndata(String dataA){
+		if (dataA==null)
+			dataAndata="";
+		else
+			dataAndata=dataA;
+	}
+
+	public void setDataRitorno(String dataR){
+		if (dataR==null)
+			dataRitorno="";
+		else
+			dataRitorno=dataR;
+	}
+
+	public void setCompagniViaggio(String compViaggio){
+		if (compViaggio==null)
+			compagniViaggio="";
+		else
+			compagniViaggio=compViaggio;
+	}
+
+	public void setDescrizione(String descr){
+		if (descr==null)
+			descrizione="";
+		else
+			descrizione=descr;
+	}
+
+	public void setId(int i){
+		id=i;
+	}
 
 	public String toString() {
 		String s="";
-		
+
 		s+="Tipologia viaggio: "+getTipologiaViaggio()+"\n";
-		s+="Localita: "+località+"\n";
-		
-		if (dataAndata==null) 
-			s+="Data andata:  "+"\n";
-		else
-			s+="Data andata: "+dataAndata+"\n";
-		
-		if (dataRitorno==null)
-			s+="Data ritorno:  "+"\n";
-		else
-			s+="Data ritorno: "+dataRitorno+"\n";
-		
+		s+="Localita: ";
+
+		for (Localita l: localita)
+			s+=l+"\n";
+
+		s+="Data andata:  "+"\n";
+		s+="Data ritorno: "+dataRitorno+"\n";
 		s+="Descrizione: "+descrizione+"\n";
 		s+="Compagni viaggio: "+compagniViaggio+"\n";
 		s+="Id: "+id+"\n";
-		
+
 		return s;
 	}
 }

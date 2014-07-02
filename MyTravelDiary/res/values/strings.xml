@@ -11,7 +11,7 @@
     <string name="nomeUtenteSugg">Inserisci il tuo nome</string>
     <string name="cognomeUtente">Cognome</string>
     <string name="cognomeUtenteSugg">Inserisci il tuo cognome</string>
-    <string name="localitaUtente">Localita</string>
+    <string name="localitaUtente">Località</string>
     <string name="localitaUtenteSugg">Inserisci la località</string>
     <string name="usernameUtente">Username</string>
     <string name="usernameUtenteSugg">Inserisci l username</string>
@@ -25,7 +25,7 @@
     <string name="RicercaViaggioButton">Ricerca Viaggio</string>
     <string name="InformazioniButton">Informazioni</string>
     <string name="SalvaViaggioButton">Salva</string>
-    <string name="InserisciDettagliButton">Inserisci</string>
+    <string name="InserisciDettagli">Inserisci dettagli</string>
     <string name="Svago">Svago</string>
     <string name="Lavoro">Lavoro</string>
     <string name="localita">Località</string>
@@ -40,8 +40,9 @@
     <string name="cercaSugg">Ricerca viaggio</string>
     <string name="cerca">Cerca</string>
     <string name="risultatiRicerca">Risultati ricerca</string>
-    <string name="infoApp">My Travel Diary e un applicazione semplice per conservare le esperienze di viaggio che vivi in giro per il mondo con il tuo Android. Scrivi un diario riguardo i tuoi viaggi e arricchisci ogni pagina con foto e video. Tieni traccia dei luoghi visitati e delle foto scattate taggandoli sulla mappa. Tagga i tuoi compagni di viaggio per condividere insieme i ricordi. E rivolta a tutte le persone che viaggiano, sia per svago sia per motivi di lavoro, e desiderano tenere il ricordo dei posti visitati sia attraverso una descrizione sia attraverso dei contenuti multimediali. Per quanto riguarda coloro che viaggiano per svago, l applicazione risulta utile poiche l utente potra rivivere ogni attimo e ricordarsi di quello che e andato bene o che e andato male. Invece, per quanto riguarda coloro che viaggiano per motivi di lavoro, l applicazione risulta utile poiche l utente puo tener traccia del motivo per cui ha intrapreso quel viaggio e dare una valutazione ai luoghi in cui e passato, in modo tale da avere, in futuro, un esperienza migliore.</string>
-    <string name="FotoVideoButton">Foto e Video</string>
+    
+    <string name="infoApp">My Travel Diary e un applicazione semplice per conservare le esperienze di viaggio che vivi in giro per il mondo con il tuo Android. Scrivi un diario riguardo i tuoi viaggi e arricchisci ogni pagina con foto. Tieni traccia dei luoghi visitati taggandoli sulla mappa. Tagga i tuoi compagni di viaggio per condividere insieme i ricordi. E rivolta a tutte le persone che viaggiano, sia per svago sia per motivi di lavoro, e desiderano tenere il ricordo dei posti visitati sia attraverso una descrizione sia attraverso dei contenuti multimediali. Per quanto riguarda coloro che viaggiano per svago, l applicazione risulta utile poiche l utente potra rivivere ogni attimo e ricordarsi di quello che e andato bene o che e andato male. Invece, per quanto riguarda coloro che viaggiano per motivi di lavoro, l applicazione risulta utile poiche l utente puo tener traccia del motivo per cui ha intrapreso quel viaggio e dare una valutazione ai luoghi in cui e passato, in modo tale da avere, in futuro, una esperienza migliore.</string>
+    <string name="FotoButton">Foto</string>
     <string name="TrasportiButton">Trasporti</string>
     <string name="MuseiButton">Musei</string>
     <string name="HotelRistorantiButton">Hotel e Ristoranti</string>
@@ -106,8 +107,15 @@
     <string name="action_logout">Esci</string>
     <string name="eliminaLocalitaInfo">La località sarà eliminata</string>
     <string name="eliminaLocalita">Elimina località</string>
+    
+    <string-array name="dettagli">
+        <item>Foto</item>
+        <item>Hotel&amp;Ristorante</item>
+        <item>Trasporto</item>
+        <item>Museo</item>
+    </string-array>
 
-    <string-array name="tipoTrasporti" style="@style/CodeFont">
+    <string-array name="tipoTrasporti">
         <item>Automobile</item>
         <item>Pullman</item>
         <item>Treno</item>

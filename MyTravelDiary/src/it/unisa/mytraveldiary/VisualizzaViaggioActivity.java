@@ -6,14 +6,11 @@ import it.unisa.mytraveldiary.entity.Museo;
 import it.unisa.mytraveldiary.entity.Trasporto;
 import it.unisa.mytraveldiary.entity.Travel;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,16 +23,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class VisualizzaViaggioActivity extends ActionBarActivity implements ActionBar.TabListener {
-	
+
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	private ViewPager mViewPager;
 
@@ -48,34 +43,34 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.pager, new PlaceholderFragment()).commit();
 		}
-		
+
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-		
+
 		final ActionBar actionBar = getActionBar();
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When swiping between different app sections, select the corresponding tab.
-                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
-                // Tab.
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-        
-     // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter.
-            // Also specify this Activity object, which implements the TabListener interface, as the
-            // listener for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
+		mViewPager.setAdapter(mAppSectionsPagerAdapter);
+		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				// When swiping between different app sections, select the corresponding tab.
+				// We can also use ActionBar.Tab#select() to do this if we have a reference to the
+				// Tab.
+				actionBar.setSelectedNavigationItem(position);
+			}
+		});
+
+		// For each of the sections in the app, add a tab to the action bar.
+		for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+			// Create a tab with text corresponding to the page title defined by the adapter.
+			// Also specify this Activity object, which implements the TabListener interface, as the
+			// listener for when this tab is selected.
+			actionBar.addTab(
+					actionBar.newTab()
+					.setText(mAppSectionsPagerAdapter.getPageTitle(i))
+					.setTabListener(this));
+		}
 	}
 
 	@Override
@@ -113,12 +108,6 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 	public static class PlaceholderFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private Travel t;
-		private ArrayList<Museo> museiList=new ArrayList<Museo>();
-		private ArrayList<Trasporto> trasportiList=new ArrayList<Trasporto>();
-		private ArrayList<HotelRistorante> hotelRistoranteList=new ArrayList<HotelRistorante>();
-		private ArrayAdapter<HotelRistorante> hrAdapter;
-		private ArrayAdapter<Trasporto> tAdapter;
-		private ArrayAdapter<Museo> mAdapter;
 
 		public PlaceholderFragment() {
 		}
@@ -139,110 +128,30 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			TextView dataRitorno= (TextView) rootView.findViewById(R.id.dataRitorno);
 			TextView compagniViaggio= (TextView) rootView.findViewById(R.id.compagniViaggio);
 			TextView descrizione= (TextView) rootView.findViewById(R.id.descrizione);
-			Button ristoranti=(Button) rootView.findViewById(R.id.hotelRistoranti);
-			Button trasporti=(Button) rootView.findViewById(R.id.trasporti);
-			Button musei=(Button) rootView.findViewById(R.id.musei);
 
 			if (extra!=null) {
 				int value=extra.getInt("id");
 
-				try {
-					t=dbHandler.getTravel(value);
-					hotelRistoranteList=dbHandler.getHotelRistoranti(value);
-					museiList=dbHandler.getMusei(value);
-					trasportiList=dbHandler.getTrasporti(value);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				t=dbHandler.getTravel(value);
 			}
-
-			hrAdapter=new ArrayAdapter<HotelRistorante>(getActivity(), 
-					R.layout.list_item_dettagli, hotelRistoranteList);
-
-			ristoranti.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View view) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setTitle("Ristoranti")
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-
-						}
-					})
-					.setAdapter(hrAdapter, null);
-					// Create the AlertDialog object and return it
-					builder.show();
-				}
-			});
-
-			tAdapter=new ArrayAdapter<Trasporto>(getActivity(), 
-					R.layout.list_item_dettagli, trasportiList);
-
-			trasporti.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View view) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setTitle("Trasporti")
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-
-						}
-					})
-					.setAdapter(tAdapter, null);
-					// Create the AlertDialog object and return it
-					builder.show();
-				}
-			});
-
-			mAdapter=new ArrayAdapter<Museo>(getActivity(), 
-					R.layout.list_item_dettagli, museiList);
-
-			musei.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View view) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setTitle("Musei")
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-
-						}
-					})
-					.setAdapter(mAdapter, null);
-					// Create the AlertDialog object and return it
-					builder.show();
-				}
-			});
-
 
 			valutazione.setRating(0);
 			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
-			localita.setText("Localita: "+t.getLocalità());
+			localita.setText("Localita: "+t.getLocalitaString());
 			dataAndata.setText(t.getDataAndata().toString());
 			dataRitorno.setText(t.getDataRitorno().toString());
 			compagniViaggio.setText(t.getCompagniViaggio());
 			descrizione.setText("Descrizione: "+t.getDescrizione());
 
-			tAdapter=new ArrayAdapter<Trasporto>(getActivity(), 
-					R.layout.list_item_dettagli, trasportiList);
-
-			mAdapter=new ArrayAdapter<Museo>(getActivity(), 
-					R.layout.list_item_dettagli, museiList);
-
-
 			return rootView;
 		}
 	}
-	
+
 	public static class MuseiFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<Museo> museiList=new ArrayList<Museo>();
 		private ArrayAdapter<Museo> mAdapter;
-		
+
 		public MuseiFragment() {
 		}
 
@@ -251,30 +160,30 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_visualizza_dettagli, container, false);
-			
+
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
 			ListView listView=(ListView) rootView.findViewById(R.id.listViewDettagli);
-			
+
 			if (extra!=null) {
 				int value=extra.getInt("id");
 				museiList=dbHandler.getMusei(value);
 			}
-			
+
 			mAdapter=new ArrayAdapter<Museo>(getActivity(), 
 					R.layout.list_item_dettagli, museiList);
-			
+
 			listView.setAdapter(mAdapter);
-			
+
 			return rootView;
 		}
 	}
-	
+
 	public static class TrasportiFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<Trasporto> trasportiList=new ArrayList<Trasporto>();
 		private ArrayAdapter<Trasporto> tAdapter;
-		
+
 		public TrasportiFragment() {
 		}
 
@@ -283,32 +192,32 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_visualizza_dettagli, container, false);
-			
+
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
 			ListView listView=(ListView) rootView.findViewById(R.id.listViewDettagli);
 			View view=getActivity().findViewById(R.id.noItem);
 			listView.setEmptyView(view);
-			
+
 			if (extra!=null) {
 				int value=extra.getInt("id");
 				trasportiList=dbHandler.getTrasporti(value);
 			}
-			
+
 			tAdapter=new ArrayAdapter<Trasporto>(getActivity(), 
 					R.layout.list_item_dettagli, trasportiList);
-			
+
 			listView.setAdapter(tAdapter);
-			
+
 			return rootView;
 		}
 	}
-	
+
 	public static class HotelRistorantiFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<HotelRistorante> hotelRistorantiList=new ArrayList<HotelRistorante>();
 		private ArrayAdapter<HotelRistorante> hrAdapter;
-		
+
 		public HotelRistorantiFragment() {
 		}
 
@@ -317,114 +226,114 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_visualizza_dettagli, container, false);
-			
+
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
 			ListView listView=(ListView) rootView.findViewById(R.id.listViewDettagli);
-			
+
 			if (extra!=null) {
 				int value=extra.getInt("id");
 				hotelRistorantiList=dbHandler.getHotelRistoranti(value);
 			}
-			
+
 			hrAdapter=new ArrayAdapter<HotelRistorante>(getActivity(), 
 					R.layout.list_item_dettagli, hotelRistorantiList);
-			
+
 			listView.setAdapter(hrAdapter);
-			
+
 			return rootView;
 		}
 	}
-	
+
 	private void goLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
-	
+
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction fragmentTransaction) {
-		
+
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
-        mViewPager.setCurrentItem(tab.getPosition());
+		mViewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction fragmentTransaction) {
-		
+
 	}
-	
+
 	/**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-     * sections of the app.
-     */
-    public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
+	 * sections of the app.
+	 */
+	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public AppSectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+		public AppSectionsPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
 
-        @Override
-        public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    // The first section of the app is the most interesting -- it offers
-                    // a launchpad into the other demonstrations in this example application.
-                    return new PlaceholderFragment();
-                    
-                /*case 1:
+		@Override
+		public Fragment getItem(int i) {
+			switch (i) {
+			case 0:
+				// The first section of the app is the most interesting -- it offers
+				// a launchpad into the other demonstrations in this example application.
+				return new PlaceholderFragment();
+
+				/*case 1:
                 	return new MuseiFragment();*/
-                    
-                case 2:
-                	return new HotelRistorantiFragment();
-                    
-                case 3:
-                	return new TrasportiFragment();
-                    
-                case 4:
-                	return new MuseiFragment();
 
-                default:
-                    // The other sections of the app are dummy placeholders.
-                    Fragment fragment=new InserisciDettagliActivity.PlaceholderFragment();
-                    return fragment;
-            }
-        }
+			case 2:
+				return new HotelRistorantiFragment();
 
-        @Override
-        public int getCount() {
-            return 5;
-        }
+			case 3:
+				return new TrasportiFragment();
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-        	String tabTitle="";
-        	
-        	switch (position) {
-        		case 0:
-        			tabTitle="Viaggio";
-        			break;
-        			
-        		case 1:
-        			tabTitle="Foto";
-        			break;
-        			
-        		case 2:
-        			tabTitle="Hotel&Ristoranti";
-        			break;
-        			
-        		case 3:
-        			tabTitle="Trasporti";
-        			break;
-        			
-        		case 4:
-        			tabTitle="Musei";
-        			break;
-        	}
-        	
-            return tabTitle;
-        }
-    }
+			case 4:
+				return new MuseiFragment();
+
+			default:
+				// The other sections of the app are dummy placeholders.
+				//Fragment fragment=new InserisciDettagliActivity.PlaceholderFragment();
+				return new PlaceholderFragment();
+			}
+		}
+
+		@Override
+		public int getCount() {
+			return 5;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			String tabTitle="";
+
+			switch (position) {
+			case 0:
+				tabTitle="Viaggio";
+				break;
+
+			case 1:
+				tabTitle="Foto";
+				break;
+
+			case 2:
+				tabTitle="Hotel&Ristoranti";
+				break;
+
+			case 3:
+				tabTitle="Trasporti";
+				break;
+
+			case 4:
+				tabTitle="Musei";
+				break;
+			}
+
+			return tabTitle;
+		}
+	}
 }

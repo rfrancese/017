@@ -1,6 +1,7 @@
 package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Localita;
 import it.unisa.mytraveldiary.entity.Trasporto;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,10 @@ public class TrasportiActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_salva:
+			salvaTrasporto();
+			return true;
+			
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -93,7 +98,7 @@ public class TrasportiActivity extends ActionBarActivity {
 	private Trasporto trasporto = new Trasporto();
 
 	//Salva Viaggio
-	public void salvaTrasporto(View view){
+	public void salvaTrasporto(){
 
 		//TipologiaTrasporto
 		Spinner tipologiaTrasporto = (Spinner) findViewById(R.id.tipoTrasporti);
@@ -115,8 +120,8 @@ public class TrasportiActivity extends ActionBarActivity {
 		trasporto.setCompagnia(editCompagnia.getText().toString());
 
 		//Citt‡
-		trasporto.setCitt‡Partenza(cittaP.getText().toString());
-		trasporto.setCitt‡Arrivo(cittaA.getText().toString());
+		trasporto.setLocalitaPartenza(new Localita(cittaP.getText().toString()));
+		trasporto.setLocalitaArrivo(new Localita(cittaA.getText().toString()));
 
 		//Valutazione
 		trasporto.setValutazione((int) valutazioneT.getRating());
@@ -135,12 +140,11 @@ public class TrasportiActivity extends ActionBarActivity {
 		trasporto.setId(dbHandler.addTrasporto(trasporto));
 
 		showToast("Trasporto salvato correttamente!");
-		goInserisci(trasporto.getTId());
+		goMain();
 	}
 
-	public void goInserisci(int t_id) {
-		Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		intent.putExtra("id", t_id);
+	public void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 

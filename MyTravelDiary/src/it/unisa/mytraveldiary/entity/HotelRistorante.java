@@ -4,7 +4,7 @@ public class HotelRistorante {
 
 	private String tipologia;
 	private String nome;
-	private String citta;
+	private Localita localita;
 	private int valutazione;
 	private int id;
 	private int t_id;
@@ -13,25 +13,34 @@ public class HotelRistorante {
 		
 	}
 	
-	public HotelRistorante(String tip, String n, String c, int val) {
-		tipologia=tip;
-		nome=n;
-		citta=c;
+	public HotelRistorante(String tip, String n, Localita l, int val, int t_i) {
+		if (tip==null)
+			tip="";
+		else
+			tipologia=tip;
+		
+		if (n==null) 
+			nome="";
+		else
+			nome=n;
+		
+		localita=l;
 		valutazione=val;
+		t_id=t_i;
 	}
 	
-	public HotelRistorante(String tip, String n, String c, int val, int i) {
-		tipologia=tip;
-		nome=n;
-		citta=c;
-		valutazione=val;
-		id=i;
-	}
-	
-	public HotelRistorante(String tip, String n, String c, int val, int t_i, int i) {
-		tipologia=tip;
-		nome=n;
-		citta=c;
+	public HotelRistorante(String tip, String n, Localita l, int val, int t_i, int i) {
+		if (tip==null)
+			tip="";
+		else
+			tipologia=tip;
+		
+		if (n==null) 
+			nome="";
+		else
+			nome=n;
+		
+		localita=l;
 		valutazione=val;
 		t_id=t_i;
 		id=i;
@@ -47,59 +56,59 @@ public class HotelRistorante {
 		return nome;
 	}
 	
-	public String getCitta() {
-		return citta;
+	public Localita getLocalita() {
+		return localita;
 	}
 	
 	public int getValutazione() {
 		return valutazione;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
 	public int getTId() {
 		return t_id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	// Metodi di modifica
 	
 	public void setTipologia(String tip) {
-		tipologia=tip;
+		if (tip==null)
+			tipologia="";
+		else
+			tipologia=tip;
 	}
 	
 	public void setNome(String n) {
-		nome=n;
+		if (n==null)
+			nome="";
+		else
+			nome=n;
 	}
 	
-	public void setCitta(String c) {
-		citta=c;
+	public void setLocalita(Localita l) {
+		localita=l;
 	}
 	
 	public void setValutazione(int val) {
 		valutazione=val;
 	}
 	
-	public void setId(int i) {
-		id=i;
-	}
-	
 	public void setTId(int i) {
 		t_id=i;
 	}
 	
+	public void setId(int i) {
+		id=i;
+	}
+	
 	public String toString() {
 		String s="";
-		
-		/*s+="Tipologia: "+tipologia+"\n";
-		s+="Nome: "+nome+"\n";
-		s+="Città: "+citta+"\n";
-		s+="Valutazione: "+valutazione+"\n";
-		s+="Id: "+id+"\n";*/
-		
+	
 		s+=(tipologia+": "+nome+"\n");
-		s+="Località: "+citta+"\n";
+		s+="Località: "+localita+"\n";
 		s+="Valutazione: ";
 		
 		switch (valutazione) {

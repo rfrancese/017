@@ -2,6 +2,7 @@ package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.HotelRistorante;
+import it.unisa.mytraveldiary.entity.Localita;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -47,6 +48,10 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_salva:
+			salvaHotelRistorante();
+			return true;
+			
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -91,7 +96,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 	//	private boolean hotelRistoranteSalvato=false;
 	private HotelRistorante hotelRistorante=new HotelRistorante();
 
-	public void salvaHotelRistorante(View view){
+	public void salvaHotelRistorante(){
 
 		// GET
 		// Tipologia
@@ -121,7 +126,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		hotelRistorante.setNome(nomeHR.getText().toString());
 
 		// Città
-		hotelRistorante.setCitta(cittaHR.getText().toString());
+		hotelRistorante.setLocalita(new Localita(cittaHR.getText().toString()));
 
 		// Valutazione
 		hotelRistorante.setValutazione((int) valutazioneHR.getRating());
@@ -141,13 +146,12 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
 
 		showToast("Hotel/Ristorante salvato correttamente!");
-		goInserisci(hotelRistorante.getTId());
+		goMain();
 	}
 
 
-	public void goInserisci(int t_id) {
-		Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		intent.putExtra("id", t_id);
+	public void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 

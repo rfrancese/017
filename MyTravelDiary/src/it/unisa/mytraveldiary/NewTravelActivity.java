@@ -1,9 +1,13 @@
 package it.unisa.mytraveldiary;
 
 import it.unisa.mytraveldiary.db.DatabaseHandler;
+import it.unisa.mytraveldiary.entity.Localita;
 import it.unisa.mytraveldiary.entity.Travel;
 
-import java.text.ParseException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -42,7 +46,6 @@ public class NewTravelActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-
 	}
 
 	@Override
@@ -62,11 +65,11 @@ public class NewTravelActivity extends ActionBarActivity {
 		case R.id.action_salva:
 			salvaViaggio();
 			return true;
-			
+
 		case R.id.action_inserisci:
-			goInserisciDettagli();
+			avantiInserisciDettagli();
 			return true;
-		
+
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -178,14 +181,25 @@ public class NewTravelActivity extends ActionBarActivity {
 		((DatePickerFragment) newFragment).setTextView(ritorno);
 	}
 
-	public void avantiInserisciDettagli(View view) throws NumberFormatException, ParseException{
+	public void avantiInserisciDettagli() {
 		if (viaggioSalvato) {
-			goInserisciDettagli();
+
+			SharedPreferences settings = getSharedPreferences("viaggio", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putInt("id", viaggio.getId());
+
+			// Commit the edits!
+			editor.commit();
+
+			DettagliDialogFragment dettagli=new DettagliDialogFragment();
+			dettagli.show(getFragmentManager(), "dettagli");
 		}
 
 		else
 			showToast("Salva prima il viaggio!");
 	}
+
+	private ArrayList<Localita> listaLocalita=new ArrayList<Localita>();
 
 	public void salvaViaggio() {
 
@@ -197,9 +211,6 @@ public class NewTravelActivity extends ActionBarActivity {
 		// Descrizione
 		EditText descrizione= (EditText) findViewById(R.id.descrizioneViaggioInput);
 
-		// Località
-		AutoCompleteTextView localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
-
 		// Compagni viaggio
 		MultiAutoCompleteTextView compagniViaggio=(MultiAutoCompleteTextView) findViewById(R.id.compagniViaggioAutocomplete);
 
@@ -209,22 +220,14 @@ public class NewTravelActivity extends ActionBarActivity {
 		//Log.d("Tipologia viaggio", viaggio.getTipologiaViaggio());
 
 		// Località
-		String localitaText=localita.getText().toString();
-		viaggio.setLocalità(localitaText);
+		viaggio.setLocalità(listaLocalita);
 
 		// Data andata e ritorno
 		String dataAndataString=dataAndata.getText().toString();
 		String dataRitornoString=dataRitorno.getText().toString();
-
-		/*if (!(dataAndataString.equals(""))) {
-			Date dataA = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataAndataString);
-			viaggio.setDataAndata(dataA);
-		}
-
-		if (!(dataRitornoString.equals(""))) {
-			Date dataR = new SimpleDateFormat("d/M/y", Locale.ITALIAN).parse(dataRitornoString);
-			viaggio.setDataRitorno(dataR);
-		}*/
+		
+		if (dataAndataString.compareTo(dataRitornoString)>0)
+			Log.d("data", "?");
 
 		viaggio.setDataAndata(dataAndataString);
 		viaggio.setDataRitorno(dataRitornoString);
@@ -244,7 +247,6 @@ public class NewTravelActivity extends ActionBarActivity {
 			modifica=extra.getBoolean("modifica");
 
 		if (viaggioSalvato) {
-
 
 			Log.d("TRAVEL", "viaggio da modificare");
 			Log.d("New travel modifica", viaggio.toString());
@@ -281,8 +283,12 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 
 	public void openMaps(View view){
+		ArrayList<String> locString=new ArrayList<String>();
+		for (Localita l: listaLocalita)
+			locString.add(l.toString());
+
 		Intent intent = new Intent(this, MapsActivity.class);
-		//intent.putExtra("Citta", value)
+		intent.putStringArrayListExtra("city", locString);
 		startActivityForResult(intent, 1);
 	}
 
@@ -298,12 +304,6 @@ public class NewTravelActivity extends ActionBarActivity {
 				localita.setText(city);
 			}
 		}
-	}
-
-	private void goInserisciDettagli() {
-		Intent intent = new Intent(this, InserisciDettagliActivity.class);
-		intent.putExtra("id", viaggio.getId());
-		startActivity(intent);
 	}
 
 	private void goInfo() {
@@ -324,7 +324,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private LinearLayout ll;
 	private int tag;
 
@@ -332,7 +332,7 @@ public class NewTravelActivity extends ActionBarActivity {
 		ll=(LinearLayout) findViewById(R.id.localita);
 		AutoCompleteTextView autocompleteTextView=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
 		String localita=(autocompleteTextView.getText()).toString();
-
+		listaLocalita.add(new Localita(localita));
 
 		if (!(localita.equals(""))) {
 			TextView textView=new TextView(this);
@@ -346,19 +346,20 @@ public class NewTravelActivity extends ActionBarActivity {
 			textView.setTextAppearance(this, R.style.CodeFont);
 			textView.setClickable(true);
 			textView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View view) {
-					
+
 					tag=Integer.parseInt(view.getTag().toString());
-					
+
 					AlertDialog.Builder builder = new AlertDialog.Builder(NewTravelActivity.this);
 					builder.setMessage(R.string.eliminaLocalitaInfo);
 					builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-						
+
 						public void onClick(DialogInterface dialog, int id) {
-							
+
 							ll.removeViewAt(tag);
+							listaLocalita.remove(tag);
 							showToast("Località eliminata!");
 						}
 					});
@@ -379,7 +380,7 @@ public class NewTravelActivity extends ActionBarActivity {
 			textView.setText(localita);
 
 			ll.addView(textView);
-			
+
 			autocompleteTextView.setText("");
 		}
 	}

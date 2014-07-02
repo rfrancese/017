@@ -54,22 +54,23 @@
                     android:layout_column="1"
                     android:text="@string/dataAndata" />
 
+                <TextView
+                    android:id="@+id/andataText"
+                    style="@style/CodeFont"
+                    android:layout_column="2" />
+
                 <ImageButton
                     android:id="@+id/andataButton"
                     style="@style/CodeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
+                    android:layout_column="3"
                     android:background="@null"
+                    android:contentDescription="@string/dataAndata"
                     android:onClick="showDatePickerDialogAndata"
                     android:padding="4dip"
                     android:src="@drawable/ic_action_event"
                     android:text="@string/inserisciData" />
-
-                <TextView
-                    android:id="@+id/andataText"
-                    style="@style/CodeFont"
-                    android:layout_column="3" />
             </TableRow>
 
             <TableRow
@@ -81,22 +82,23 @@
                     android:layout_column="1"
                     android:text="@string/dataRitorno" />
 
+                <TextView
+                    android:id="@+id/ritornoText"
+                    style="@style/CodeFont"
+                    android:layout_column="2" />
+
                 <ImageButton
                     android:id="@+id/ritornoButton"
                     style="@style/CodeFont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="2"
+                    android:layout_column="3"
                     android:background="@null"
+                    android:contentDescription="@string/dataRitorno"
                     android:onClick="showDatePickerDialogRitorno"
                     android:padding="4dip"
                     android:src="@drawable/ic_action_event"
                     android:text="@string/inserisciData" />
-
-                <TextView
-                    android:id="@+id/ritornoText"
-                    style="@style/CodeFont"
-                    android:layout_column="3" />
             </TableRow>
         </TableLayout>
 
