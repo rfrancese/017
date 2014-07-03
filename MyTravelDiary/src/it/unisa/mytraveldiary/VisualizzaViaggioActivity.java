@@ -125,7 +125,6 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			Bundle extra=getActivity().getIntent().getExtras();
 			dbHandler=new DatabaseHandler(getActivity());
 
-			RatingBar valutazione= (RatingBar) rootView.findViewById(R.id.ratingBar);
 			TextView tipologiaViaggio= (TextView) rootView.findViewById(R.id.tipologiaViaggio);
 			TextView localita= (TextView) rootView.findViewById(R.id.localita);
 			TextView dataAndata= (TextView) rootView.findViewById(R.id.dataAndata);
@@ -139,7 +138,6 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				t=dbHandler.getTravel(value);
 			}
 
-			valutazione.setRating(0);
 			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
 			localita.setText("Localita: "+t.getLocalitaString());
 			dataAndata.setText(t.getDataAndata().toString());

@@ -246,6 +246,7 @@ public class NewTravelActivity extends ActionBarActivity {
 
 	public void showDatePickerDialogAndata(View v) {
 		ViewHolder holder=new ViewHolder();
+		holder.dataA=(TextView) findViewById(R.id.andataText);
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 		((DatePickerFragment) newFragment).setTipologia("Andata");
@@ -254,6 +255,7 @@ public class NewTravelActivity extends ActionBarActivity {
 
 	public void showDatePickerDialogRitorno(View v) {
 		ViewHolder holder=new ViewHolder();
+		holder.dataR=(TextView) findViewById(R.id.ritornoText);
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 		((DatePickerFragment) newFragment).setTipologia("Ritorno");
