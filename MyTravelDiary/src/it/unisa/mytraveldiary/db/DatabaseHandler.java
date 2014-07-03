@@ -716,6 +716,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return localita;
 	}
 	
+	public ArrayList<Localita> getLocalitas(int t_id) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		Cursor cursor=db.query(TABLE_LOCALITA, null, L_T_ID+"=?", new String[] {String.valueOf(t_id)}, null, null, null);
+		ArrayList<Localita> localitaList=new ArrayList<Localita>();
+
+		if (cursor.moveToFirst()) {
+			do {
+				Localita localita=new Localita();
+				localita.setNome(cursor.getString(0));
+				localita.setTId(t_id);
+				localita.setId(Integer.parseInt(cursor.getString(2)));
+				localitaList.add(localita);
+			} 
+			while (cursor.moveToNext());
+		}
+
+		db.close();
+
+		return localitaList;
+	}
+	
+	public void deleteLocalitas(int t_id) {
+		SQLiteDatabase db=this.getWritableDatabase();
+		db.delete(TABLE_LOCALITA, L_T_ID + "= ?", new String[] {String.valueOf(t_id)});
+		db.close();
+	}
+	
 	// FOTO
 	
 	public int addFoto(String file, int t_id) {

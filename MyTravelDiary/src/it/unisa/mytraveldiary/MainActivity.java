@@ -190,9 +190,11 @@ public class MainActivity extends ActionBarActivity {
 	    if (requestCode == MODIFICA || requestCode == NUOVO) {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
-	            listaViaggi=dbHandler.getAllTravels();
-	            adapter.notifyDataSetChanged();
-	            Log.d("result", "OK");
+	        	listaViaggi=dbHandler.getAllTravels();
+	        	adapter.clear();
+	        	adapter=new ViaggiAdapter(getApplicationContext(), this, listaViaggi);
+
+				adapter.notifyDataSetChanged();
 	        }
 	    }
 	}
@@ -221,6 +223,8 @@ public class MainActivity extends ActionBarActivity {
 		intent.putExtra("descrizione", t.getDescrizione());
 		intent.putExtra("id", t.getId());
 		startActivityForResult(intent, MODIFICA);
+		
+		
 	}
 	
 	private void showElimina(int position) {

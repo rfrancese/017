@@ -1,34 +1,23 @@
 package it.unisa.mytraveldiary;
 
-import it.unisa.mytraveldiary.db.DatabaseHandler;
 import it.unisa.mytraveldiary.entity.Travel;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.TextView; 
 import android.widget.Toast;
 
 public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 	private Activity activityMain;
-	private ArrayList<String> viaggi=new ArrayList<String>();
 	private ArrayList<Travel> viaggiList=new ArrayList<Travel>();
 	private Travel travel;
 	private int pos;
@@ -40,12 +29,7 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 		viaggiList=listaViaggi;
 
-		for (Travel t: viaggiList) {
-			Log.d("ADAPTER", t.toString());
-			viaggi.add(t.toString());
-		}
-
-		super.addAll(viaggi);
+		super.addAll(getTravelsString(viaggiList));
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -90,6 +74,22 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 	public int getTravelId(int position) {
 		return (viaggiList.get(position)).getId();
+	}
+	
+	public void changeData(ArrayList<Travel> listaViaggi) {
+		viaggiList=listaViaggi;
+		
+		super.addAll(getTravelsString(viaggiList));
+	}
+	
+	private ArrayList<String> getTravelsString(ArrayList<Travel> listaViaggi) {
+		ArrayList<String> stringList=new ArrayList<String>();
+		
+		for (Travel t: listaViaggi) {
+			stringList.add(t.toString());
+		}
+		
+		return stringList;
 	}
 	
 	private void showToast(String msg) {
