@@ -15,50 +15,50 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION=17;
+	private static final int DATABASE_VERSION=18;
 	private static final String DATABASE_NAME="mytraveldiary_db";
 
-	private static final String TABLE_TRAVELS="travels";
+	private static final String TABLE_TRAVELS="viaggi";
 	private static final String T_TIPOLOGIA="tipologia";
-	private static final String T_DATA_ANDATA="dataAndata";
-	private static final String T_DATA_RITORNO="dataRitorno";
-	private static final String T_COMPAGNI_VIAGGIO="compagniViaggio";
+	private static final String T_DATA_ANDATA="data_andata";
+	private static final String T_DATA_RITORNO="data_ritorno";
+	private static final String T_COMPAGNI_VIAGGIO="compagni_viaggio";
 	private static final String T_DESCRIZIONE="descrizione";
 	private static final String T_ID="id";
 
-	private static final String TABLE_HOTELRISTORANTI="hotelRistoranti";
+	private static final String TABLE_HOTELRISTORANTI="hotel_ristoranti";
 	private static final String HR_TIPOLOGIA="tipologia";
 	private static final String HR_NOME="nome";
 	private static final String HR_CITTA="citta";
 	private static final String HR_VALUTAZIONE="valutazione";
 	private static final String HR_ID="id";
-	private static final String HR_T_ID="t_id";
+	private static final String HR_T_ID="viaggio_id";
 
 	private static final String TABLE_MUSEO="museo";
 	private static final String M_TIPOLOGIA= "tipologia";
 	private static final String M_NOME="nome";
-	private static final String M_CITTA="citt‡";
+	private static final String M_CITTA="citta";
 	private static final String M_VALUTAZIONE="valutazione";
 	private static final String M_ID="id";
-	private static final String M_T_ID="t_id";
+	private static final String M_T_ID="viaggio_id";
 
 	private static final String TABLE_TRASPORTO="trasporto";
 	private static final String TR_TIPOLOGIA= "tipologia";
 	private static final String TR_COMPAGNIA="compagnia";
-	private static final String TR_CITTAPARTENZA="citt‡Partenza";
-	private static final String TR_CITTAARRIVO="citt‡Arrivo";
+	private static final String TR_CITTAPARTENZA="citta_partenza";
+	private static final String TR_CITTAARRIVO="citta_arrivo";
 	private static final String TR_VALUTAZIONE="valutazione";
 	private static final String TR_ID="id";
-	private static final String TR_T_ID="t_id";
+	private static final String TR_T_ID="viaggio_id";
 
 	private static final String TABLE_LOCALITA="localita";
-	private static final String L_T_ID="t_id";
+	private static final String L_T_ID="viaggio_id";
 	private static final String L_NOME="nome";
 	private static final String L_ID="id";
-	
+
 	private static final String TABLE_FOTO="foto";
 	private static final String F_FILE="file";
-	private static final String F_T_ID="t_id";
+	private static final String F_T_ID="viaggio_id";
 	private static final String F_ID="id";
 
 	public DatabaseHandler(Context context) {
@@ -82,7 +82,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				HR_CITTA+" VARCHAR(50)," +
 				HR_VALUTAZIONE+" INTEGER," +
 				HR_T_ID+" INTEGER,"+
-				HR_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+				HR_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+				"FOREIGN KEY("+HR_T_ID+") REFERENCES "+TABLE_TRAVELS+"("+T_ID+"))";
 		db.execSQL(CREATE_HOTELRISTORANTI_TABLE);
 
 		String CREATE_MUSEO_TABLE="CREATE TABLE "+TABLE_MUSEO +" (" +
@@ -91,7 +92,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				M_CITTA + " VARCHAR(50)," +
 				M_VALUTAZIONE + " INTEGER," +
 				M_T_ID+" INTEGER,"+
-				M_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+				M_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+				"FOREIGN KEY("+M_T_ID+") REFERENCES "+TABLE_TRAVELS+"("+T_ID+"))";
 		db.execSQL(CREATE_MUSEO_TABLE);
 
 		String CREATE_TRASPORTO_TABLE="CREATE TABLE "+TABLE_TRASPORTO +" (" +
@@ -101,19 +103,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				TR_CITTAARRIVO + " VARCHAR(50)," +
 				TR_VALUTAZIONE + " INTEGER," +
 				TR_T_ID+" INTEGER,"+
-				TR_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+				TR_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+				"FOREIGN KEY("+TR_T_ID+") REFERENCES "+TABLE_TRAVELS+"("+T_ID+"))";
 		db.execSQL(CREATE_TRASPORTO_TABLE);
 
 		String CREATE_LOCALITA_TABLE="CREATE TABLE "+TABLE_LOCALITA+" ("+
 				L_NOME+" VARCHAR(30),"+
 				L_T_ID+" INTEGER,"+
-				L_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+				L_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+				"FOREIGN KEY("+L_T_ID+") REFERENCES "+TABLE_TRAVELS+"("+T_ID+"))";
 		db.execSQL(CREATE_LOCALITA_TABLE);
-		
+
 		String CREATE_FOTO_TABLE="CREATE TABLE "+TABLE_FOTO+" ("+
 				F_FILE+" VARCHAR(50),"+
 				F_T_ID+" INTEGER,"+
-				F_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)";
+				F_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+				"FOREIGN KEY("+F_T_ID+") REFERENCES "+TABLE_TRAVELS+"("+T_ID+"))";
 		db.execSQL(CREATE_FOTO_TABLE);
 
 		Log.d("Creating...", "Database");
@@ -128,9 +133,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_MUSEO);
 
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_TRASPORTO);
-		
+
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_LOCALITA);
-		
+
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME + "." + TABLE_FOTO);
 
 		onCreate(db);
@@ -153,14 +158,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		int id=(int) db.insert(TABLE_TRAVELS, null, values);
 
 		ArrayList<Localita> localita=travel.getLocalita();
-		values=new ContentValues();
-		
-		for (Localita l: localita) {
-			if (localita!=null) {
-				values.put(L_NOME, l.getNome());
-				values.put(L_T_ID, id);
-				
-				db.insert(TABLE_LOCALITA, null, values);
+
+		if (localita!=null) {
+			values=new ContentValues();
+
+			for (Localita l: localita) {
+				if (localita!=null) {
+					values.put(L_NOME, l.getNome());
+					values.put(L_T_ID, id);
+
+					db.insert(TABLE_LOCALITA, null, values);
+				}
 			}
 		}
 
@@ -188,12 +196,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		ArrayList<Localita> localita=travel.getLocalita();
 		values=new ContentValues();
-		
+
 		for (Localita l: localita) {
 			if (localita!=null) {
 				values.put(L_NOME, l.getNome());
 				values.put(L_T_ID, travel.getId());
-				
+
 				db.update(TABLE_LOCALITA, values, L_T_ID+"=?", new String[] {String.valueOf(travel.getId())});
 			}
 		}
@@ -244,6 +252,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				localita.add(new Localita(cursor.getString(0), Integer.parseInt(idTravel)));
+				Log.d("getTravel", cursor.getString(0));
 			} while (cursor.moveToNext());
 		}
 
@@ -281,6 +290,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				if (cursorLoc.moveToFirst()) {
 					do {
 						localita.add(new Localita(cursorLoc.getString(0), Integer.parseInt(idTravel)));
+						Log.d("getTravel", cursorLoc.getString(0));
 					} while (cursorLoc.moveToNext());
 				}
 
@@ -308,8 +318,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		else {
 			String sql="SELECT "+T_TIPOLOGIA+", "+T_DATA_ANDATA+", "+T_DATA_RITORNO+", "+T_COMPAGNI_VIAGGIO+
 					", "+T_DESCRIZIONE+", "+TABLE_TRAVELS+"."+T_ID+
-					   " FROM "+TABLE_TRAVELS+", "+TABLE_LOCALITA+
-					   " WHERE "+L_NOME+" LIKE '%"+query+"%'"+" AND "+TABLE_TRAVELS+"."+T_ID+"="+TABLE_LOCALITA+"."+L_T_ID;
+					" FROM "+TABLE_TRAVELS+", "+TABLE_LOCALITA+
+					" WHERE "+L_NOME+" LIKE '%"+query+"%'"+" AND "+TABLE_TRAVELS+"."+T_ID+"="+TABLE_LOCALITA+"."+L_T_ID;
 			cursor=db.rawQuery(sql, null);
 		}
 
@@ -323,7 +333,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				String compagniViaggio=cursor.getString(3);
 				String descrizione=cursor.getString(4);
 				String idTravel=cursor.getString(5);
-				
+
 				Cursor cursorLoc=db.query(TABLE_LOCALITA, new String[] {L_NOME}, L_T_ID+"=?", 
 						new String[] {String.valueOf(idTravel)}, null, null, null);
 
@@ -338,7 +348,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 				Travel travel= new Travel(tipologia, localita, dataAndata, dataRitorno, compagniViaggio, descrizione, 
 						Integer.parseInt(idTravel));
-				
+
 				travelList.add(travel);
 			} 
 			while (cursor.moveToNext());
@@ -363,7 +373,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				String compagniViaggio=cursor.getString(4);
 				String descrizione=cursor.getString(5);
 				String idTravel=cursor.getString(6);
-				
+
 				Cursor cursorLoc=db.query(TABLE_LOCALITA, new String[] {L_NOME}, L_T_ID+"=?", 
 						new String[] {String.valueOf(idTravel)}, null, null, null);
 
@@ -690,13 +700,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return db.update(TABLE_LOCALITA, values, L_ID + "= ?", 
 				new String[] {String.valueOf(localita.getId())});
 	}
-	
+
 	public void deleteLocalita(Localita localita) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		db.delete(TABLE_LOCALITA, L_ID + "= ?", new String[] {String.valueOf(localita.getId())});
 		db.close();
 	}
-	
+
 	public Localita getLocalita(int id) {
 		SQLiteDatabase db=this.getReadableDatabase();
 
@@ -715,7 +725,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		return localita;
 	}
-	
+
 	public ArrayList<Localita> getLocalitas(int t_id) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor cursor=db.query(TABLE_LOCALITA, null, L_T_ID+"=?", new String[] {String.valueOf(t_id)}, null, null, null);
@@ -736,15 +746,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		return localitaList;
 	}
-	
+
 	public void deleteLocalitas(int t_id) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		db.delete(TABLE_LOCALITA, L_T_ID + "= ?", new String[] {String.valueOf(t_id)});
 		db.close();
 	}
-	
+
 	// FOTO
-	
+
 	public int addFoto(String file, int t_id) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		ContentValues values=new ContentValues();
@@ -758,13 +768,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		return id;
 	}
-	
+
 	public void deleteFoto(String file) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		db.delete(TABLE_FOTO, F_FILE + "= ?", new String[] {file});
 		db.close();
 	}
-	
+
 	public ArrayList<String> getFoto(int t_id) {
 		SQLiteDatabase db=this.getWritableDatabase();
 		Cursor cursor=db.query(TABLE_FOTO, null, F_T_ID+"=?", new String[] {String.valueOf(t_id)}, null, null, null);

@@ -89,7 +89,7 @@ public class RegistrazioneActivity extends ActionBarActivity {
 				
 				// modificare
 
-				if (! ret.equals("Nessun risultato")) {
+				if (! ret.equals("OK")) {
 					//showToast("Utente registrato!");
 					login=true;
 					goLogin();

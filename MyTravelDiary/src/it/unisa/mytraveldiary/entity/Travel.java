@@ -64,7 +64,7 @@ public class Travel {
 		String s="";
 		
 		for (Localita l: localita)
-			s+=(l.toString());
+			s+=(l.toString()+", ");
 		
 		return s;
 	}
@@ -136,9 +136,10 @@ public class Travel {
 
 		s+="Tipologia viaggio: "+getTipologiaViaggio()+"\n";
 		s+="Localita: ";
-
-		for (Localita l: localita)
-			s+=l+"\n";
+		
+		if (localita!=null)
+			for (Localita l: localita)
+				s+=l+"\n";
 
 		s+="Data andata:  "+"\n";
 		s+="Data ritorno: "+dataRitorno+"\n";

@@ -37,6 +37,8 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 
 	private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	private ViewPager mViewPager;
+	private int value;
+	private static final int MODIFICA=1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,12 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 					.setText(mAppSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		Bundle extra=getIntent().getExtras();
+		value=-1;
+		
+		if (extra!=null) 
+			value=extra.getInt("id");
 	}
 
 	@Override
@@ -91,6 +99,14 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
+		case R.id.action_add_dettagli:
+			showInserisciDettagli();
+			return true;
+		case R.id.action_modifica:
+			goModifica();
+			return true;
+		case R.id.action_elimina:
+			return true;
 		case R.id.action_logout:
 			SharedPreferences settings = getSharedPreferences("login", 0);
 			SharedPreferences.Editor editor = settings.edit();
@@ -104,6 +120,25 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void showInserisciDettagli() {
+		SharedPreferences settings = getSharedPreferences("viaggio", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("id", value);
+
+		// Commit the edits!
+		editor.commit();
+
+		DettagliDialogFragment dettagli=new DettagliDialogFragment();
+		dettagli.show(getFragmentManager(), "dettagli");
+	}
+	
+	private void goModifica() {
+		Intent intent = new Intent(this, NewTravelActivity.class);
+		intent.putExtra("modifica", true);
+		intent.putExtra("id", value);
+		startActivityForResult(intent, MODIFICA);
 	}
 
 	/**

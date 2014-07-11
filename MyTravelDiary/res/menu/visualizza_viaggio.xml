@@ -4,22 +4,22 @@
     tools:context="it.unisa.mytraveldiary.VisualizzaViaggioActivity" >
 
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_search"
-        android:title="@string/action_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:id="@+id/action_add_dettagli"
+        android:icon="@drawable/ic_action_new_event"
+        android:title="@string/InserisciDettagli"
         app:showAsAction="ifRoom"/>
     
     <item
-        android:id="@+id/action_new_travel"
-        android:icon="@drawable/ic_action_new"
-        android:title="@string/action_new_travel"
+        android:id="@+id/action_modifica"
+        android:icon="@drawable/ic_action_edit"
+        android:title="@string/modifica"
         app:showAsAction="ifRoom"/>
     
     <item
-        android:id="@+id/action_info"
-        android:title="@string/action_info"
-        app:showAsAction="never"/>
+        android:id="@+id/action_elimina"
+        android:icon="@drawable/ic_action_discard"
+        android:title="@string/elimina"
+        app:showAsAction="ifRoom"/>
     
     <item
         android:id="@+id/action_logout"

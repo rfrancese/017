@@ -2,6 +2,7 @@ package it.unisa.mytraveldiary;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -9,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -19,18 +19,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends ActionBarActivity  implements OnMapClickListener {
@@ -38,13 +41,21 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 	private GoogleMap mMap;
 	private Marker marker=null;
 	private ProgressDialog progressDialog;
-	private String city;
-
+	private ArrayList<String> listCities;
+	private HashMap<Marker, String> markerHm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_maps);
+		listCities=new ArrayList<String>();
+		markerHm=new HashMap<Marker, String>();
+		setUpMapIfNeeded();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		setUpMapIfNeeded();
 	}
 
@@ -67,11 +78,75 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 				mMap.getUiSettings().setMyLocationButtonEnabled(true);
 				mMap.setOnMapClickListener(this);
 
-				ArrayList<String> listaLocalita=getIntent().getStringArrayListExtra("city");
+				/*ArrayList<String> listaLocalita=getIntent().getStringArrayListExtra("city");
 
 				if (listaLocalita!=null) {
 					setMarkerFromList(listaLocalita);
-				}
+				}*/
+
+				mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+						markerHm.remove(marker);
+						marker.remove();
+					}
+				});
+
+				mMap.setOnMarkerDragListener(new OnMarkerDragListener() {
+
+					@Override
+					public void onMarkerDragStart(Marker m) {
+						m.setTitle("Rilascia per aggiornare...");
+						m.setSnippet("");
+						m.showInfoWindow();
+					}
+
+					@Override
+					public void onMarkerDragEnd(Marker m) {
+						Location location=new Location("Maps");
+						location.setLatitude(m.getPosition().latitude);
+						location.setLongitude(m.getPosition().longitude);
+						marker=m;
+						
+						mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+								new LatLng(location.getLatitude(), location.getLongitude()), 10));
+
+						progressDialog=ProgressDialog.show(MapsActivity.this, null, "Ricerca località...");
+						progressDialog.setCancelable(false);
+
+						(new MapsActivity.GetAddressTask(MapsActivity.this)).execute(location);
+						
+						m.setSnippet("Trascina per modificare");
+						m.showInfoWindow();
+					}
+
+					@Override
+					public void onMarkerDrag(Marker m) {
+						
+					}
+				});
+				
+				mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+					
+					@Override
+					public View getInfoWindow(Marker m) {
+						return null;
+					}
+					
+					@Override
+					public View getInfoContents(Marker m) {
+						View v=getLayoutInflater().inflate(R.layout.info_window, null);
+						
+						TextView title=(TextView) v.findViewById(R.id.textView1);
+						TextView snippet=(TextView) v.findViewById(R.id.textView2);
+						
+						title.setText(m.getTitle());
+						snippet.setText(m.getSnippet());
+						
+						return v;
+					}
+				});
 			}
 		}
 	}
@@ -83,7 +158,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
 		case R.id.action_accept:
-			setResult(RESULT_OK, getIntent().putExtra("citta", city));
+			setResult(RESULT_OK, getIntent().putStringArrayListExtra("citta", getCities()));
 			finish();
 			return true;
 
@@ -101,24 +176,34 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	private ArrayList<String> getCities() {
+		for (String s: markerHm.values()) {
+			listCities.add(s);
+		}
+		
+		return listCities;
+	}
+
+	private boolean checkReady() {
+		if (mMap == null) {
+			Toast.makeText(this, "Attendi...", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public void onMapClick(LatLng point) {
-
-		if (marker==null) {
+		if (checkReady())
 			setMarker(point);
-		}
-
-		else {
-			marker.remove();
-			setMarker(point);
-		}
 	}
 
-	private void setMarkerFromList(ArrayList<String> listaLoc) {
+
+	/*private void setMarkerFromList(ArrayList<String> listaLoc) {
 		Geocoder geodecoder=new Geocoder(this);
 		PolylineOptions rectOptions = new PolylineOptions();
-		
+
 		for (String s: listaLoc) {
 			List<Address> listAdress;
 			try {
@@ -126,23 +211,23 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 				Address a=listAdress.get(0);
 				LatLng point=new LatLng(a.getLatitude(), a.getLongitude());
 				rectOptions.add(point);
-				
+
 				marker=mMap.addMarker(new MarkerOptions()
 				.position(point)
 				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (IndexOutOfBoundsException e) {
 				continue;
 			}
 		}
-		
+
 		mMap.addPolyline(rectOptions
 				.width(7)
 				.color(Color.BLUE)
 				.geodesic(true));
-	}
+	}*/
 
 	private void setMarker(LatLng point) {
 
@@ -150,15 +235,17 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		location.setLatitude(point.latitude);
 		location.setLongitude(point.longitude);
 
-		progressDialog=ProgressDialog.show(this, "Attendi...", "Ricerca località...");
+		progressDialog=ProgressDialog.show(this, null, "Ricerca località...");
 		progressDialog.setCancelable(false);
 
 		(new MapsActivity.GetAddressTask(this)).execute(location);
 
 		marker=mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(point.latitude, point.longitude))
-		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-
+		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+		.snippet("Trascina per modificare")
+		.draggable(true));
+		
 		// Move the camera instantly with a zoom of 10.
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 10));
 
@@ -240,7 +327,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 						address.getLocality()
 						);
 
-				city=addressText;
+				markerHm.put(marker, addressText);
 
 				// Return the text
 				return addressText;
@@ -260,24 +347,15 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 
 			// Turn off the progress bar
 			progressDialog.dismiss();
-
+			
 			if (marker!=null) {
 				marker.setTitle(address);
+				marker.showInfoWindow();
 			}
 
 			// Set the address in the UI
 			Log.d("MAPS", address);
-			showToast("Hai selezionato "+address);
 		}
-	}
-
-	private void showToast(String msg) {
-		Context context=getApplicationContext();
-		CharSequence text=msg;
-		int duration=Toast.LENGTH_SHORT;
-
-		Toast toast=Toast.makeText(context, text, duration);
-		toast.show();
 	}
 
 	private void goLogin() {

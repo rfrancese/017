@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
-import android.widget.TextView; 
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
@@ -43,25 +43,25 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 		travel=viaggiList.get(position);
 
 		if (travel!=null) {
-			TextView textView= (TextView) v.findViewById(R.id.viaggio);
-			
+			TextView viaggio= (TextView) v.findViewById(R.id.viaggio);
+			TextView data=(TextView) v.findViewById(R.id.data);
 
-			
 			v.setId(position);
 
-			if (textView!=null) {
-				textView.setText(travel.getLocalitaString());
+			if (viaggio!=null) {
+				viaggio.setText(travel.getLocalitaString());
 				notifyDataSetChanged();
 			}
 			
-			
-				
-			
+			if (data!=null) {
+				data.setText(travel.getDataAndata()+" - "+travel.getDataRitorno());
+				notifyDataSetChanged();
+			}
 		}
 
 		return v;
 	}
-
+	
 	@Override
 	public int getCount() {
 		return viaggiList.size();
@@ -99,5 +99,5 @@ public class ViaggiAdapter extends ArrayAdapter<String> implements Filterable {
 
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
-	}	
+	}
 }

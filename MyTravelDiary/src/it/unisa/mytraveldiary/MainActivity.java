@@ -22,10 +22,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -56,9 +57,7 @@ public class MainActivity extends ActionBarActivity {
 				goVisualizza(position);
 			}
 		});
-
-		registerForContextMenu(holder.listView);
-
+		
 		handleIntent(getIntent());
 	}
 
@@ -154,37 +153,6 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.context_main, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		int position=info.position;
-		
-		switch (item.getItemId()) {
-		case R.id.action_visualizza:
-			goVisualizza(position);
-			return true;
-		case R.id.action_add_dettagli:
-			showInserisciDettagli(position);
-			return true;
-		case R.id.action_modifica:
-			goModifica(position);
-			return true;
-		case R.id.action_elimina:
-			showElimina(position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
-	
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    // Check which request we're responding to
 	    if (requestCode == MODIFICA || requestCode == NUOVO) {
@@ -197,6 +165,13 @@ public class MainActivity extends ActionBarActivity {
 				adapter.notifyDataSetChanged();
 	        }
 	    }
+	}
+	
+	public void showPopup(View v) {
+	    PopupMenu popup = new PopupMenu(this, v);
+	    MenuInflater inflater = popup.getMenuInflater();
+	    inflater.inflate(R.menu.context_main, popup.getMenu());
+	    popup.show();
 	}
 	
 	private void showInserisciDettagli(int position) {
@@ -212,19 +187,9 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void goModifica(int position) {
-		Travel t=listaViaggi.get(position);
-		Intent intent=new Intent(this, NewTravelActivity.class);
-		intent.putExtra("modifica", true);
-		intent.putExtra("tipologia", t.getTipologiaViaggio());
-		intent.putExtra("localita", t.getLocalitaString());
-		intent.putExtra("dataA", t.getDataAndata());
-		intent.putExtra("dataR", t.getDataRitorno());
-		intent.putExtra("compagni", t.getCompagniViaggio());
-		intent.putExtra("descrizione", t.getDescrizione());
-		intent.putExtra("id", t.getId());
+		Intent intent = new Intent(this, NewTravelActivity.class);
+		intent.putExtra("id", adapter.getTravelId(position));
 		startActivityForResult(intent, MODIFICA);
-		
-		
 	}
 	
 	private void showElimina(int position) {

@@ -57,7 +57,7 @@ public class LoginActivity extends ActionBarActivity {
 		
 		if (!(username.equals("null"))) {
 			goMain();
-			super.onStop();
+			finish();
 		}
 	}
 
