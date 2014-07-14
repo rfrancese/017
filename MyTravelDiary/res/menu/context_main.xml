@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.unisa.mytraveldiary.SearchTravelMessageActivity" >
 
-     <item
-        android:id="@+id/action_visualizza"
-        android:title="@string/visualizzaViaggio"/>
     <item
         android:id="@+id/action_add_dettagli"
+        android:icon="@drawable/ic_action_new_event"
         android:title="@string/InserisciDettagli"/>
     <item
         android:id="@+id/action_modifica"
+        android:icon="@drawable/ic_action_edit"
         android:title="@string/modifica"/>
     <item
         android:id="@+id/action_elimina"
+        android:icon="@drawable/ic_action_discard"
         android:title="@string/elimina"/>
-
 </menu>

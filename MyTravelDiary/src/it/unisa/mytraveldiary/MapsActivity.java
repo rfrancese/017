@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -34,6 +35,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends ActionBarActivity  implements OnMapClickListener {
@@ -43,6 +46,8 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 	private ProgressDialog progressDialog;
 	private ArrayList<String> listCities;
 	private HashMap<Marker, String> markerHm;
+	private PolylineOptions rectOptions;
+	private Polyline polyline;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		setContentView(R.layout.activity_maps);
 		listCities=new ArrayList<String>();
 		markerHm=new HashMap<Marker, String>();
+		rectOptions = new PolylineOptions();
 		setUpMapIfNeeded();
 	}
 
@@ -77,12 +83,17 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 				mMap.setMyLocationEnabled(true);
 				mMap.getUiSettings().setMyLocationButtonEnabled(true);
 				mMap.setOnMapClickListener(this);
+				
+				String autocompleteFocus=getIntent().getStringExtra("autocomplete");
+				
+				if (!autocompleteFocus.equals(""))
+					focusArea(autocompleteFocus);
 
-				/*ArrayList<String> listaLocalita=getIntent().getStringArrayListExtra("city");
+				ArrayList<String> listaLocalita=getIntent().getStringArrayListExtra("localita");
 
 				if (listaLocalita!=null) {
 					setMarkerFromList(listaLocalita);
-				}*/
+				}
 
 				mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 
@@ -185,6 +196,22 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 		return listCities;
 	}
 
+	private void focusArea(String location) {
+		Geocoder geodecoder=new Geocoder(this);
+		
+		List<Address> listAdress;
+		
+		try {
+			listAdress = geodecoder.getFromLocationName(location, 1);
+			Address a=listAdress.get(0);
+			LatLng point=new LatLng(a.getLatitude(), a.getLongitude());
+			
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 9));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+	
 	private boolean checkReady() {
 		if (mMap == null) {
 			Toast.makeText(this, "Attendi...", Toast.LENGTH_SHORT).show();
@@ -200,11 +227,12 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 	}
 
 
-	/*private void setMarkerFromList(ArrayList<String> listaLoc) {
+	private void setMarkerFromList(ArrayList<String> listaLoc) {
 		Geocoder geodecoder=new Geocoder(this);
-		PolylineOptions rectOptions = new PolylineOptions();
+		
 
 		for (String s: listaLoc) {
+			Log.d("mapsActivity", s);
 			List<Address> listAdress;
 			try {
 				listAdress = geodecoder.getFromLocationName(s, 1);
@@ -214,7 +242,14 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 
 				marker=mMap.addMarker(new MarkerOptions()
 				.position(point)
-				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+				.title(s)
+				.snippet("Trascina per modificare")
+				.draggable(true));
+				
+				marker.showInfoWindow();
+				
+				markerHm.put(marker, s);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -223,11 +258,11 @@ public class MapsActivity extends ActionBarActivity  implements OnMapClickListen
 			}
 		}
 
-		mMap.addPolyline(rectOptions
+		polyline=mMap.addPolyline(rectOptions
 				.width(7)
 				.color(Color.BLUE)
 				.geodesic(true));
-	}*/
+	}
 
 	private void setMarker(LatLng point) {
 

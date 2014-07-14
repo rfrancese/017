@@ -51,11 +51,11 @@ public class LoginActivity extends ActionBarActivity {
 		
 		SharedPreferences settings = getSharedPreferences("login", 0);
 		//SharedPreferences.Editor editor = settings.edit();
-		String username=settings.getString("username", "null");
+		int username=settings.getInt("username", -1);
 		
-		Log.d("LOGIN", username);
+		Log.d("LOGIN", username+"");
 		
-		if (!(username.equals("null"))) {
+		if (username!=-1) {
 			goMain();
 			finish();
 		}
@@ -115,6 +115,7 @@ public class LoginActivity extends ActionBarActivity {
 							user.setNome(object.getString("nome"));
 							user.setCognome(object.getString("cognome"));
 							user.setLocalita(object.getString("localita"));
+							user.setId(object.getInt("id"));
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -126,7 +127,7 @@ public class LoginActivity extends ActionBarActivity {
 						login=true;
 						SharedPreferences settings = getSharedPreferences("login", 0);
 						SharedPreferences.Editor editor = settings.edit();
-						editor.putString("username", user.getUsername());
+						editor.putInt("username", user.getId());
 						
 						// Commit the edits!
 						editor.commit();

@@ -5,7 +5,9 @@ import it.unisa.mytraveldiary.entity.HotelRistorante;
 import it.unisa.mytraveldiary.entity.Localita;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +24,9 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 public class HotelRistorantiActivity extends ActionBarActivity {
+
+	private boolean nomeOk=false;
+	private boolean cittaOk=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 		case R.id.action_salva:
 			salvaHotelRistorante();
 			return true;
-			
+
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -97,6 +102,7 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 	private HotelRistorante hotelRistorante=new HotelRistorante();
 
 	public void salvaHotelRistorante(){
+		String errorNome="", errorCitta="";
 
 		// GET
 		// Tipologia
@@ -122,31 +128,69 @@ public class HotelRistorantiActivity extends ActionBarActivity {
 			hotelRistorante.setTipologia("Ristorante");
 		}
 
-		// Nome
-		hotelRistorante.setNome(nomeHR.getText().toString());
-
-		// Città
-		hotelRistorante.setLocalita(new Localita(cittaHR.getText().toString()));
-
-		// Valutazione
-		hotelRistorante.setValutazione((int) valutazioneHR.getRating());
-
-		Log.d("HOTELRISTORANTI", hotelRistorante.toString());
-
-		Bundle extra=getIntent().getExtras();
-
-		if (extra!=null) {
-			hotelRistorante.setTId(extra.getInt("id"));
+		if ((nomeHR.getText().toString()).equals("")) {
+			nomeOk=false;
+			errorNome="- Inserisci il nome dell'hotel/ristorante";
+		} else {
+			nomeOk=true;
 		}
 
-		DatabaseHandler dbHandler=new DatabaseHandler(this);
+		if ((cittaHR.getText().toString()).equals("")) {
+			cittaOk=false;
+			errorCitta="- Inserisci la città";
+		} else {
+			cittaOk=true;
+		}
 
-		//		dbHandler.updateHotelRistorante(hotelRistorante);
+		if (nomeOk && cittaOk) {
+			// Nome
+			hotelRistorante.setNome(nomeHR.getText().toString());
 
-		hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
+			// Città
+			hotelRistorante.setLocalita(new Localita(cittaHR.getText().toString()));
 
-		showToast("Hotel/Ristorante salvato correttamente!");
-		goMain();
+			// Valutazione
+			hotelRistorante.setValutazione((int) valutazioneHR.getRating());
+
+			Log.d("HOTELRISTORANTI", hotelRistorante.toString());
+
+			Bundle extra=getIntent().getExtras();
+
+			if (extra!=null) {
+				hotelRistorante.setTId(extra.getInt("id"));
+			}
+
+			DatabaseHandler dbHandler=new DatabaseHandler(this);
+
+			hotelRistorante.setId(dbHandler.addHotelRistorante(hotelRistorante));
+
+			showToast("Hotel/Ristorante salvato correttamente!");
+			goMain();
+		} else {
+
+			String error;
+
+			if (errorNome.equals(""))
+				error=errorCitta;
+			else if (errorCitta.equals(""))
+				error=errorNome;
+			else {
+				error=errorNome+"\n\n";
+				error+=errorCitta;
+			}
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Attenzione!");
+			builder.setMessage(error);
+			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 	}
 
 

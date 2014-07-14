@@ -86,7 +86,7 @@
             android:layout_below="@+id/valutazione"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:stepSize="1"
             android:numStars="5" />
     </RelativeLayout>
-
 </ScrollView>

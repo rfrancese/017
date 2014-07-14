@@ -3,9 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -18,70 +19,36 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp" />
 
-        <ImageView
-            android:id="@+id/localitaIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tipologiaViaggio"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/localitaIcon"
-            android:src="@drawable/ic_action_place" />
-
         <TextView
             android:id="@+id/localita"
             style="@style/CodeFont"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tipologiaViaggio"
             android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/localitaIcon" />
+            android:drawableLeft="@drawable/ic_action_place" />
 
-        <RelativeLayout
+        <TextView
             android:id="@+id/date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/localita"
-            android:layout_marginBottom="10dp" >
-
-            <TextView
-                android:id="@+id/dataAndata"
-                style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/dataRitorno"
-                style="@style/CodeFont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/compagniViaggioIcon"
+            style="@style/CodeFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/date"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/compagniViaggiIcon"
-            android:src="@drawable/ic_action_group" />
+            android:drawableLeft="@drawable/ic_action_event" />
 
-        <TextView
-            android:id="@+id/compagniViaggio"
-            style="@style/CodeFont"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/date"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/compagniViaggioIcon" />
+            <TextView
+                android:id="@+id/compagniViaggio"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawableLeft="@drawable/ic_action_group" />
 
-        <TextView
-            android:id="@+id/descrizione"
-            style="@style/CodeFont"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/compagniViaggio"
-            android:layout_marginBottom="10dp" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/descrizione"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawableLeft="@drawable/ic_action_copy" />
+    </LinearLayout>
 
 </ScrollView>

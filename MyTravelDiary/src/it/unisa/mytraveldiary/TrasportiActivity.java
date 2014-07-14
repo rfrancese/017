@@ -5,7 +5,9 @@ import it.unisa.mytraveldiary.entity.Localita;
 import it.unisa.mytraveldiary.entity.Trasporto;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +24,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class TrasportiActivity extends ActionBarActivity {
+
+	private boolean cittaPOk=false;
+	private boolean cittaAOk=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class TrasportiActivity extends ActionBarActivity {
 		case R.id.action_salva:
 			salvaTrasporto();
 			return true;
-			
+
 		case R.id.action_info:
 			goInfo();
 			return true;
@@ -99,6 +104,7 @@ public class TrasportiActivity extends ActionBarActivity {
 
 	//Salva Viaggio
 	public void salvaTrasporto(){
+		String errorCittaP="", errorCittaA="";
 
 		//TipologiaTrasporto
 		Spinner tipologiaTrasporto = (Spinner) findViewById(R.id.tipoTrasporti);
@@ -113,34 +119,74 @@ public class TrasportiActivity extends ActionBarActivity {
 		//Valutazione
 		RatingBar valutazioneT = (RatingBar) findViewById(R.id.ratingBar);
 
-		//TipologiaTrasporto
-		trasporto.setTipologia(tipologiaTrasporto.getSelectedItem().toString());
-
-		//CompagniaTrasporto
-		trasporto.setCompagnia(editCompagnia.getText().toString());
-
-		//Città
-		trasporto.setLocalitaPartenza(new Localita(cittaP.getText().toString()));
-		trasporto.setLocalitaArrivo(new Localita(cittaA.getText().toString()));
-
-		//Valutazione
-		trasporto.setValutazione((int) valutazioneT.getRating());
-
-
-		Log.d("TRASPORTI", trasporto.toString());
-
-		Bundle extra=getIntent().getExtras();
-
-		if (extra!=null) {
-			trasporto.setTId(extra.getInt("id"));
+		if ((cittaP.getText().toString()).equals("")) {
+			cittaPOk=false;
+			errorCittaP="- Inserisci la città di partenza";
+		} else {
+			cittaPOk=true;
 		}
 
-		DatabaseHandler dbHandler = new DatabaseHandler(this);
+		if ((cittaA.getText().toString()).equals("")) {
+			cittaAOk=false;
+			errorCittaA="- Inserisci la città di arrivo";
+		} else {
+			cittaAOk=true;
+		}
 
-		trasporto.setId(dbHandler.addTrasporto(trasporto));
+		if (cittaPOk && cittaAOk) {
+			//TipologiaTrasporto
+			trasporto.setTipologia(tipologiaTrasporto.getSelectedItem().toString());
 
-		showToast("Trasporto salvato correttamente!");
-		goMain();
+			//CompagniaTrasporto
+			trasporto.setCompagnia(editCompagnia.getText().toString());
+
+			//Città
+			trasporto.setLocalitaPartenza(new Localita(cittaP.getText().toString()));
+			trasporto.setLocalitaArrivo(new Localita(cittaA.getText().toString()));
+
+			//Valutazione
+			trasporto.setValutazione((int) valutazioneT.getRating());
+
+
+			Log.d("TRASPORTI", trasporto.toString());
+
+			Bundle extra=getIntent().getExtras();
+
+			if (extra!=null) {
+				trasporto.setTId(extra.getInt("id"));
+			}
+
+			DatabaseHandler dbHandler = new DatabaseHandler(this);
+
+			trasporto.setId(dbHandler.addTrasporto(trasporto));
+
+			showToast("Trasporto salvato correttamente!");
+			goMain();
+		} else {
+
+			String error;
+
+			if (errorCittaP.equals(""))
+				error=errorCittaA;
+			else if (errorCittaA.equals(""))
+				error=errorCittaP;
+			else {
+				error=errorCittaP+"\n\n";
+				error+=errorCittaA;
+			}
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Attenzione!");
+			builder.setMessage(error);
+			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 	}
 
 	public void goMain() {
@@ -161,7 +207,7 @@ public class TrasportiActivity extends ActionBarActivity {
 		Toast toast=Toast.makeText(context, text, duration);
 		toast.show();
 	}	
-	
+
 	private void goLogin() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);

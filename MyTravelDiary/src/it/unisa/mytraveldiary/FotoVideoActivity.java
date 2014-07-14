@@ -53,6 +53,7 @@ public class FotoVideoActivity extends ActionBarActivity {
 			if (resultCode == RESULT_OK) {
 				LinearLayout ll=(LinearLayout) findViewById(R.id.linear);
 				imageView=new ImageView(this);
+				imageView.setPadding(8, 0, 8, 0);
 				imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), 450, 450));
 				ll.addView(imageView);
 				

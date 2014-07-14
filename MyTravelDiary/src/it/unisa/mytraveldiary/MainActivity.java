@@ -14,15 +14,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnCloseListener;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -33,6 +35,8 @@ public class MainActivity extends ActionBarActivity {
 	private ViaggiAdapter adapter;
 	private DatabaseHandler dbHandler;
 	private ArrayList<Travel> listaViaggi;
+	private int tag, username;
+	private ViewHolder holder;
 	private static final int MODIFICA=1;
 	private static final int NUOVO=2;
 
@@ -40,13 +44,20 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		SharedPreferences settings = getSharedPreferences("login", 0);
+		username=settings.getInt("username", -1);
 
-		ViewHolder holder=new ViewHolder();
+		holder=new ViewHolder();
 		dbHandler=new DatabaseHandler(this);
-		listaViaggi=dbHandler.getAllTravels();
+		listaViaggi=new ArrayList<Travel>();
+		listaViaggi=dbHandler.getAllTravels(username);
 		holder.listView=(ListView) findViewById(R.id.listView1);
 
 		adapter = new ViaggiAdapter(getApplicationContext(), this, listaViaggi);
+		View empty = getLayoutInflater().inflate(R.layout.empty_list_view, null, false);
+		//addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		holder.listView.setEmptyView(empty);
 		holder.listView.setAdapter(adapter);
 
 		holder.listView.setOnItemClickListener(new OnItemClickListener() {
@@ -57,7 +68,86 @@ public class MainActivity extends ActionBarActivity {
 				goVisualizza(position);
 			}
 		});
-		
+
+		holder.listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		holder.listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+
+			private int selectedItem=0;
+
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position,
+					long id, boolean checked) {
+				// Here you can do something when items are selected/de-selected,
+				// such as update the title in the CAB
+				if (checked) {
+					selectedItem++;
+					tag=position;
+				}
+				else {
+					selectedItem--;
+				}
+
+				mode.invalidate();
+			}
+
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				// Respond to clicks on the actions in the CAB
+				switch (item.getItemId()) {		               
+				case R.id.action_add_dettagli:
+					showInserisciDettagli(tag);
+					mode.finish(); // Action picked, so close the CAB
+					return true;
+				case R.id.action_modifica:
+					goModifica(tag);
+					mode.finish(); // Action picked, so close the CAB
+					return true;
+				case R.id.action_elimina:
+					showElimina(tag);
+					mode.finish(); // Action picked, so close the CAB
+					return true;
+				default:
+					return false;
+				}
+			}
+
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// Inflate the menu for the CAB
+				MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.context_main, menu);
+				return true;
+			}
+
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+				// Here you can make any necessary updates to the activity when
+				// the CAB is removed. By default, selected items are deselected/unchecked.
+				selectedItem=0;
+			}
+
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				// Here you can perform updates to the CAB due to
+				// an invalidate() request
+				MenuItem add_dettagli=menu.findItem(R.id.action_add_dettagli);
+				MenuItem modifica=menu.findItem(R.id.action_modifica);
+				MenuItem elimina=menu.findItem(R.id.action_elimina);
+
+				if (selectedItem==1) {
+					add_dettagli.setVisible(true);
+					modifica.setVisible(true);
+					elimina.setVisible(true);
+
+					return true;
+				} else {
+					mode.finish();
+
+					return true;
+				}
+			}
+		});
+
 		handleIntent(getIntent());
 	}
 
@@ -114,6 +204,20 @@ public class MainActivity extends ActionBarActivity {
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 		searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
 		searchView.setSubmitButtonEnabled(true);
+		searchView.setOnCloseListener(new OnCloseListener() {
+			
+			@Override
+			public boolean onClose() {
+				listaViaggi=dbHandler.getAllTravels(username);
+				adapter.clear();
+				
+				adapter=new ViaggiAdapter(getApplicationContext(), MainActivity.this, listaViaggi);
+
+				holder.listView.setAdapter(adapter);
+				
+				return false;
+			}
+		});
 
 		return true;
 	}
@@ -154,26 +258,26 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    // Check which request we're responding to
-	    if (requestCode == MODIFICA || requestCode == NUOVO) {
-	        // Make sure the request was successful
-	        if (resultCode == RESULT_OK) {
-	        	listaViaggi=dbHandler.getAllTravels();
-	        	adapter.clear();
-	        	adapter=new ViaggiAdapter(getApplicationContext(), this, listaViaggi);
+		// Check which request we're responding to
+		if (requestCode == MODIFICA || requestCode == NUOVO) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+				listaViaggi=dbHandler.getAllTravels(username);
+				adapter.clear();
+				adapter=new ViaggiAdapter(getApplicationContext(), this, listaViaggi);
 
 				adapter.notifyDataSetChanged();
-	        }
-	    }
+			}
+		}
 	}
-	
+
 	public void showPopup(View v) {
-	    PopupMenu popup = new PopupMenu(this, v);
-	    MenuInflater inflater = popup.getMenuInflater();
-	    inflater.inflate(R.menu.context_main, popup.getMenu());
-	    popup.show();
+		PopupMenu popup = new PopupMenu(this, v);
+		MenuInflater inflater = popup.getMenuInflater();
+		inflater.inflate(R.menu.context_main, popup.getMenu());
+		popup.show();
 	}
-	
+
 	private void showInserisciDettagli(int position) {
 		SharedPreferences settings = getSharedPreferences("viaggio", 0);
 		SharedPreferences.Editor editor = settings.edit();
@@ -185,27 +289,26 @@ public class MainActivity extends ActionBarActivity {
 		DettagliDialogFragment dettagli=new DettagliDialogFragment();
 		dettagli.show(getFragmentManager(), "dettagli");
 	}
-	
+
 	private void goModifica(int position) {
 		Intent intent = new Intent(this, NewTravelActivity.class);
 		intent.putExtra("id", adapter.getTravelId(position));
+		intent.putExtra("modifica", true);
 		startActivityForResult(intent, MODIFICA);
 	}
-	
-	private void showElimina(int position) {
-		final int pos=position;
+
+	private void showElimina(final int position) {
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.eliminaInfo);
 		builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				Travel t=listaViaggi.get(pos);
-				
-				if (dbHandler!=null) {
-					dbHandler.deleteTravel(t);
+					Travel t=listaViaggi.get(position);
 
-				}
-
-				listaViaggi.remove(pos);
+					if (dbHandler!=null) {
+						dbHandler.deleteTravel(t);
+					}
+					listaViaggi.remove(position);
 
 				adapter.notifyDataSetChanged();
 				showToast("Viaggio eliminato!");

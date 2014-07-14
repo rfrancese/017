@@ -8,11 +8,12 @@ import it.unisa.mytraveldiary.entity.Travel;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.internal.fo;
-
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,9 +30,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class VisualizzaViaggioActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -66,6 +68,9 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				actionBar.setSelectedNavigationItem(position);
 			}
 		});
+		
+		int[] resId={R.drawable.ic_action_about, R.drawable.ic_action_picture, R.drawable.ic_hotel, R.drawable.ic_ristorante,
+						R.drawable.ic_trasporti, R.drawable.ic_museo, R.drawable.ic_action_place};
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
@@ -75,6 +80,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			actionBar.addTab(
 					actionBar.newTab()
 					.setText(mAppSectionsPagerAdapter.getPageTitle(i))
+					.setIcon(resId[i])
 					.setTabListener(this));
 		}
 		
@@ -106,6 +112,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 			goModifica();
 			return true;
 		case R.id.action_elimina:
+			showElimina();
 			return true;
 		case R.id.action_logout:
 			SharedPreferences settings = getSharedPreferences("login", 0);
@@ -120,6 +127,37 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void showElimina() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.eliminaInfo);
+		builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+			DatabaseHandler dbHandler;
+			Travel t;
+			
+			public void onClick(DialogInterface dialog, int id) {
+				dbHandler=new DatabaseHandler(getApplicationContext());
+				t=dbHandler.getTravel(value);
+
+					if (dbHandler!=null) {
+						dbHandler.deleteTravel(t);
+					}
+				showToast("Viaggio eliminato!");
+				goMain();
+			}
+		});
+		builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// User cancelled the dialog
+				showToast("Eliminazione annullata...");
+			}
+		});
+		builder.setIcon(R.drawable.ic_action_warning);
+		builder.setTitle(R.string.eliminaViaggio);
+
+		builder.create();
+		builder.show();
 	}
 	
 	private void showInserisciDettagli() {
@@ -162,8 +200,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 
 			TextView tipologiaViaggio= (TextView) rootView.findViewById(R.id.tipologiaViaggio);
 			TextView localita= (TextView) rootView.findViewById(R.id.localita);
-			TextView dataAndata= (TextView) rootView.findViewById(R.id.dataAndata);
-			TextView dataRitorno= (TextView) rootView.findViewById(R.id.dataRitorno);
+			TextView date= (TextView) rootView.findViewById(R.id.date);
 			TextView compagniViaggio= (TextView) rootView.findViewById(R.id.compagniViaggio);
 			TextView descrizione= (TextView) rootView.findViewById(R.id.descrizione);
 
@@ -173,12 +210,11 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				t=dbHandler.getTravel(value);
 			}
 
-			tipologiaViaggio.setText("Tipologia viaggio: "+t.getTipologiaViaggio());
-			localita.setText("Localita: "+t.getLocalitaString());
-			dataAndata.setText(t.getDataAndata().toString());
-			dataRitorno.setText(t.getDataRitorno().toString());
+			tipologiaViaggio.setText(t.getTipologiaViaggio());
+			localita.setText(t.getLocalitaString());
+			date.setText(t.getDataAndata().toString()+" - "+t.getDataRitorno().toString());
 			compagniViaggio.setText(t.getCompagniViaggio());
-			descrizione.setText("Descrizione: "+t.getDescrizione());
+			descrizione.setText(t.getDescrizione());
 
 			return rootView;
 		}
@@ -187,7 +223,6 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 	public static class FotoFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<String> fotoList=new ArrayList<String>();
-		private ArrayAdapter<String> fAdapter;
 
 		public FotoFragment() {
 		}
@@ -208,7 +243,10 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 
 			for (String s: fotoList) {
 				LinearLayout ll=(LinearLayout) rootView.findViewById(R.id.linear);
+				LayoutParams lp=new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				lp.setMargins(0, 0, 0, 8);
 				ImageView imageView=new ImageView(getActivity());
+				imageView.setLayoutParams(lp);
 				imageView.setImageBitmap(FotoVideoActivity.decodeSampledBitmapFromResource(getResources(), 450, 450, s));
 				ll.addView(imageView);
 			}
@@ -220,7 +258,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 	public static class MuseiFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<Museo> museiList=new ArrayList<Museo>();
-		private ArrayAdapter<Museo> mAdapter;
+		private MuseiAdapter mAdapter;
 
 		public MuseiFragment() {
 		}
@@ -240,9 +278,10 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				museiList=dbHandler.getMusei(value);
 			}
 
-			mAdapter=new ArrayAdapter<Museo>(getActivity(), 
-					R.layout.list_item_dettagli, museiList);
-
+			mAdapter=new MuseiAdapter(getActivity(), R.layout.list_item_museo, museiList);
+			View empty = getActivity().getLayoutInflater().inflate(R.layout.empty_list_view, container, false);
+			//getActivity().addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			listView.setEmptyView(empty);
 			listView.setAdapter(mAdapter);
 
 			return rootView;
@@ -252,7 +291,7 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 	public static class TrasportiFragment extends Fragment {
 		private DatabaseHandler dbHandler;
 		private ArrayList<Trasporto> trasportiList=new ArrayList<Trasporto>();
-		private ArrayAdapter<Trasporto> tAdapter;
+		private TrasportiAdapter tAdapter;
 
 		public TrasportiFragment() {
 		}
@@ -274,21 +313,23 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				trasportiList=dbHandler.getTrasporti(value);
 			}
 
-			tAdapter=new ArrayAdapter<Trasporto>(getActivity(), 
-					R.layout.list_item_dettagli, trasportiList);
-
+			tAdapter=new TrasportiAdapter(getActivity(), 
+					R.layout.list_item_trasporto, trasportiList);
+			View empty = getActivity().getLayoutInflater().inflate(R.layout.empty_list_view, container, false);
+			//getActivity().addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			listView.setEmptyView(empty);
 			listView.setAdapter(tAdapter);
 
 			return rootView;
 		}
 	}
 
-	public static class HotelRistorantiFragment extends Fragment {
+	public static class HotelFragment extends Fragment {
 		private DatabaseHandler dbHandler;
-		private ArrayList<HotelRistorante> hotelRistorantiList=new ArrayList<HotelRistorante>();
-		private ArrayAdapter<HotelRistorante> hrAdapter;
+		private ArrayList<HotelRistorante> hotelList=new ArrayList<HotelRistorante>();
+		private HotelsAdapter hAdapter;
 
-		public HotelRistorantiFragment() {
+		public HotelFragment() {
 		}
 
 		@Override
@@ -303,13 +344,49 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 
 			if (extra!=null) {
 				int value=extra.getInt("id");
-				hotelRistorantiList=dbHandler.getHotelRistoranti(value);
+				hotelList=dbHandler.getHotel(value);
 			}
 
-			hrAdapter=new ArrayAdapter<HotelRistorante>(getActivity(), 
-					R.layout.list_item_dettagli, hotelRistorantiList);
+			hAdapter=new HotelsAdapter(getActivity(), 
+					R.layout.list_item_dettagli, hotelList);
+			View empty = getActivity().getLayoutInflater().inflate(R.layout.empty_list_view, container, false);
+			//getActivity().addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			listView.setEmptyView(empty);
+			listView.setAdapter(hAdapter);
 
-			listView.setAdapter(hrAdapter);
+			return rootView;
+		}
+	}
+	
+	public static class RistorantiFragment extends Fragment {
+		private DatabaseHandler dbHandler;
+		private ArrayList<HotelRistorante> ristorantiList=new ArrayList<HotelRistorante>();
+		private RistorantiAdapter rAdapter;
+
+		public RistorantiFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(
+					R.layout.fragment_visualizza_dettagli, container, false);
+
+			Bundle extra=getActivity().getIntent().getExtras();
+			dbHandler=new DatabaseHandler(getActivity());
+			ListView listView=(ListView) rootView.findViewById(R.id.listViewDettagli);
+
+			if (extra!=null) {
+				int value=extra.getInt("id");
+				ristorantiList=dbHandler.getRistoranti(value);
+			}
+
+			rAdapter=new RistorantiAdapter(getActivity(), 
+					R.layout.list_item_dettagli, ristorantiList);
+			View empty = getActivity().getLayoutInflater().inflate(R.layout.empty_list_view, container, false);
+			//getActivity().addContentView(empty, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			listView.setEmptyView(empty);
+			listView.setAdapter(rAdapter);
 
 			return rootView;
 		}
@@ -357,24 +434,25 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				return new FotoFragment();
 
 			case 2:
-				return new HotelRistorantiFragment();
-
+				return new HotelFragment();
+				
 			case 3:
-				return new TrasportiFragment();
+				return new RistorantiFragment();
 
 			case 4:
+				return new TrasportiFragment();
+
+			case 5:
 				return new MuseiFragment();
 
 			default:
-				// The other sections of the app are dummy placeholders.
-				//Fragment fragment=new InserisciDettagliActivity.PlaceholderFragment();
 				return new PlaceholderFragment();
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 5;
+			return 6;
 		}
 
 		@Override
@@ -391,19 +469,37 @@ public class VisualizzaViaggioActivity extends ActionBarActivity implements Acti
 				break;
 
 			case 2:
-				tabTitle="Hotel&Ristoranti";
+				tabTitle="Hotel";
 				break;
-
+				
 			case 3:
-				tabTitle="Trasporti";
+				tabTitle="Ristoranti";
 				break;
 
 			case 4:
+				tabTitle="Trasporti";
+				break;
+
+			case 5:
 				tabTitle="Musei";
 				break;
 			}
 
 			return tabTitle;
 		}
+	}
+	
+	private void showToast(String msg) {
+		Context context=getApplicationContext();
+		CharSequence text=msg;
+		int duration=Toast.LENGTH_SHORT;
+
+		Toast toast=Toast.makeText(context, text, duration);
+		toast.show();
+	}
+	
+	public void goMain() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 	}
 }

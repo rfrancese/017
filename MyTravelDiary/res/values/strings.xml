@@ -83,7 +83,7 @@
     <string name="annulla">Annulla</string>
     <string name="eliminaInfo">Tutti i dati saranno persi!</string>
     <string name="hello_world">Hello world!</string>
-    <string name="noViaggio">Nessun viaggio inserito</string>
+    <string name="noViaggio">Nessun elemento inserito</string>
     <string name="search_hint">Cerca una località</string>
     <string name="action_new_travel">Nuovo viaggio</string>
     <string name="action_search">Cerca</string>
@@ -137,7 +137,7 @@
     <string name="title_activity_musei">Inserisci Musei</string>
     <string name="title_activity_hotel_ristoranti">Inserisci Hotel e Ristoranti</string>
     <string name="title_activity_inserisci_hotel_ristoranti">Inserisci Hotel&amp;Ristoranti</string>
-    <string name="title_activity_visualizza_viaggio">VisualizzaViaggioActivity</string>
+    <string name="title_activity_visualizza_viaggio">Visualizza Viaggio</string>
     <string name="title_activity_maps">Mappa</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_registrazione">Registrazione</string>

@@ -10,6 +10,7 @@ public class Travel {
 	private String dataRitorno;
 	private String compagniViaggio;
 	private String descrizione;
+	private int u_id;
 	private int id;
 
 	public Travel(){
@@ -17,7 +18,7 @@ public class Travel {
 	}
 
 	public Travel(String tipViaggio, ArrayList<Localita> loc, String dataA, String dataR, String compViaggio, 
-			String descr, int i) {
+			String descr, int u_i, int i) {
 
 		if (tipViaggio==null) 
 			tipologia="";
@@ -45,7 +46,7 @@ public class Travel {
 			descrizione="";
 		else
 			descrizione=descr;
-
+		u_id=u_i;
 		id=i;
 	}
 
@@ -89,6 +90,10 @@ public class Travel {
 		return id;
 	}
 
+	public int getUId() {
+		return u_id;
+	}
+	
 	// Metodi di modifica
 
 	public void setTipologiaViaggio(String tipViaggio) {		
@@ -129,6 +134,10 @@ public class Travel {
 
 	public void setId(int i){
 		id=i;
+	}
+	
+	public void setUId(int u_i) {
+		u_id=u_i;
 	}
 
 	public String toString() {

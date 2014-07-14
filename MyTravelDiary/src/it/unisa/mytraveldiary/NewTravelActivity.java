@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,17 +28,23 @@ import android.widget.Toast;
 
 
 public class NewTravelActivity extends ActionBarActivity {
-	
+
 	private DatabaseHandler dbHandler;
 	private ArrayList<Localita> listaLocalita;
-	private int tag;
-	private boolean localitaSalvate=false;
+	private int username;
+	private boolean dateOK=true;
+	private boolean localitaOK=true;
+	private boolean addDettagli=false;
+	private boolean canAdd=false;
 	private Travel viaggio=new Travel();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_travel_message);
+		
+		SharedPreferences settings = getSharedPreferences("login", 0);
+		username=settings.getInt("username", -1);
 
 		ViewHolder holder=new ViewHolder();
 		holder.svago=(RadioButton) findViewById(R.id.Svago);
@@ -60,32 +65,28 @@ public class NewTravelActivity extends ActionBarActivity {
 		holder.compViaggio.setAdapter(new CompagniViaggioAdapter(this, R.layout.list_item));
 		holder.compViaggio.setThreshold(2);
 		holder.compViaggio.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-		
+
+		listaLocalita=new ArrayList<Localita>();
 		Bundle extra=getIntent().getExtras();
 		dbHandler=new DatabaseHandler(this);
 
 		if (extra!=null) {
+			getActionBar().setTitle("Modifica Viaggio");
 			Travel t=dbHandler.getTravel(extra.getInt("id"));
-			
+
 			if ((t.getTipologiaViaggio()).equals("Svago")) 
 				holder.svago.setChecked(true);
 			else
 				holder.lavoro.setChecked(true);
-			
+
 			holder.dataA.setText(t.getDataAndata());
 			holder.dataR.setText(t.getDataRitorno());
 			holder.compViaggio.setText(t.getCompagniViaggio());
 			holder.descrizione.setText(t.getDescrizione());
-			
+
 			listaLocalita=dbHandler.getLocalitas(t.getId());
-			String s="";
-			
-			for (Localita l: listaLocalita)
-				s+=l.toString();
-			
-			holder.localita.setText(s);
 		}
-		
+
 	}
 
 	@Override
@@ -149,12 +150,12 @@ public class NewTravelActivity extends ActionBarActivity {
 			break;
 		}
 	}
-	
+
 
 	public void showDatePickerDialogAndata(View v) {
 		ViewHolder holder=new ViewHolder();
 		holder.dataA=(TextView) findViewById(R.id.andataText);
-		DialogFragment newFragment = new DatePickerFragment();
+		DatePickerFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
 		((DatePickerFragment) newFragment).setTipologia("Andata");
 		((DatePickerFragment) newFragment).setTextView(holder.dataA);
@@ -171,8 +172,10 @@ public class NewTravelActivity extends ActionBarActivity {
 
 	public void avantiInserisciDettagli() {
 		//if (viaggioSalvato) {
+		addDettagli=true;
+		salvaViaggio();
 		
-			salvaViaggio();
+		if (canAdd) {
 			SharedPreferences settings = getSharedPreferences("viaggio", 0);
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putInt("id", viaggio.getId());
@@ -182,13 +185,14 @@ public class NewTravelActivity extends ActionBarActivity {
 
 			DettagliDialogFragment dettagli=new DettagliDialogFragment();
 			dettagli.show(getFragmentManager(), "dettagli");
-		//}
+		}
 
 		/*else
 			showToast("Salva prima il viaggio!");*/
 	}
 
 	public void salvaViaggio() {
+		String errorLoc="", errorDate="";
 		ViewHolder holder=new ViewHolder();
 		dbHandler=new DatabaseHandler(this);
 		// Località
@@ -202,55 +206,97 @@ public class NewTravelActivity extends ActionBarActivity {
 		// Data andata e ritorno
 		String dataAndataString=holder.dataA.getText().toString();
 		String dataRitornoString=holder.dataR.getText().toString();
-		
-		if (dataAndataString.compareTo(dataRitornoString)>0)
-			Log.d("data", "?");
 
-		viaggio.setDataAndata(dataAndataString);
-		viaggio.setDataRitorno(dataRitornoString);
+		if (listaLocalita.size()==0) {
+			localitaOK=false;
+			errorLoc="- Inserisci almeno una località";
+		} else
+			localitaOK=true;
 
-		// Descrizione
-		viaggio.setDescrizione(holder.descrizione.getText().toString());
+		if (dataAndataString.compareTo(dataRitornoString)>0) {
+			errorDate="- Data di andata prima della data di ritorno";
+			dateOK=false;
+		} else
+			dateOK=true;
 
-		// Compagni viaggio
-		String compViaggio=holder.compViaggio.getText().toString();
-		viaggio.setCompagniViaggio(compViaggio);
-		
-		Bundle extra=getIntent().getExtras();
-		boolean modifica=false;
 
-		if (extra!=null) {
-			modifica=extra.getBoolean("modifica");
-			viaggio.setId(extra.getInt("id"));
-		}
-
-		if (modifica) {
-			viaggio.setId(extra.getInt("id"));
-			dbHandler.updateTravel(viaggio);
-			//viaggioSalvato=true;
+		if (dateOK && localitaOK) {
 			
-			/*dbHandler.deleteLocalitas(viaggio.getId());
-			
-			for (Localita loc: listaLocalita) {
-				Log.d("localita", loc.toString());
-				dbHandler.addLocalita(new Localita(loc.toString(), viaggio.getId()));
-			}*/
-			
-			Log.d("modifica", "yes");
-			
-			setResult(RESULT_OK);
-			showToast("Viaggio modificato correttamente!");
-			goMain();
-		}
+			canAdd=true;
 
-		else {
-			//viaggioSalvato=true;
-			viaggio.setLocalità(listaLocalita);
-			viaggio.setId(dbHandler.addTravel(viaggio));
+			viaggio.setDataAndata(dataAndataString);
+			viaggio.setDataRitorno(dataRitornoString);
+
+			// Descrizione
+			viaggio.setDescrizione(holder.descrizione.getText().toString());
+
+			// Compagni viaggio
+			String compViaggio=holder.compViaggio.getText().toString();
+			viaggio.setCompagniViaggio(compViaggio);
+
+			Bundle extra=getIntent().getExtras();
+			boolean modifica=false;
+
+			if (extra!=null) {
+				modifica=extra.getBoolean("modifica");
+				viaggio.setId(extra.getInt("id"));
+			}
+
+			if (modifica) {
+				viaggio.setUId(username);
+				viaggio.setId(extra.getInt("id"));
+				dbHandler.deleteLocalitas(viaggio.getId());
+				viaggio.setLocalità(listaLocalita);
+				dbHandler.updateTravel(viaggio);
+
+				Log.d("modifica", "yes");
+
+				for (Localita l: listaLocalita)
+					Log.d("localita", l.toString());
+
+				setResult(RESULT_OK);
+				showToast("Viaggio modificato correttamente!");
+
+				if (!addDettagli)
+					goMain();
+			}
+
+			else {
+				viaggio.setUId(username);
+				viaggio.setLocalità(listaLocalita);
+				viaggio.setId(dbHandler.addTravel(viaggio));
+
+				setResult(RESULT_OK);
+				showToast("Viaggio salvato correttamente!");
+
+				if (!addDettagli)
+					goMain();
+			}
+
+		} else {
+			canAdd=false;
+			String error;
 			
-			setResult(RESULT_OK);
-			showToast("Viaggio salvato correttamente!");
-			goMain();
+			if (errorLoc.equals(""))
+				error=errorDate;
+			else if (errorDate.equals(""))
+				error=errorLoc;
+			else {
+				error=errorLoc+"\n\n";
+				error+=errorDate;
+			}
+				
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Attenzione!");
+			builder.setMessage(error);
+			builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 	}
 
@@ -263,21 +309,33 @@ public class NewTravelActivity extends ActionBarActivity {
 	}
 
 	public void openMaps(View view){
-		/*ArrayList<String> locString=new ArrayList<String>();
-		for (Localita l: listaLocalita)
-			locString.add(l.toString());*/
+		ViewHolder holder=new ViewHolder();
+		holder.localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
+		String autocompleteText=holder.localita.getText().toString();
+
+		ArrayList<String> localitaString=new ArrayList<String>();
+
+		if (listaLocalita!=null) {
+			for (Localita l: listaLocalita)
+				localitaString.add(l.toString());
+		}
 
 		Intent intent = new Intent(this, MapsActivity.class);
+		intent.putStringArrayListExtra("localita", localitaString);
+		intent.putExtra("autocomplete", autocompleteText);
 		startActivityForResult(intent, 1);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		ViewHolder holder=new ViewHolder();
+		holder.localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
+		holder.localita.setText("");
 		listaLocalita=new ArrayList<Localita>();
 		if (requestCode==1 && resultCode==RESULT_OK) {
 			if (data!=null) {
 				ArrayList<String> city=data.getExtras().getStringArrayList("citta");
-				
+
 				for (String s: city) {
 					listaLocalita.add(new Localita(s));
 					Log.d("localita", s);
@@ -304,60 +362,12 @@ public class NewTravelActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void goMain() {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 
-	/*public void addLocalita(View view) {
-		ViewHolder holder=new ViewHolder();
-		LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		holder.localita=(AutoCompleteTextView) findViewById(R.id.localitaAutoComplete);
-		holder.ll=(LinearLayout) findViewById(R.id.localita);
-		String localita=(holder.localita.getText()).toString();
-		listaLocalita.add(new Localita(localita));
-		
-
-		if (!(localita.equals(""))) {
-			TextView textView=(TextView) findViewById(R.id.localita_item);
-			Log.d("add localita", "+"+(holder.localita.getText()).toString()+"+");
-			textView.setText(localita);
-			textView.setId(holder.ll.getChildCount());
-
-			inflater.inflate(R.layout.info_window, holder.ll);
-
-			holder.localita.setText("");
-		}
-	}*/
-	
-	public void deleteLocalita(View view) {
-		tag=Integer.parseInt(view.getTag().toString());
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(NewTravelActivity.this);
-		builder.setMessage(R.string.eliminaLocalitaInfo);
-		builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-
-			public void onClick(DialogInterface dialog, int id) {
-				ViewHolder holder=new ViewHolder();
-				holder.ll.removeViewAt(tag);
-				listaLocalita.remove(tag);
-				showToast("Località eliminata!");
-			}
-		});
-		builder.setNegativeButton(R.string.annulla, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-				// User cancelled the dialog
-				showToast("Eliminazione annullata...");
-			}
-		});
-		builder.setIcon(R.drawable.ic_action_warning);
-		builder.setTitle(R.string.eliminaLocalita);
-
-		builder.create();
-		builder.show();
-	}
-	
 	private static class ViewHolder {
 		RadioButton svago;
 		RadioButton lavoro;
